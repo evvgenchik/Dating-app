@@ -10,11 +10,13 @@ function App() {
     <BrowserRouter>
       <div className={styles.app}>
         <Routes>
-          <Route path="/" element={<MainLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/app" element={<MainLayout />}>
             <Route index element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/*" element={<NotFound />} />
+            <Route path="app/about" element={<About />} />
+            <Route path="app/*" element={<NotFound />} />
           </Route>
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </div>
     </BrowserRouter>
