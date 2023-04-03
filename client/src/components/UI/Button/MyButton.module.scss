@@ -1,0 +1,23 @@
+.myBtn {
+  color: #FFFFFF;
+  font-size: 24rem;
+  padding: 25rem 55rem;
+  border-radius: 50rem;
+  background: linear-gradient(87.08deg, #FA457E 6.8%, #7B49FF 102.07%);
+  cursor: pointer;
+  opacity: 0.8;
+
+  &:hover {
+    background: linear-gradient(-87.08deg, #FA457E 6.8%, #7B49FF 102.07%);
+    transition: 0.5s;
+    opacity: 1;
+  }
+}
+
+.modal-btn {
+  font-size: 18rem;
+  padding: 10rem 20rem;
+  border-radius: 30rem;
+  width: 40%;
+  margin: 0 auto;
+}

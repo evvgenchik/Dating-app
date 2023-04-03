@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import heart from '../../assets/Home/heart2.svg';
 import styles from './Home.module.scss';
 import Modal from '../../components/Modal/Modal';
-import { useState } from 'react';
+import MyButton from '../../components/UI/Button/MyButton';
 
 function Home() {
   const [modalActive, setModalActive] = useState(true);
@@ -22,13 +23,9 @@ function Home() {
             <h4 className={styles.description}>Online Dating Web App</h4>
           </div>
           <div className={styles.mainFooter}>
-            <button
-              onClick={() => setModalActive(true)}
-              className={styles.button}
-              type="button"
-            >
+            <MyButton onClick={() => setModalActive(true)} type="button">
               Get Started
-            </button>
+            </MyButton>
           </div>
         </main>
 
@@ -57,7 +54,7 @@ function Home() {
           <a className={styles.modalForgot} href="#">
             Forgot password?
           </a>
-          <button className={styles.modalButton}>Login</button>
+          <MyButton className="modal-btn">Login</MyButton>
           <p className={styles.modalSignup}>
             New to Finder?{' '}
             <a style={{ color: '#0080ff' }} href="#">
