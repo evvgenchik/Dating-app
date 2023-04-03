@@ -73,3 +73,33 @@
     opacity: 1;
   }
 }
+
+
+.modalTitle {
+  font-size: 40rem;
+}
+
+.modalfrom {
+  display: flex;
+  flex-direction: column;
+  gap: 20rem;
+  align-items: center;
+}
+
+
+.modalinput {
+  outline: 0;
+  border-width: 0 0 2px;
+
+
+  &:focus {
+    border-color: green;
+    outline: 1px dotted #000
+  }
+}
+
+
+.modalButton {
+  width: 200rem;
+  margin: 0 auto;
+}
