@@ -3,9 +3,10 @@ import heart from '../../assets/Home/heart2.svg';
 import styles from './Home.module.scss';
 import Modal from '../../components/Modal/Modal';
 import MyButton from '../../components/UI/Button/MyButton';
+import { NavLink } from 'react-router-dom';
 
 function Home() {
-  const [modalActive, setModalActive] = useState(true);
+  const [modalActive, setModalActive] = useState(false);
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -57,9 +58,9 @@ function Home() {
           <MyButton className="modal-btn">Login</MyButton>
           <p className={styles.modalSignup}>
             New to Finder?{' '}
-            <a style={{ color: '#0080ff' }} href="#">
+            <NavLink style={{ color: '#0080ff' }} to="signup">
               Sign up now
-            </a>
+            </NavLink>
           </p>
           <span className={styles.modalInfo}>
             This page is protected by reCAPTCHA to ensure you're not a bot.{' '}

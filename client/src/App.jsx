@@ -4,6 +4,7 @@ import Home from './pages/Home/Home';
 import NotFound from './pages/NotFound';
 import MainLayout from './layouts/MainLayout';
 import styles from './App.module.scss';
+import SignUp from './pages/SignUp/SignUp';
 
 function App() {
   return (
@@ -11,9 +12,10 @@ function App() {
       <div className={styles.app}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/app" element={<MainLayout />}>
             <Route index element={<Home />} />
-            <Route path="app/about" element={<About />} />
+            <Route path="about" element={<About />} />
             <Route path="app/*" element={<NotFound />} />
           </Route>
           <Route path="/*" element={<NotFound />} />
