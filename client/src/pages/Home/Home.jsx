@@ -1,9 +1,9 @@
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import heart from '../../assets/Home/heart2.svg';
 import styles from './Home.module.scss';
 import Modal from '../../components/Modal/Modal';
 import MyButton from '../../components/UI/Button/MyButton';
-import { NavLink } from 'react-router-dom';
 
 function Home() {
   const [modalActive, setModalActive] = useState(false);

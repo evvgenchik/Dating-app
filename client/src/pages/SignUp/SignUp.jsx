@@ -2,8 +2,11 @@ import MyButton from '../../components/UI/Button/MyButton';
 import styles from './SignUp.module.scss';
 import icon from '../../assets/signUp/girl.jpg';
 import heart from '../../assets/Home/heart2.svg';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -115,7 +118,9 @@ const SignUp = () => {
           </div>
         </div>
 
-        <MyButton className="signup-btn">Submit</MyButton>
+        <MyButton onClick={() => navigate('/app')} className="signup-btn">
+          Submit
+        </MyButton>
       </form>
     </div>
   );

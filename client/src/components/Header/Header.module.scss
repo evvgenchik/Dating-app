@@ -1,0 +1,31 @@
+.container {
+  max-width: 986rem;
+  margin: 0 auto;
+  padding: 20rem 10rem 60rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+
+
+
+
+
+
+
+.photoContainer {
+  width: 60rem;
+  height: 60rem;
+  cursor: pointer;
+}
+
+.photo {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 2rem solid rgba(253, 58, 115, 0.7);
+  ;
+}

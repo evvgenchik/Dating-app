@@ -1,7 +1,20 @@
-import Menu from './Menu';
+import Menu from './Menu/Menu';
+import styles from './Header.module.scss';
+import icon from '../../assets/signUp/girl.jpg';
+import Logo from '../UI/Logo/Logo';
 
 const Header = () => {
-  return <Menu />;
+  return (
+    <header className={styles.header}>
+      <div className={styles.container}>
+        <Logo />
+        <Menu />
+        <div className={styles.photoContainer}>
+          <img className={styles.photo} src={icon} alt="photo profile" />
+        </div>
+      </div>
+    </header>
+  );
 };
 
 export default Header;

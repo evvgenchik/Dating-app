@@ -1,17 +1,18 @@
-.container {
+.wrapper {
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.header {
-  flex: 0 0 auto;
+.container {
+  max-width: 986rem;
+  margin: 0 auto;
+  font-size: 16rem;
+  padding: 20rem 10rem 60rem;
+  height: 100%;
 }
+
 
 .main {
-  flex: 1 0 auto;
-}
-
-.footer {
-  flex: 0 0 auto;
+  flex: 1 1 auto;
 }
