@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   gap: 20rem;
-  justify-content: start;
   align-items: center;
   width: 100%;
 }
@@ -24,8 +23,6 @@
 .text {
   color: #fff;
   position: absolute;
-  width: 100%;
-  height: 100%;
   top: 75%;
   left: 10%;
   font-weight: 600;
@@ -33,7 +30,6 @@
   display: flex;
   flex-direction: column;
   gap: 5rem;
-
 }
 
 .name {

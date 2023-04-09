@@ -5,6 +5,7 @@
 
 .header {
   display: flex;
+  width: 100%;
   gap: 15rem;
   align-items: center;
   background: linear-gradient(45deg, #fd267a, #ff6036);
@@ -14,8 +15,8 @@
 }
 
 .photoContainer {
-  width: 40rem;
-  height: 40rem;
+  width: 45rem;
+  height: 45rem;
 
   .photo {
     width: 100%;
@@ -27,7 +28,7 @@
 
 .name {
   color: #fff;
-  font-size: 18rem;
+  font-size: 20rem;
 }
 
 
@@ -41,7 +42,8 @@
   border: none;
   outline: none;
   background-color: transparent;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 20rem;
   cursor: pointer;
 
   &:hover {
@@ -52,5 +54,5 @@
 
 
 .main {
-  flex: 0 1 30%;
+  padding: 0 15rem;
 }

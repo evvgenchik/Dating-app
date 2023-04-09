@@ -1,12 +1,15 @@
 .content {
   display: flex;
+  height: 100%;
 }
 
 .UserBlockMatch {
   flex: 0 1 30%;
   overflow: hidden;
+  background-color: #fff;
 }
 
 .MainDisplayMatch {
   flex: 0 1 70%;
+  height: 100%;
 }

@@ -1,0 +1,46 @@
+.chatDisplayContainer {
+  flex: 0 1 65%;
+}
+
+.chatHeader {}
+
+.chatHeaderText {
+  font-size: 18rem;
+  padding: 30rem 15rem;
+  background-color: #fff;
+}
+
+
+.display {
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
+  padding: 0 10rem;
+}
+
+
+
+.message {
+  border-radius: 10rem;
+  display: inline-block;
+  max-width: 85%;
+  padding: 10rem;
+}
+
+.messageReceived {
+  text-align: left;
+
+  .message {
+    background-color: rgba(240, 242, 244, 1);
+    color: #000;
+  }
+}
+
+.messageSent {
+  text-align: right;
+
+  .message {
+    background-color: #106bd5;
+    color: #fff;
+  }
+}
