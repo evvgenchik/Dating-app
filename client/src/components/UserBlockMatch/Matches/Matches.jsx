@@ -1,7 +1,7 @@
-import styles from './Matches.module.scss';
-import icon from '../../../assets/signUp/girl.jpg';
+import styles from "./Matches.module.scss";
+import icon from "../../../assets/signUp/girl.jpg";
 
-const Matches = () => {
+function Matches() {
   return (
     <ul className={styles.Ppllist}>
       <li className={styles.PplItem}>
@@ -42,6 +42,6 @@ const Matches = () => {
       </li>
     </ul>
   );
-};
+}
 
 export default Matches;

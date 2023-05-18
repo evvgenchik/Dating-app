@@ -1,7 +1,7 @@
-import styles from './ChatPersonInfo.module.scss';
-import icon from '../../../../assets/signUp/girl.jpg';
+import styles from "./ChatPersonInfo.module.scss";
+import icon from "../../../../assets/signUp/girl.jpg";
 
-const ChatPersonInfo = () => {
+function ChatPersonInfo() {
   return (
     <div className={styles.personInfoContainer}>
       <div className={styles.personInfo}>
@@ -30,6 +30,6 @@ const ChatPersonInfo = () => {
       </div>
     </div>
   );
-};
+}
 
 export default ChatPersonInfo;

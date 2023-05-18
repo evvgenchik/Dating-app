@@ -1,9 +1,9 @@
-import styles from './UserBlockMatch.module.scss';
-import icon from '../../assets/signUp/girl.jpg';
-import Matches from './Matches/Matches';
-import Messages from './Messages/Messages';
+import styles from "./UserBlockMatch.module.scss";
+import icon from "../../assets/signUp/girl.jpg";
+import Matches from "./Matches/Matches";
+import Messages from "./Messages/Messages";
 
-const UserBlockMatch = () => {
+function UserBlockMatch() {
   return (
     <div className={styles.content}>
       <div className={styles.header}>
@@ -25,6 +25,6 @@ const UserBlockMatch = () => {
       </div>
     </div>
   );
-};
+}
 
 export default UserBlockMatch;

@@ -1,7 +1,7 @@
-import styles from './Messages.module.scss';
-import icon from '../../../assets/signUp/girl.jpg';
+import styles from "./Messages.module.scss";
+import icon from "../../../assets/signUp/girl.jpg";
 
-const Messages = () => {
+function Messages() {
   return (
     <ul className={styles.Ppllist}>
       <li className={styles.PplItem}>
@@ -45,6 +45,6 @@ const Messages = () => {
       </li>
     </ul>
   );
-};
+}
 
 export default Messages;

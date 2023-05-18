@@ -1,8 +1,8 @@
-import styles from './Swiper.module.scss';
-import icon from '../../../assets/signUp/girl.jpg';
-import PanelControl from './PanelControl/PanelControl';
+import styles from "./Swiper.module.scss";
+import icon from "../../../assets/signUp/girl.jpg";
+import PanelControl from "./PanelControl/PanelControl";
 
-const Swiper = () => {
+function Swiper() {
   return (
     <div className={styles.person}>
       <div className={styles.photoContainer}>
@@ -18,6 +18,6 @@ const Swiper = () => {
       <PanelControl />
     </div>
   );
-};
+}
 
 export default Swiper;

@@ -1,6 +1,6 @@
-import styles from './Modal.module.scss';
+import styles from "./Modal.module.scss";
 
-const Modal = ({ active, setActive, className, children }) => {
+function Modal({ active, setActive, className, children }) {
   return (
     <div
       onClick={() => setActive(false)}
@@ -16,6 +16,6 @@ const Modal = ({ active, setActive, className, children }) => {
       </div>
     </div>
   );
-};
+}
 
 export default Modal;

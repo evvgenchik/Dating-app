@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import heart from '../../assets/Home/heart2.svg';
-import styles from './Home.module.scss';
-import Modal from '../../components/Modal/Modal';
-import MyButton from '../../components/UI/Button/MyButton';
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import heart from "../../assets/Home/heart2.svg";
+import styles from "./Home.module.scss";
+import Modal from "../../components/Modal/Modal";
+import MyButton from "../../components/UI/Button/MyButton";
 
 function Home() {
   const [modalActive, setModalActive] = useState(false);
@@ -57,15 +57,15 @@ function Home() {
           </a>
           <MyButton className="modal-btn">Login</MyButton>
           <p className={styles.modalSignup}>
-            New to Finder?{' '}
-            <NavLink style={{ color: '#0080ff' }} to="signup">
+            New to Finder?{" "}
+            <NavLink style={{ color: "#0080ff" }} to="signup">
               Sign up now
             </NavLink>
           </p>
           <span className={styles.modalInfo}>
-            This page is protected by reCAPTCHA to ensure you're not a bot.{' '}
+            This page is protected by reCAPTCHA to ensure you're not a bot.{" "}
             <a
-              style={{ color: '#0080ff' }}
+              style={{ color: "#0080ff" }}
               href="https://policies.google.com/privacy"
             >
               Learn more

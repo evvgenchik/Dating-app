@@ -1,8 +1,8 @@
-import styles from './Footer.module.scss';
-import Logo from '../UI/Logo/Logo';
-import git from '../../assets/github-white.svg';
+import styles from "./Footer.module.scss";
+import Logo from "../UI/Logo/Logo";
+import git from "../../assets/github-white.svg";
 
-const Footer = () => {
+function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
@@ -16,6 +16,6 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
+}
 
 export default Footer;

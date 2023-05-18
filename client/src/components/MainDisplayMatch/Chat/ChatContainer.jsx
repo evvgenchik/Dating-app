@@ -1,13 +1,13 @@
-import ChatPersonInfo from './ChatPersonInfo/ChatPersonInfo';
-import ChatDisplay from './ChatDisplay/ChatDisplay';
+import ChatPersonInfo from "./ChatPersonInfo/ChatPersonInfo";
+import ChatDisplay from "./ChatDisplay/ChatDisplay";
 
-const ChatContainer = () => {
+function ChatContainer() {
   return (
     <>
       <ChatDisplay />
       <ChatPersonInfo />
     </>
   );
-};
+}
 
 export default ChatContainer;

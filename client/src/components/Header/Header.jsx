@@ -1,9 +1,9 @@
-import Menu from './Menu/Menu';
-import styles from './Header.module.scss';
-import icon from '../../assets/signUp/girl.jpg';
-import Logo from '../UI/Logo/Logo';
+import Menu from "./Menu/Menu";
+import styles from "./Header.module.scss";
+import icon from "../../assets/signUp/girl.jpg";
+import Logo from "../UI/Logo/Logo";
 
-const Header = () => {
+function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -15,6 +15,6 @@ const Header = () => {
       </div>
     </header>
   );
-};
+}
 
 export default Header;

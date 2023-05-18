@@ -1,10 +1,10 @@
-import MyButton from '../../components/UI/Button/MyButton';
-import styles from './SignUp.module.scss';
-import icon from '../../assets/signUp/girl.jpg';
-import heart from '../../assets/Home/heart2.svg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import MyButton from "../../components/UI/Button/MyButton";
+import styles from "./SignUp.module.scss";
+import icon from "../../assets/signUp/girl.jpg";
+import heart from "../../assets/Home/heart2.svg";
 
-const SignUp = () => {
+function SignUp() {
   const navigate = useNavigate();
 
   return (
@@ -94,7 +94,7 @@ const SignUp = () => {
                 cols={30}
                 rows={10}
                 placeholder="Type your answer here"
-              ></textarea>
+              />
             </div>
           </div>
 
@@ -102,7 +102,7 @@ const SignUp = () => {
             <label className={styles.mainLabel}>
               Profile photo:
               <div className={styles.inputFile}>
-                <span className={styles.inputFileText}></span>
+                <span className={styles.inputFileText} />
                 <input className={styles.input} type="file" />
                 <span className={styles.inputFileBtn}>Выберите файл</span>
               </div>
@@ -118,12 +118,12 @@ const SignUp = () => {
           </div>
         </div>
 
-        <MyButton onClick={() => navigate('/app')} className="signup-btn">
+        <MyButton onClick={() => navigate("/app")} className="signup-btn">
           Submit
         </MyButton>
       </form>
     </div>
   );
-};
+}
 
 export default SignUp;

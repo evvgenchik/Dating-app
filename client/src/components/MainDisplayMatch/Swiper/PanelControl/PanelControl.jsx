@@ -1,10 +1,13 @@
-import styles from './PanelControl.module.scss';
-import { AiOutlineCloseCircle as RejectIcon } from 'react-icons/ai';
-import { MdOutlineClose as CloseIcon } from 'react-icons/md';
-import { AiFillHeart as HeartIcon } from 'react-icons/ai';
-import { AiFillStar as StarIcon } from 'react-icons/ai';
+import {
+  AiOutlineCloseCircle as RejectIcon,
+  AiFillHeart as HeartIcon,
+  AiFillStar as StarIcon,
+} from "react-icons/ai";
+import { MdOutlineClose as CloseIcon } from "react-icons/md";
 
-const PanelControl = () => {
+import styles from "./PanelControl.module.scss";
+
+function PanelControl() {
   return (
     <div className={styles.panelControl}>
       <CloseIcon className={styles.reject} />
@@ -12,6 +15,6 @@ const PanelControl = () => {
       <HeartIcon className={styles.heart} />
     </div>
   );
-};
+}
 
 export default PanelControl;

@@ -1,7 +1,7 @@
-import { AiOutlineSend as SendIcon } from 'react-icons/ai';
-import styles from './ChatDisplay.module.scss';
+import { AiOutlineSend as SendIcon } from "react-icons/ai";
+import styles from "./ChatDisplay.module.scss";
 
-const ChatDisplay = () => {
+function ChatDisplay() {
   return (
     <div className={styles.chatDisplayContainer}>
       <div className={styles.chatHeader}>
@@ -12,52 +12,51 @@ const ChatDisplay = () => {
       <div className={styles.display}>
         <div className={styles.messageReceived}>
           <p className={styles.message}>Hi there</p>
-          <span className={styles.messageDate}></span>
+          <span className={styles.messageDate}>12:12</span>
         </div>
         <div className={styles.messageReceived}>
           <p className={styles.message}>Hi there</p>
-          <span className={styles.messageDate}></span>
+          <span className={styles.messageDate}>12:12</span>
         </div>
         <div className={styles.messageSent}>
+          <span className={styles.messageDate}>12:12</span>
           <p className={styles.message}>
             Hi Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis,
             incidunt cum? Quidem nihil dolorem quibusdam laboriosam unde autem,
             sit quas porro. Recusandae consectetur tempora impedit
             exercitationem iusto quidem beatae esse?
           </p>
-          <span className={styles.messageDate}></span>
         </div>
         <div className={styles.messageReceived}>
           <p className={styles.message}>Hi there</p>
-          <span className={styles.messageDate}></span>
+          <span className={styles.messageDate}>12:12</span>
         </div>
         <div className={styles.messageSent}>
+          <span className={styles.messageDate}>12:12</span>
           <p className={styles.message}>Hi there</p>
-          <span className={styles.messageDate}></span>
         </div>
         <div className={styles.messageReceived}>
           <p className={styles.message}>Hi there</p>
-          <span className={styles.messageDate}></span>
+          <span className={styles.messageDate}>12:12</span>
         </div>
         <div className={styles.messageSent}>
+          <span className={styles.messageDate}>12:12</span>
           <p className={styles.message}>Hi there</p>
-          <span className={styles.messageDate}></span>
         </div>
       </div>
-      <div className={styles.chatControl}>
-        <form>
+      <div>
+        <form className={styles.chatFieldForm}>
           <textarea
+            className={styles.chatField}
             placeholder="Type your message"
             name="message"
             id="message"
-            cols={30}
-            rows={10}
-          ></textarea>
-          <SendIcon />
+          />
+          <SendIcon className={styles.sendBtn} />
         </form>
       </div>
     </div>
   );
-};
+}
 
 export default ChatDisplay;
