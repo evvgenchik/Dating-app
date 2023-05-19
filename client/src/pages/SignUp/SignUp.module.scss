@@ -1,0 +1,180 @@
+.container {
+  max-width: 986rem;
+  margin: 0 auto;
+  font-size: 16rem;
+  padding: 20rem 10rem 60rem;
+  height: 100%;
+  color: #000;
+}
+
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.logoImage {
+  transform: translate(0, 10%);
+  width: 50rem;
+  height: 50rem;
+}
+
+.logoText {
+  font-size: 44rem;
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+  text-align: center;
+  font-style: italic;
+  font-family: Luminari;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 50rem;
+}
+
+.formContent {
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+  gap: 50rem;
+}
+
+.leftSide {
+  display: flex;
+  flex-direction: column;
+  gap: 30rem;
+  margin-bottom: 40rem;
+  flex: 0 1 50%;
+}
+
+.mainLabel {
+  font-size: 30rem;
+  font-weight: 600;
+}
+
+.input {
+  display: block;
+  margin-top: 20rem;
+  font-size: 24rem;
+  width: 100%;
+  border-radius: 10rem;
+  padding: 10rem;
+  font-weight: 500;
+  height: 52rem;
+  border: 3px solid #ccc;
+}
+
+.radioContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10rem;
+}
+
+.leftSide input[type=radio] {
+  display: none;
+}
+
+.innerLabel {
+  margin-top: 20rem;
+  font-size: 30rem;
+  padding: 10rem 20rem;
+  border: solid 2rem rgb(144, 144, 144);
+  border-radius: 10rem;
+}
+
+.textarea {
+  margin-top: 20rem;
+  width: 100%;
+  height: 150rem;
+  padding: 15rem;
+  border: 2rem solid #ccc;
+  border-radius: 20rem;
+  background-color: rgba(248, 248, 248, 0.3);
+  resize: none;
+  font-size: 24rem;
+}
+
+
+
+.rigthSide {
+  display: flex;
+  flex-direction: column;
+  gap: 30rem;
+  flex: 0 1 50%;
+}
+
+/*file input*/
+
+
+.inputFile {
+  margin-top: 20rem;
+  display: flex;
+}
+
+.inputFileText {
+  text-align: left;
+  display: block;
+  float: left;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 6rem 0rem 0 6rem;
+  border: 3px solid #ccc;
+  font-size: 24rem;
+  padding: 10rem;
+  height: 50rem;
+}
+
+.inputFileBtn {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  font-size: 16rem;
+  vertical-align: middle;
+  color: rgb(255 255 255);
+  text-align: center;
+  border-radius: 0 4rem 4rem 0;
+  background-color: rgb(253 84 108);
+  height: 50rem;
+  padding: 10rem 30rem;
+  border: none;
+  margin: 0;
+  transition: background-color 0.2s;
+}
+
+.inputFile input[type=file] {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  display: block;
+  width: 0;
+  height: 0;
+}
+
+/* Focus */
+.inputFile input[type=file]:focus+.inputFileBtn {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+}
+
+/* Hover/active */
+.inputFile:hover .inputFileBtn {
+  background-color: rgb(243 68 185);
+}
+
+.inputFile:active .inputFileBtn {
+  background-color: rgb(243 68 185);
+
+}
+
+/* Disabled */
+.inputFile input[type=file]:disabled+.inputFileBtn {
+  background-color: #eee;
+}
+
+
+.iconContainer {
+  border-radius: 10rem;
+}

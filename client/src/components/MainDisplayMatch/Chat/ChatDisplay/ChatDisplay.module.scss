@@ -1,0 +1,80 @@
+.chatDisplayContainer {
+  flex: 0 1 75%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: stretch;
+  min-height: 100%;
+}
+
+.chatHeaderText {
+  font-size: 18rem;
+  padding: 30rem 15rem;
+  background-color: #fff;
+}
+
+.display {
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
+  padding: 0 10rem;
+}
+
+.message {
+  border-radius: 10rem;
+  display: inline-block;
+  max-width: 85%;
+  padding: 10rem;
+}
+
+.messageReceived {
+  text-align: left;
+
+  .message {
+    background-color: rgba(240, 242, 244, 1);
+    color: #000;
+  }
+}
+
+.messageSent {
+  text-align: right;
+
+
+  .message {
+    background-color: #106bd5;
+    color: #fff;
+  }
+}
+
+.messageDate {
+  font-size: 12rem;
+}
+
+.chatFieldForm {
+  width: 100%;
+  position: relative;
+}
+
+.chatField {
+  width: 100%;
+  height: 60rem;
+  padding-left: 3%;
+  border: none;
+  border-top: 1px solid #777;
+  resize: none;
+  padding: 15rem;
+
+  &:focus,
+  input:focus {
+    outline: none;
+  }
+}
+
+.sendBtn {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  right: 3%;
+  cursor: pointer;
+}

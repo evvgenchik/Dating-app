@@ -56,7 +56,7 @@ img {
   display: block;
 }
 
-article > * + * {
+article>*+* {
   margin-top: 1em;
 }
 
@@ -69,4 +69,11 @@ select {
 
 #root {
   height: 100%;
+}
+
+nav {
+  a.active {
+    color: rgba(253, 58, 115, 1);
+    font-weight: 600;
+  }
 }
