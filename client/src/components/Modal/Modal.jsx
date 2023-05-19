@@ -1,4 +1,7 @@
-import styles from "./Modal.module.scss";
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import PropTypes from 'prop-types';
+import styles from './Modal.module.scss';
 
 function Modal({ active, setActive, className, children }) {
   return (
@@ -17,5 +20,12 @@ function Modal({ active, setActive, className, children }) {
     </div>
   );
 }
+
+Modal.propTypes = {
+  active: PropTypes.bool,
+  setActive: PropTypes.func,
+  className: PropTypes.string,
+  children: PropTypes.node,
+};
 
 export default Modal;

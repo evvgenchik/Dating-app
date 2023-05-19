@@ -1,5 +1,5 @@
-import styles from "./Messages.module.scss";
-import icon from "../../../assets/signUp/girl.jpg";
+import styles from './Messages.module.scss';
+import icon from '../../../assets/signUp/girl.jpg';
 
 function Messages() {
   return (
@@ -7,7 +7,7 @@ function Messages() {
       <li className={styles.PplItem}>
         <div className={styles.info}>
           <div className={styles.photoContainer}>
-            <img className={styles.photo} src={icon} alt="photo" />
+            <img className={styles.photo} src={icon} alt='person' />
           </div>
           <div className={styles.text}>
             <p className={styles.name}>Julia</p>
@@ -20,7 +20,7 @@ function Messages() {
       <li className={styles.PplItem}>
         <div className={styles.info}>
           <div className={styles.photoContainer}>
-            <img className={styles.photo} src={icon} alt="photo" />
+            <img className={styles.photo} src={icon} alt='person' />
           </div>
           <div className={styles.text}>
             <p className={styles.name}>Julia</p>
@@ -33,7 +33,7 @@ function Messages() {
       <li className={styles.PplItem}>
         <div className={styles.info}>
           <div className={styles.photoContainer}>
-            <img className={styles.photo} src={icon} alt="photo" />
+            <img className={styles.photo} src={icon} alt='person' />
           </div>
           <div className={styles.text}>
             <p className={styles.name}>Julia</p>

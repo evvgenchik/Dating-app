@@ -1,5 +1,5 @@
-import { AiOutlineSend as SendIcon } from "react-icons/ai";
-import styles from "./ChatDisplay.module.scss";
+import { AiOutlineSend as SendIcon } from 'react-icons/ai';
+import styles from './ChatDisplay.module.scss';
 
 function ChatDisplay() {
   return (
@@ -48,9 +48,9 @@ function ChatDisplay() {
         <form className={styles.chatFieldForm}>
           <textarea
             className={styles.chatField}
-            placeholder="Type your message"
-            name="message"
-            id="message"
+            placeholder='Type your message'
+            name='message'
+            id='message'
           />
           <SendIcon className={styles.sendBtn} />
         </form>

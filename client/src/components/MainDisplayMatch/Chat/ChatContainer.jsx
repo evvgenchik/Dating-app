@@ -1,5 +1,5 @@
-import ChatPersonInfo from "./ChatPersonInfo/ChatPersonInfo";
-import ChatDisplay from "./ChatDisplay/ChatDisplay";
+import ChatPersonInfo from './ChatPersonInfo/ChatPersonInfo';
+import ChatDisplay from './ChatDisplay/ChatDisplay';
 
 function ChatContainer() {
   return (

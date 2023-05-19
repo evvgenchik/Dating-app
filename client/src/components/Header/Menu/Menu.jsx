@@ -1,19 +1,19 @@
-import { NavLink } from "react-router-dom";
-import styles from "./Menu.module.scss";
+import { NavLink } from 'react-router-dom';
+import styles from './Menu.module.scss';
 
 function Menu() {
   return (
     <nav className={styles.nav}>
-      <NavLink className={styles.link} to="." end>
+      <NavLink className={styles.link} to='.' end>
         Home
       </NavLink>
-      <NavLink className={styles.link} to="about">
+      <NavLink className={styles.link} to='about'>
         About
       </NavLink>
-      <NavLink className={styles.link} to="asdf">
+      <NavLink className={styles.link} to='asdf'>
         Match
       </NavLink>
-      <NavLink className={styles.link} to="asd">
+      <NavLink className={styles.link} to='asd'>
         Community
       </NavLink>
     </nav>

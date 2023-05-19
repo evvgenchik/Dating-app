@@ -1,6 +1,6 @@
-import styles from "./Footer.module.scss";
-import Logo from "../UI/Logo/Logo";
-import git from "../../assets/github-white.svg";
+import styles from './Footer.module.scss';
+import Logo from '../UI/Logo/Logo';
+import git from '../../assets/github-white.svg';
 
 function Footer() {
   return (
@@ -9,8 +9,8 @@ function Footer() {
         <Logo />
         <span>© Finder. All rights reserved. </span>
         <div>
-          <a href="https://github.com/evvgenchik">
-            <img src={git} alt="git icon" />
+          <a href='https://github.com/evvgenchik'>
+            <img src={git} alt='git icon' />
           </a>
         </div>
       </div>

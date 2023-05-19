@@ -1,12 +1,12 @@
-import styles from "./Swiper.module.scss";
-import icon from "../../../assets/signUp/girl.jpg";
-import PanelControl from "./PanelControl/PanelControl";
+import styles from './Swiper.module.scss';
+import icon from '../../../assets/signUp/girl.jpg';
+import PanelControl from './PanelControl/PanelControl';
 
 function Swiper() {
   return (
     <div className={styles.person}>
       <div className={styles.photoContainer}>
-        <img className={styles.photo} src={icon} alt="photo" />
+        <img className={styles.photo} src={icon} alt='person' />
         <div className={styles.text}>
           <p className={styles.name}>
             Julia <span className={styles.age}>25</span>

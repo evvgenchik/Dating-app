@@ -1,8 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import MyButton from "../../components/UI/Button/MyButton";
-import styles from "./SignUp.module.scss";
-import icon from "../../assets/signUp/girl.jpg";
-import heart from "../../assets/Home/heart2.svg";
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import { useNavigate } from 'react-router-dom';
+import MyButton from '../../components/UI/Button/MyButton';
+import styles from './SignUp.module.scss';
+import icon from '../../assets/signUp/girl.jpg';
+import heart from '../../assets/Home/heart2.svg';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ function SignUp() {
       <div className={styles.header}>
         <div className={styles.logoText}>
           Finder
-          <img className={styles.logoImage} src={heart} alt="heart" />
+          <img className={styles.logoImage} src={heart} alt='heart' />
         </div>
       </div>
 
@@ -24,8 +25,8 @@ function SignUp() {
               First name:
               <input
                 className={styles.input}
-                type="text"
-                placeholder="First name"
+                type='text'
+                placeholder='First name'
               />
             </label>
 
@@ -33,8 +34,8 @@ function SignUp() {
               Birthday:
               <input
                 className={styles.input}
-                type="text"
-                placeholder="Birthday"
+                type='text'
+                placeholder='Birthday'
               />
             </label>
 
@@ -42,8 +43,8 @@ function SignUp() {
               Country:
               <input
                 className={styles.input}
-                type="text"
-                placeholder="Birthday"
+                type='text'
+                placeholder='Birthday'
               />
             </label>
 
@@ -52,15 +53,15 @@ function SignUp() {
               <div className={styles.radioContainer}>
                 <label className={styles.innerLabel}>
                   Man
-                  <input type="radio" value="man" />
+                  <input type='radio' value='man' />
                 </label>
                 <label className={styles.innerLabel}>
                   Wooman
-                  <input type="radio" value="wooman" />
+                  <input type='radio' value='wooman' />
                 </label>
                 <label className={styles.innerLabel}>
                   Neutral
-                  <input type="radio" value="wooman" />
+                  <input type='radio' value='wooman' />
                 </label>
               </div>
             </label>
@@ -70,15 +71,15 @@ function SignUp() {
               <div className={styles.radioContainer}>
                 <label className={styles.innerLabel}>
                   Man
-                  <input type="radio" value="man" />
+                  <input type='radio' value='man' />
                 </label>
                 <label className={styles.innerLabel}>
                   Wooman
-                  <input type="radio" value="wooman" />
+                  <input type='radio' value='wooman' />
                 </label>
                 <label className={styles.innerLabel}>
                   All
-                  <input type="radio" value="wooman" />
+                  <input type='radio' value='wooman' />
                 </label>
               </div>
             </label>
@@ -89,11 +90,11 @@ function SignUp() {
               </label>
               <textarea
                 className={styles.textarea}
-                name="description"
-                id="description"
+                name='description'
+                id='description'
                 cols={30}
                 rows={10}
-                placeholder="Type your answer here"
+                placeholder='Type your answer here'
               />
             </div>
           </div>
@@ -103,22 +104,18 @@ function SignUp() {
               Profile photo:
               <div className={styles.inputFile}>
                 <span className={styles.inputFileText} />
-                <input className={styles.input} type="file" />
+                <input className={styles.input} type='file' />
                 <span className={styles.inputFileBtn}>Выберите файл</span>
               </div>
             </label>
 
             <div className={styles.iconContainer}>
-              <img
-                className={styles.iconContainer}
-                src={icon}
-                alt="photo profile"
-              />
+              <img className={styles.iconContainer} src={icon} alt='profile' />
             </div>
           </div>
         </div>
 
-        <MyButton onClick={() => navigate("/app")} className="signup-btn">
+        <MyButton onClick={() => navigate('/app')} className='signup-btn'>
           Submit
         </MyButton>
       </form>
