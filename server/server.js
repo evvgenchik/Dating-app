@@ -1,19 +1,20 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { MongoClient } from 'mongodb';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
+import router from './router/router.js';
 dotenv.config();
 
-const usi = 'mongodb+srv://User:user@cluster0.aiauka7.mongodb.net/';
 const app = express();
 const PORT = process.env.PORT || 8000;
-const DBPORT = process.env.DB_URL;
+const DBURI =
+  process.env.DB_URL || 'mongodb+srv://User:User@cluster0.aiauka7.mongodb.net/';
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
+app.use('/api', router);
 
 // app.get('/', (req, res) => {
 //   res.json('Hello to my app');
@@ -36,7 +37,7 @@ app.use(cors());
 
 const start = async () => {
   try {
-    await mongoose.connect(DBPORT, {
+    await mongoose.connect(DBURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

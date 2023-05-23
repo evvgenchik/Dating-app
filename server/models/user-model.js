@@ -6,5 +6,6 @@ const UserSchema = new Schema({
   isActivated: { type: Boolean, default: false },
   activationLink: { type: String },
 });
+const UserModel = model('User', UserSchema);
 
-export default model('User', UserSchema);
+export default UserModel;
