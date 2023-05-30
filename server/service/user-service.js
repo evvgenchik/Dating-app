@@ -4,6 +4,8 @@ import UserModel from '../models/user-model.js';
 import MailService from './mail-service.js';
 import tokenService from './token-service.js';
 import UserDto from '../dtos/user-dto.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 class UserService {
   async registration(email, password) {
@@ -21,7 +23,10 @@ class UserService {
       password: hashPassword,
       activeteLink,
     });
-    await MailService.sendActivationMail(email, activeteLink);
+    await MailService.sendActivationMail(
+      email,
+      `${process.env.API_URL}/api/activate/${activeteLink}`
+    );
 
     const userDto = new UserDto(user);
     const tokens = tokenService.createToken({ ...userDto });

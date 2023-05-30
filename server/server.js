@@ -7,7 +7,7 @@ import router from './router/router.js';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8001;
 const DBURI =
   process.env.DB_URL || 'mongodb+srv://User:User@cluster0.aiauka7.mongodb.net/';
 
