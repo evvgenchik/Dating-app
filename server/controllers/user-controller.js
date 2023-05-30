@@ -1,3 +1,4 @@
+import userService from '../service/user-service.js';
 import UserService from '../service/user-service.js';
 
 class UserController {
@@ -25,7 +26,12 @@ class UserController {
   }
   async activate(req, res, next) {
     try {
-    } catch (error) {}
+      const { activationLink } = req.params;
+      await userService.activateAcc(activationLink);
+      return res.redirect(process.env.CLIENT_URL);
+    } catch (error) {
+      console.log(error);
+    }
   }
   async refresh(req, res, next) {
     try {

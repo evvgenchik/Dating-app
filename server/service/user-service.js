@@ -37,6 +37,17 @@ class UserService {
       user: userDto,
     };
   }
+
+  async activateAcc(activeteLink) {
+    const user = await UserModel.findOne({ activeteLink });
+
+    if (!user) {
+      throw new Error('Incorrect link');
+    }
+
+    user.isActivated = true;
+    await user.save();
+  }
 }
 
 export default new UserService();
