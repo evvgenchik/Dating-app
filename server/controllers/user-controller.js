@@ -1,7 +1,19 @@
+import UserService from '../service/user-service.js';
+
 class UserController {
   async registration(req, res, next) {
     try {
-    } catch (error) {}
+      const { email, password } = req.body;
+      const userData = await UserService.registration(email, password);
+      res.cookie('refreshToken', userData.refreshToken, {
+        maxAhe: '30 *24*60*60*1000',
+        httponly: true,
+      });
+      return res.json(userData);
+    } catch (error) {
+      res.send(error); //for delete
+      console.log(error);
+    }
   }
   async login(req, res, next) {
     try {

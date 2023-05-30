@@ -1,28 +1,37 @@
-import UserModel from '../models/user-model';
-import { uuid } from 'uuid';
+import { v4 as uuidV4 } from 'uuid';
 import bcrypt from 'bcrypt';
-import MailService from './mail-service';
-import tokenService from './token-service';
+import UserModel from '../models/user-model.js';
+import MailService from './mail-service.js';
+import tokenService from './token-service.js';
+import UserDto from '../dtos/user-dto.js';
 
 class UserService {
-  async registartion(email, password) {
+  async registration(email, password) {
     const candidate = await UserModel.findOne({ email });
 
     if (candidate) {
       throw new Error('User already exist');
     }
 
-    const hashPassword = bcrypt.hash(password, 3);
-    const activeteLink = uuid.v4();
-    const user = UserModel.create({
+    const hashPassword = await bcrypt.hash(password, 3);
+    const activeteLink = uuidV4();
+
+    const user = await UserModel.create({
       email,
       password: hashPassword,
       activeteLink,
     });
-
-    await tokenService.createToken(user);
     await MailService.sendActivationMail(email, activeteLink);
+
+    const userDto = new UserDto(user);
+    const tokens = tokenService.createToken({ ...userDto });
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+    return {
+      ...tokens,
+      user: userDto,
+    };
   }
 }
 
-export default UserService;
+export default new UserService();

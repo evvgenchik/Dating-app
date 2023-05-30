@@ -1,6 +1,6 @@
-import { jwt } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import TokenModel from '../models/token-model';
+import TokenModel from '../models/token-model.js';
 dotenv.config();
 
 class TokenService {
@@ -15,7 +15,7 @@ class TokenService {
     return { accessToken, refreshToken };
   }
 
-  async saveToken({ userId, refreshToken }) {
+  async saveToken(userId, refreshToken) {
     const prevToken = await TokenModel.findOne({ user: userId });
 
     if (prevToken) {
