@@ -15,10 +15,7 @@ const authMiddleware = (req, res, next) => {
       return next(ApiError.UnauthorizedError());
     }
 
-    const userData = tokenService.validateToken(
-      accessToken,
-      process.env.TOKEN_ACCESS
-    );
+    const userData = tokenService.validateToken(accessToken, 'access');
 
     if (!userData) {
       return next(ApiError.UnauthorizedError());

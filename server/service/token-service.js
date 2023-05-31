@@ -6,7 +6,7 @@ dotenv.config();
 class TokenService {
   createToken(user) {
     const accessToken = jwt.sign(user, process.env.TOKEN_ACCESS, {
-      expiresIn: '3s',
+      expiresIn: '30m',
     });
     const refreshToken = jwt.sign(user, process.env.TOKEN_REFRESH, {
       expiresIn: '30d',
@@ -32,9 +32,14 @@ class TokenService {
     return prevToken;
   }
 
-  validateToken(token, key) {
+  validateToken(token, type) {
     try {
+      const key =
+        type === 'access'
+          ? process.env.TOKEN_ACCESS
+          : process.env.TOKEN_REFRESH;
       const userData = jwt.verify(token, key);
+      console.log(userData);
       return userData;
     } catch (error) {
       return null;

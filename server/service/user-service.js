@@ -83,10 +83,7 @@ class UserService {
       throw ApiError.UnauthorizedError();
     }
 
-    const userData = tokenService.validateToken(
-      refreshToken,
-      process.env.TOKEN_REFRESH
-    );
+    const userData = tokenService.validateToken(refreshToken, 'refresh');
     const tokenFromDb = await tokenService.getToken(refreshToken);
 
     if (!userData && !tokenFromDb) {
