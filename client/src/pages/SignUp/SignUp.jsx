@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useNavigate } from 'react-router-dom';
 import MyButton from '../../components/UI/Button/MyButton';
@@ -7,6 +8,12 @@ import heart from '../../assets/Home/heart2.svg';
 
 function SignUp() {
   const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    navigate('/app');
+  };
 
   return (
     <div className={styles.container}>
@@ -115,7 +122,7 @@ function SignUp() {
           </div>
         </div>
 
-        <MyButton onClick={() => navigate('/app')} className='signup-btn'>
+        <MyButton onClick={() => handleSubmit()} className='signup-btn'>
           Submit
         </MyButton>
       </form>

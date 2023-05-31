@@ -5,6 +5,7 @@ import MailService from './mail-service.js';
 import tokenService from './token-service.js';
 import UserDto from '../dtos/user-dto.js';
 import dotenv from 'dotenv';
+import ApiError from '../exceptions/api-error.js';
 dotenv.config();
 
 class UserService {
@@ -12,7 +13,7 @@ class UserService {
     const candidate = await UserModel.findOne({ email });
 
     if (candidate) {
-      throw new Error('User already exist');
+      throw ApiError.BadRequest('User already exist');
     }
 
     const hashPassword = await bcrypt.hash(password, 3);
@@ -42,7 +43,7 @@ class UserService {
     const user = await UserModel.findOne({ activeteLink });
 
     if (!user) {
-      throw new Error('Incorrect link');
+      throw ApiError.BadRequest('Incorrect link');
     }
 
     user.isActivated = true;

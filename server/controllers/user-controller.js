@@ -5,6 +5,7 @@ class UserController {
   async registration(req, res, next) {
     try {
       const { email, password } = req.body;
+
       const userData = await UserService.registration(email, password);
       res.cookie('refreshToken', userData.refreshToken, {
         maxAhe: '30 *24*60*60*1000',
@@ -12,17 +13,20 @@ class UserController {
       });
       return res.json(userData);
     } catch (error) {
-      res.send(error); //for delete
-      console.log(error);
+      next(error);
     }
   }
   async login(req, res, next) {
     try {
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
   async logout(req, res, next) {
     try {
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
   async activate(req, res, next) {
     try {
@@ -30,17 +34,21 @@ class UserController {
       await userService.activateAcc(activationLink);
       return res.redirect(process.env.CLIENT_URL);
     } catch (error) {
-      console.log(error);
+      next(error);
     }
   }
   async refresh(req, res, next) {
     try {
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
   async getUsers(req, res, next) {
     try {
       res.json(['vbsdf']);
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
 }
 
