@@ -31,6 +31,20 @@ class TokenService {
     const prevToken = await TokenModel.deleteOne({ refreshToken });
     return prevToken;
   }
+
+  validateToken(token, key) {
+    try {
+      const userData = jwt.verify(token, key);
+      return userData;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async getToken(refreshToken) {
+    const prevToken = await TokenModel.findOne({ refreshToken });
+    return prevToken;
+  }
 }
 
 export default new TokenService();
