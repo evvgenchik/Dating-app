@@ -27,7 +27,6 @@ function Home() {
             <MyButton
               className='home-button'
               onClick={() => setModalActive(true)}
-              type='button'
             >
               Get Started
             </MyButton>

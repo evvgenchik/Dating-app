@@ -1,9 +1,13 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import styles from './Modal.module.scss';
+type Props = {
+  active: boolean;
+  setActive: (flag: boolean) => void;
+  className: string;
+  children: JSX.Element[];
+};
 
-function Modal({ active, setActive, className, children }) {
+const Modal: FC<Props> = ({ active, setActive, className, children }) => {
   return (
     <div
       onClick={() => setActive(false)}
@@ -19,13 +23,6 @@ function Modal({ active, setActive, className, children }) {
       </div>
     </div>
   );
-}
-
-Modal.propTypes = {
-  active: PropTypes.bool,
-  setActive: PropTypes.func,
-  className: PropTypes.string,
-  children: PropTypes.node,
 };
 
 export default Modal;
