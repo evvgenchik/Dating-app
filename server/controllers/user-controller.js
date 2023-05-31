@@ -11,8 +11,8 @@ class UserController {
       if (!errors.isEmpty()) {
         return next(ApiError.BadRequest('Validation fail', errors.array()));
       }
-      const { email, password } = req.body;
 
+      const { email, password } = req.body;
       const userData = await UserService.registration(email, password);
       res.cookie('refreshToken', userData.refreshToken, {
         maxAhe: '30 *24*60*60*1000',
@@ -39,7 +39,6 @@ class UserController {
   async logout(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
-
       const token = await userService.logout(refreshToken);
       res.clearCookie('refreshToken');
       return res.json(token);
@@ -59,7 +58,6 @@ class UserController {
   async refresh(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
-
       const userData = await UserService.refresh(refreshToken);
       res.cookie('refreshToken', userData.refreshToken, {
         maxAhe: '30 *24*60*60*1000',
@@ -72,7 +70,8 @@ class UserController {
   }
   async getUsers(req, res, next) {
     try {
-      res.json(['vbsdf']);
+      const users = await userService.getAllUsers();
+      return res.json(users);
     } catch (error) {
       next(error);
     }

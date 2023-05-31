@@ -6,7 +6,7 @@ dotenv.config();
 class TokenService {
   createToken(user) {
     const accessToken = jwt.sign(user, process.env.TOKEN_ACCESS, {
-      expiresIn: '30m',
+      expiresIn: '3s',
     });
     const refreshToken = jwt.sign(user, process.env.TOKEN_REFRESH, {
       expiresIn: '30d',
