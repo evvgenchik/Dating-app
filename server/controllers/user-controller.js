@@ -25,6 +25,13 @@ class UserController {
   }
   async login(req, res, next) {
     try {
+      const { email, password } = req.body;
+      const userData = await UserService.login(email, password);
+      res.cookie('refreshToken', userData.refreshToken, {
+        maxAhe: '30 *24*60*60*1000',
+        httponly: true,
+      });
+      return res.json(userData);
     } catch (error) {
       next(error);
     }
