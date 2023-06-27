@@ -12,9 +12,16 @@ datasource db {
 
 model User {
   id String @id @default(uuid())
-  login String @unique
+  email String @unique
   password String 
+  firstName String
+  birthday String
+  country String
+  gender String
+  looking String
+  descriptrion String
+  photo String
   createdAt DateTime @default(now())
-  hashedRefreshToken   String? 
+  hashedRefreshToken String? 
 }
 
