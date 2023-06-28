@@ -13,7 +13,7 @@ export class UserEntity {
   gender: string;
   looking: string;
   descriptrion: string;
-  photo: string;
+  avatar: string;
   createdAt: Date;
 
   @Exclude()

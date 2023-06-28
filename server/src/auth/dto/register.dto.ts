@@ -32,5 +32,5 @@ export class RegisterDto {
   @IsNotEmpty()
   @Length(5, 300)
   descriptrion: string;
-  photo: string;
+  avatar: string;
 }
