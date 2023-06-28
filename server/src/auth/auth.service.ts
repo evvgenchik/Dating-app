@@ -17,9 +17,7 @@ export class AuthService {
 
   async register(registrationData: RegisterDto) {
     const salt = +this.configService.get<number>('CRYPT_SALT');
-
     const hashedPassword = await bcrypt.hash(registrationData.password, salt);
-
     const createdUser = await this.usersService.create({
       ...registrationData,
       password: hashedPassword,
@@ -39,7 +37,10 @@ export class AuthService {
   }
 
   getCookieForLogOut() {
-    return `Authentication=; HttpOnly; Path=/; Max-Age=0`;
+    return [
+      'Authentication=; HttpOnly; Path=/; Max-Age=0',
+      'Refresh=; HttpOnly; Path=/; Max-Age=0',
+    ];
   }
 
   private async verifyPassword(password: string, hashedPassword: string) {
@@ -55,5 +56,20 @@ export class AuthService {
     return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get(
       'JWT_EXPIRATION_TIME',
     )}`;
+  }
+
+  getCookieWithJwtRefreshToken(userId: string) {
+    const payload: TokenPayload = { userId };
+    const refreshToken = this.jwtService.sign(payload, {
+      secret: this.configService.get('JWT_SECRET_REFRESH_KEY'),
+      expiresIn: this.configService.get('TOKEN_REFRESH_EXPIRE_TIME'),
+    });
+    const refreshTokenCookie = `Refresh=${refreshToken}; HttpOnly; Path=/; Max-Age=${this.configService.get(
+      'JTOKEN_REFRESH_EXPIRE_TIME',
+    )}`;
+    return {
+      refreshTokenCookie,
+      refreshToken,
+    };
   }
 }
