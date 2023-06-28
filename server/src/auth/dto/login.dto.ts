@@ -1,4 +1,7 @@
-import { PartialType } from '@nestjs/mapped-types';
+import { PickType } from '@nestjs/mapped-types';
 import { RegisterDto } from './register.dto';
 
-export class LoginDto extends PartialType(RegisterDto) {}
+export class LoginDto extends PickType(RegisterDto, [
+  'email',
+  'password',
+] as const) {}
