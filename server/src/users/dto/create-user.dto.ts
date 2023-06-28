@@ -1,10 +1,10 @@
-import { IsEmail, IsString, Length, Min } from 'class-validator';
+import { IsEmail, IsString, Length, MinLength } from 'class-validator';
 
 export class CreateUserDto {
   @IsEmail()
   email: string;
   @IsString({ message: '$property must be a string' })
-  @Min(4)
+  @MinLength(4)
   password: string;
   @IsString({ message: '$property must be a string' })
   firstName: string;
