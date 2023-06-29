@@ -17,16 +17,19 @@ import JwtAuthenticationGuard from './guards/jwtAuth.guard';
 import { UsersService } from 'src/users/users.service';
 import JwtRefreshGuard from './guards/jwt-authRefresh.guard';
 import { UserEntity } from 'src/users/entities/user.entity';
+import { EmailConfirmService } from 'src/emailConfirm/emailConfirm.service';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly usersService: UsersService,
+    private readonly emailConfirmService: EmailConfirmService,
   ) {}
 
   @Post('register')
   async register(@Body() registrationData: RegisterDto) {
+    await this.emailConfirmService.sendVerification(registrationData.email);
     const user = await this.authService.register(registrationData);
     return new UserEntity(user);
   }

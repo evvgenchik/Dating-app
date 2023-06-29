@@ -80,4 +80,15 @@ export class UsersService {
       data: { hashedRefreshToken: null },
     });
   }
+
+  async markEmailAsConfirmed(email: string) {
+    return this.prisma.user.update({
+      where: {
+        email,
+      },
+      data: {
+        isEmailConfirmed: true,
+      },
+    });
+  }
 }

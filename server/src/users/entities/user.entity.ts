@@ -21,4 +21,6 @@ export class UserEntity {
 
   @Exclude()
   password: string;
+
+  isEmailConfirmed: boolean;
 }

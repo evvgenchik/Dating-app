@@ -7,6 +7,8 @@ import { PrismaModule } from './prisma/prisma.module';
 import { config } from './common/config/configuration';
 import { AuthModule } from './auth/auth.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { MailModule } from './mail/mail.module';
+import { EmailConfirmModule } from './emailConfirm/emailConfirm.module';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     PrismaModule,
     AuthModule,
     CloudinaryModule,
+    MailModule,
+    EmailConfirmModule,
   ],
   controllers: [AppController],
   providers: [AppService],

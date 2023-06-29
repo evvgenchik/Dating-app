@@ -23,5 +23,6 @@ model User {
   avatar String
   createdAt DateTime @default(now())
   hashedRefreshToken String?  @map("hashed_refresh_token")
+  isEmailConfirmed Boolean  @default(false) @map("is_email_confirmed")
 }
 

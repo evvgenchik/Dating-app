@@ -6,4 +6,8 @@ export const config = () => ({
   TOKEN_EXPIRE_TIME: process.env.TOKEN_EXPIRE_TIME || 2400 ** 2400,
   TOKEN_REFRESH_EXPIRE_TIME:
     process.env.TOKEN_REFRESH_EXPIRE_TIME || 9999 ** 99999,
+  SMTP_HOST: process.env.SMTP_HOST,
+  SMTP_PORT: process.env.SMTP_PORT,
+  SMTP_USER: process.env.SMTP_USER,
+  SMTP_PASSWORD: process.env.SMTP_PASSWORD,
 });
