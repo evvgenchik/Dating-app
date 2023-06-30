@@ -19,27 +19,15 @@
   pointer-events: all;
 }
 
-.content.active {
-  border-radius: 20rem;
-  padding: 10rem;
-  background-color: #fff;
-  text-align: center;
-  transform: scale(1);
-  width: 30vh;
-}
-
 .content {
-  padding: 20rem;
-  border: 12rem;
-  border-color: #fff;
   text-align: center;
-  transform: scale(0.1);
+  transform: scale(0);
+  border-radius: 20rem;
+  background-color: #fff;
+  width: 35vw;
   transition: 0.8s all;
 }
 
-.login {
-  display: flex;
-  flex-direction: column;
-  gap: 30rem;
-  padding: 20rem;
+.content.active {
+  transform: scale(1);
 }

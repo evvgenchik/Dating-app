@@ -1,5 +1,5 @@
-import styles from './MyButton.module.scss';
 import { FC } from 'react';
+import styles from './MyButton.module.scss';
 
 type Props = {
   className: string;
@@ -8,6 +8,8 @@ type Props = {
 };
 
 const MyButton: FC<Props> = ({ className, children, ...props }) => {
+  console.log(className);
+
   return (
     <button
       type='button'

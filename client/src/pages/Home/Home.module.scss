@@ -19,7 +19,6 @@
   height: 100%;
 }
 
-
 .content {
   display: flex;
   flex-direction: column;
@@ -58,23 +57,6 @@
   font-size: 34rem;
 }
 
-// .button {
-//   color: #FFFFFF;
-//   font-size: 24rem;
-//   padding: 25rem 55rem;
-//   border-radius: 50rem;
-//   background: linear-gradient(87.08deg, #FA457E 6.8%, #7B49FF 102.07%);
-//   cursor: pointer;
-//   opacity: 0.8;
-
-//   &:hover {
-//     background: linear-gradient(-87.08deg, #FA457E 6.8%, #7B49FF 102.07%);
-//     transition: 0.5s;
-//     opacity: 1;
-//   }
-// }
-
-
 .modalTitle {
   font-size: 40rem;
 }
@@ -86,20 +68,56 @@
   align-items: center;
 }
 
-
 .modalinput {
   outline: 0;
   border-width: 0 0 2px;
-
+  width: 100%;
 
   &:focus {
-    border-color: green;
-    outline: 1px dotted #000
+    border-color: blueviolet;
   }
 }
 
+.login {
+  display: flex;
+  flex-direction: column;
+  gap: 30rem;
+  padding: 20rem;
+  font-size: 18rem;
+}
 
-// .modalButton {
-//   width: 200rem;
-//   margin: 0 auto;
-// }
+@media (width < 768px) {
+  .login {
+    display: flex;
+    flex-direction: column;
+    gap: 20rem;
+    padding: 10rem;
+    font-size: 14rem;
+
+    .modalTitle {
+      font-size: 20rem;
+    }
+
+    .modalfrom {
+      gap: 15rem;
+    }
+  }
+}
+
+@media (width < 468px) {
+  .login {
+    display: flex;
+    flex-direction: column;
+    gap: 10rem;
+    padding: 10rem;
+    font-size: 12rem;
+
+    .modalTitle {
+      font-size: 18rem;
+    }
+
+    .modalfrom {
+      gap: 10rem;
+    }
+  }
+}
