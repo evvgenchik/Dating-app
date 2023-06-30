@@ -1,4 +1,5 @@
 .eslintrc.cjs
+.eslintrc.js
 node_modules
 vite.config.ts
 cypress.config.ts

@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useNavigate } from 'react-router-dom';
-import MyButton from '../../components/UI/Button/MyButton';
 import { FormEvent } from 'react';
+import MyButton from '../../components/UI/Button/MyButton';
 import styles from './SignUp.module.scss';
 import icon from '../../assets/signUp/girl.jpg';
 import heart from '../../assets/Home/heart2.svg';

@@ -17,11 +17,12 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    tsconfigRootDir: __dirname,
     project: './tsconfig.json',
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
-    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'no-console': ['error', { allow: ['warn', 'error', 'log'] }],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'no-param-reassign': [2, { props: false }],
     'react/react-in-jsx-scope': 0,

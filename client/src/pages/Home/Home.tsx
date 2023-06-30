@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import heart from '../../assets/Home/heart2.svg';
 import styles from './Home.module.scss';
 import Modal from '../../components/Modal/Modal';
 import MyButton from '../../components/UI/Button/MyButton';
 
-function Home() {
+const Home: FC = () => {
   const [modalActive, setModalActive] = useState(false);
   return (
     <div className={styles.wrapper}>
@@ -81,6 +81,6 @@ function Home() {
       </div>
     </div>
   );
-}
+};
 
 export default Home;
