@@ -22,7 +22,6 @@ const Home = () => {
               Make a Real Connection
             </h2>
             <h2 className={styles.subtitle}>Find The Chosen One</h2>
-            <h4 className={styles.description}>Online Dating Web App</h4>
           </div>
           <MyButton
             className='home-button'
@@ -60,11 +59,10 @@ const Home = () => {
             <MyButton className='modal-btn'>Login</MyButton>
             <p className={styles.modalSignup}>
               New to Finder?
-              <p>
-                <NavLink style={{ color: '#0080ff' }} to='signup'>
-                  Sign up now
-                </NavLink>
-              </p>
+              <br />
+              <NavLink style={{ color: '#0080ff' }} to='signup'>
+                Sign up now
+              </NavLink>
             </p>
             {/* <span className={styles.modalInfo}>
               This page is protected by reCAPTCHA to ensure you&aposre not a

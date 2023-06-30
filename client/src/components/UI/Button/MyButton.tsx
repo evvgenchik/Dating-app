@@ -8,12 +8,10 @@ type Props = {
 };
 
 const MyButton: FC<Props> = ({ className, children, ...props }) => {
-  console.log(className);
-
   return (
     <button
       type='button'
-      className={`${styles[className]} ${styles.myBtn}`}
+      className={`${styles.myBtn} ${styles[className] ?? styles[className]} `}
       {...props}
     >
       {children}

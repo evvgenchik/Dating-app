@@ -22,25 +22,28 @@
   margin: 0 auto;
 }
 
-.signup-btn {
-  width: 400rem;
-  font-size: 30rem;
-  margin: 0 auto;
-  display: block;
-}
-
-.modal-btn {
-  font-size: 18rem;
-  padding: 10rem 20rem;
-  border-radius: 30rem;
-  width: 40%;
-  margin: 0 auto;
-}
-
-@media (width < 768px) {
+@media (width <=768px) {
   .modal-btn {
     font-size: 12rem;
     padding: 3rem 5rem;
     min-width: 40rem;
+  }
+
+  .home-button {
+    font-size: 22rem;
+    padding: 21rem 45rem;
+  }
+}
+
+@media (width <=576px) {
+  .modal-btn {
+    font-size: 12rem;
+    padding: 3rem 5rem;
+    min-width: 40rem;
+  }
+
+  .home-button {
+    font-size: 16rem;
+    padding: 20rem 40rem;
   }
 }

@@ -2,6 +2,7 @@
   background-image: url('../../assets/Home/489574db9ccfa50bf87e440f8a3be065d958a97f-2304x1536.webp');
   background-size: cover;
   height: 100%;
+  color: rgb(255 254 253);
 }
 
 .container {
@@ -86,13 +87,72 @@
   font-size: 18rem;
 }
 
-@media (width < 768px) {
+@media (width <=992px) {
+  .container {
+    max-width: 786px;
+    font-size: 16rem;
+  }
+
+  .image {
+    width: 30rem;
+    height: 30rem;
+  }
+
+  .title {
+    font-size: 64rem;
+  }
+
+  .topTitle {
+    font-size: 55rem;
+  }
+
+  .subtitle {
+    font-size: 34rem;
+  }
+}
+
+@media (width <=768px) {
+  .wrapper {
+    background-image: url('../../assets/Home/fon_768.jpg');
+  }
+
+  .container {
+    max-width: 586px;
+    padding: 10rem 5rem 20rem;
+  }
+
+  .image {
+    width: 30rem;
+    height: 30rem;
+  }
+
+  .title {
+    font-size: 44rem;
+  }
+
+  .topTitle {
+    font-size: 35rem;
+  }
+
+  .subtitle {
+    font-size: 20rem;
+  }
+
+  .title {
+    font-size: 64rem;
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+    text-align: center;
+    color: rgb(255 254 253);
+  }
+
   .login {
     display: flex;
     flex-direction: column;
     gap: 20rem;
     padding: 10rem;
-    font-size: 14rem;
+    font-size: 16rem;
 
     .modalTitle {
       font-size: 20rem;
@@ -104,7 +164,25 @@
   }
 }
 
-@media (width < 468px) {
+@media (width <=576px) {
+
+  .image {
+    width: 20rem;
+    height: 20rem;
+  }
+
+  .title {
+    font-size: 35rem;
+  }
+
+  .topTitle {
+    font-size: 20rem;
+  }
+
+  .subtitle {
+    font-size: 15rem;
+  }
+
   .login {
     display: flex;
     flex-direction: column;
