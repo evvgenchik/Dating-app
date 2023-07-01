@@ -2,21 +2,21 @@
   max-width: 986rem;
   margin: 0 auto;
   font-size: 16rem;
-  padding: 20rem 10rem 60rem;
+  padding: 30rem 10rem 60rem;
   height: 100%;
   color: #000;
 }
 
-
 .header {
   display: flex;
   align-items: center;
+  margin-bottom: 50rem;
 }
 
 .logoImage {
   transform: translate(0, 10%);
-  width: 50rem;
-  height: 50rem;
+  width: 40rem;
+  height: 40rem;
 }
 
 .logoText {
@@ -31,6 +31,7 @@
 
 .title {
   text-align: center;
+  font-size: 30rem;
   margin-bottom: 50rem;
 }
 
@@ -55,7 +56,6 @@
 }
 
 .input {
-  display: block;
   margin-top: 20rem;
   font-size: 24rem;
   width: 100%;
@@ -70,10 +70,7 @@
   display: flex;
   justify-content: space-between;
   gap: 10rem;
-}
-
-.leftSide input[type=radio] {
-  display: none;
+  width: 100%;
 }
 
 .innerLabel {
@@ -82,6 +79,16 @@
   padding: 10rem 20rem;
   border: solid 2rem rgb(144, 144, 144);
   border-radius: 10rem;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.leftSide input[type=radio] {
+  display: none;
+}
+
+.leftSide input[type=radio]:checked+.innerLabel {
+  border: 2rem solid #FA457E
 }
 
 .textarea {
@@ -96,8 +103,6 @@
   font-size: 24rem;
 }
 
-
-
 .rigthSide {
   display: flex;
   flex-direction: column;
@@ -105,10 +110,18 @@
   flex: 0 1 50%;
 }
 
+.iconContainer {
+  border-radius: 10rem;
+}
+
+.empty {
+  height: 20rem;
+}
+
 /*file input*/
 
-
 .inputFile {
+  cursor: pointer;
   margin-top: 20rem;
   display: flex;
 }
@@ -166,7 +179,6 @@
 
 .inputFile:active .inputFileBtn {
   background-color: rgb(243 68 185);
-
 }
 
 /* Disabled */
@@ -175,6 +187,77 @@
 }
 
 
-.iconContainer {
-  border-radius: 10rem;
+
+@media (width <=992px) {
+  .container {
+    max-width: 786rem;
+  }
+
+  .radioContainer {
+    gap: 5rem;
+  }
+
+  .innerLabel {
+    font-size: 20rem;
+    padding: 10rem 20rem;
+  }
+}
+
+@media (width <=768px) {
+  .container {
+    max-width: 586rem;
+  }
+
+  .innerLabel {
+    font-size: 16rem;
+    padding: 10rem 16rem;
+  }
+
+  .mainLabel {
+    font-size: 25rem;
+
+  }
+
+  .input {
+    margin-top: 10rem;
+    font-size: 16rem;
+  }
+
+  .textarea {
+    height: 120rem;
+    padding: 15rem;
+    font-size: 16rem;
+    margin-top: 10rem;
+  }
+}
+
+@media (width <=576px) {
+  .formContent {
+    gap: 10rem;
+    flex-direction: column;
+  }
+
+  .leftSide,
+  .rigthSide {
+    gap: 10rem;
+    margin-bottom: 10rem;
+  }
+
+  .radioContainer {
+    flex-direction: column;
+  }
+
+  .innerLabel {
+    font-size: 16rem;
+    padding: 10rem 16rem;
+    text-align: center;
+  }
+
+  .mainLabel {
+    font-size: 20rem;
+  }
+
+  .input {
+    margin-top: 10rem;
+  }
 }

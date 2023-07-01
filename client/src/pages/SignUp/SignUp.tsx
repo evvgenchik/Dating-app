@@ -42,53 +42,41 @@ function SignUp() {
               Birthday:
               <input
                 className={styles.input}
-                type='text'
+                type='date'
                 placeholder='Birthday'
               />
             </label>
 
-            <label className={styles.mainLabel}>
+            {/* <label className={styles.mainLabel}>
               Country:
               <input
                 className={styles.input}
                 type='text'
-                placeholder='Birthday'
+                placeholder='Country'
               />
-            </label>
+            </label> */}
 
             <label className={`${styles.mainLabel}`}>
               Gender:
               <div className={styles.radioContainer}>
-                <label className={styles.innerLabel}>
-                  Man
-                  <input type='radio' value='man' />
-                </label>
-                <label className={styles.innerLabel}>
-                  Wooman
-                  <input type='radio' value='wooman' />
-                </label>
-                <label className={styles.innerLabel}>
-                  Neutral
-                  <input type='radio' value='wooman' />
-                </label>
+                <input type='radio' value='man' />
+                <label className={styles.innerLabel}>Man</label>
+                <input type='radio' value='wooman' />
+                <label className={styles.innerLabel}>Wooman</label>
+                <input type='radio' value='neutral' />
+                <label className={styles.innerLabel}>Neutral</label>
               </div>
             </label>
 
             <label className={`${styles.mainLabel}`}>
               Looking for:
               <div className={styles.radioContainer}>
-                <label className={styles.innerLabel}>
-                  Man
-                  <input type='radio' value='man' />
-                </label>
-                <label className={styles.innerLabel}>
-                  Wooman
-                  <input type='radio' value='wooman' />
-                </label>
-                <label className={styles.innerLabel}>
-                  All
-                  <input type='radio' value='wooman' />
-                </label>
+                <input type='radio' value='man' />
+                <label className={styles.innerLabel}>Man</label>
+                <input type='radio' value='wooman' />
+                <label className={styles.innerLabel}>Wooman</label>
+                <input type='radio' value='wooman' />
+                <label className={styles.innerLabel}>Everyone</label>
               </div>
             </label>
 
@@ -125,6 +113,7 @@ function SignUp() {
 
         <MyButton className='signup-btn'>Submit</MyButton>
       </form>
+      <div className={styles.empty} />
     </div>
   );
 }
