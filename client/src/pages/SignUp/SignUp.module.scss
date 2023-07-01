@@ -81,6 +81,7 @@
   border-radius: 10rem;
   transition: all 0.3s;
   cursor: pointer;
+  position: relative;
 }
 
 .leftSide input[type=radio] {
@@ -118,6 +119,12 @@
   height: 20rem;
 }
 
+.error {
+  color: red;
+  font-size: 16rem;
+  margin-top: 3rem;
+}
+
 /*file input*/
 
 .inputFile {
@@ -127,6 +134,7 @@
 }
 
 .inputFileText {
+  overflow: hidden;
   text-align: left;
   display: block;
   float: left;
@@ -134,7 +142,7 @@
   width: 100%;
   border-radius: 6rem 0rem 0 6rem;
   border: 3px solid #ccc;
-  font-size: 24rem;
+  font-size: 12rem;
   padding: 10rem;
   height: 50rem;
 }
@@ -228,6 +236,10 @@
     padding: 15rem;
     font-size: 16rem;
     margin-top: 10rem;
+  }
+
+  .error {
+    font-size: 12rem;
   }
 }
 

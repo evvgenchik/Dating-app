@@ -4,6 +4,7 @@ import styles from './MyButton.module.scss';
 type Props = {
   className: string;
   children: string;
+  type?: 'button' | 'submit';
   onClick?: () => void;
 };
 
