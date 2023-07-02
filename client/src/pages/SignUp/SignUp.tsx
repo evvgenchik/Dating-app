@@ -20,8 +20,9 @@ enum LookingEnum {
 }
 
 interface AuthForm {
-  firstName: string;
+  login: string;
   password: string;
+  firstName: string;
   email: string;
   birthday: Date;
   country: string;
@@ -76,21 +77,25 @@ function SignUp() {
         <div className={styles.formContent}>
           <div className={styles.leftSide}>
             <label className={styles.mainLabel}>
-              First name:
+              Login:
               <input
-                {...register('firstName', {
-                  required: ERRORS.requiredFnMsg('First name'),
+                {...register('login', {
+                  required: ERRORS.requiredFnMsg('Login'),
+                  minLength: {
+                    value: 5,
+                    message: 'Login must contain at least 5 symbols',
+                  },
                   pattern: {
-                    value: /^[A-Z]+[a-z]/g,
-                    message: 'Name must start with a capital letter',
+                    value: /^\S+\S$/g,
+                    message: "Login mustn't contain spaces",
                   },
                 })}
                 className={styles.input}
                 type='text'
-                placeholder='First name'
+                placeholder='Login'
               />
-              {errors.firstName && (
-                <p className={styles.error}>{errors.firstName.message}</p>
+              {errors.login && (
+                <p className={styles.error}>{errors.login.message}</p>
               )}
             </label>
 
@@ -110,6 +115,25 @@ function SignUp() {
               />
               {errors.password && (
                 <p className={styles.error}>{errors.password.message}</p>
+              )}
+            </label>
+
+            <label className={styles.mainLabel}>
+              First name:
+              <input
+                {...register('firstName', {
+                  required: ERRORS.requiredFnMsg('First name'),
+                  pattern: {
+                    value: /^[A-Z]+[a-z]/g,
+                    message: 'Name must start with a capital letter',
+                  },
+                })}
+                className={styles.input}
+                type='text'
+                placeholder='First name'
+              />
+              {errors.firstName && (
+                <p className={styles.error}>{errors.firstName.message}</p>
               )}
             </label>
 
@@ -223,10 +247,8 @@ function SignUp() {
               )}
             </label>
 
-            <div>
-              <label className={styles.mainLabel}>
-                Brief description of yourself
-              </label>
+            <label className={styles.mainLabel}>
+              Brief description of yourself
               <textarea
                 {...register('descriptrion', {
                   required: ERRORS.requiredFnMsg('Description'),
@@ -248,7 +270,7 @@ function SignUp() {
               {errors.descriptrion && (
                 <p className={styles.error}>{errors.descriptrion.message}</p>
               )}
-            </div>
+            </label>
           </div>
 
           <div className={styles.rigthSide}>
