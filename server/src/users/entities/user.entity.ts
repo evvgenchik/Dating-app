@@ -9,7 +9,6 @@ export class UserEntity {
   firstName: string;
   email: string;
   birthday: string;
-  country: string;
   gender: string;
   looking: string;
   descriptrion: string;

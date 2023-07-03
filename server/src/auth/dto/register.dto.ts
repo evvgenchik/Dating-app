@@ -4,6 +4,7 @@ import {
   Length,
   MinLength,
   IsNotEmpty,
+  IsDate,
 } from 'class-validator';
 
 export class RegisterDto {
@@ -19,9 +20,6 @@ export class RegisterDto {
   @IsString({ message: '$property must be a string' })
   @IsNotEmpty()
   birthday: string;
-  @IsString({ message: '$property must be a string' })
-  @IsNotEmpty()
-  country: string;
   @IsString({ message: '$property must be a string' })
   @IsNotEmpty()
   gender: string;
