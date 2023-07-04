@@ -1,18 +1,64 @@
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useState, ChangeEvent } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import axios from '../../api/axios';
 import heart from '../../assets/Home/heart2.svg';
 import styles from './Home.module.scss';
 import Modal from '../../components/Modal/Modal';
 import MyButton from '../../components/UI/Button/MyButton';
+import checkRed from '../../assets/checkRed.svg';
+
+const LOGIN_URL = '/auth/login';
+
+interface UserLogin {
+  email: string;
+  password: string;
+}
 
 const Home = () => {
+  const navigate = useNavigate();
   const [modalActive, setModalActive] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [userName, setUserName] = useState('');
+  const [authError, setAuthError] = useState('');
+  const [authData, setAuthData] = useState({
+    email: '',
+    password: '',
+  });
 
-  const handleSubmit = (e) => {
+  const login = async (userAuthData: UserLogin) => {
+    try {
+      const res = await axios.post(LOGIN_URL, userAuthData);
+      return res.data;
+    } catch (error) {
+      console.error(error);
+
+      if (error?.response?.status === 401) {
+        setAuthError('Incorrect email or password');
+      }
+      return null;
+    }
+  };
+
+  const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('br');
-    setSuccess(true);
+    const user = await login(authData);
+
+    if (user) {
+      setAuthError('');
+      setSuccess(true);
+      setUserName(user.firstName);
+      setTimeout(() => navigate('/app'), 2000);
+    }
+    return user;
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+
+    setAuthData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   return (
@@ -40,9 +86,15 @@ const Home = () => {
 
         <Modal active={modalActive} setActive={setModalActive}>
           {success ? (
-            <div>
-              Logged
-              <h1>Logged</h1>
+            <div className='success-popup'>
+              <h2 className='success-title'>
+                Authorization successfull{' '}
+                <img className='check-mark' src={checkRed} alt='check mark' />
+              </h2>
+              <h3 className='success-text'>
+                Welocome, <span className={styles.name}>{userName}</span>!
+                <p>Hope you are enjoy our app</p>
+              </h3>
             </div>
           ) : (
             <div className={styles.login}>
@@ -52,16 +104,23 @@ const Home = () => {
                   <input
                     className={styles.modalinput}
                     type='text'
-                    placeholder='username'
+                    placeholder='Email'
+                    name='email'
+                    value={authData.email}
+                    onChange={handleChange}
                   />
                 </label>
                 <label className={styles.modallabel}>
                   <input
                     className={styles.modalinput}
                     type='password'
-                    placeholder='password'
+                    placeholder='Password'
+                    name='password'
+                    value={authData.password}
+                    onChange={handleChange}
                   />
                 </label>
+                <span className={styles.error}>{authError}</span>
                 <MyButton type='submit' className='modal-btn'>
                   Login
                 </MyButton>

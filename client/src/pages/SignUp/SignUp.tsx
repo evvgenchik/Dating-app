@@ -1,11 +1,4 @@
-/* eslint-disable no-console */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import {
-  SubmitErrorHandler,
-  SubmitHandler,
-  useForm,
-  Controller,
-} from 'react-hook-form';
+import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { ChangeEvent, useState } from 'react';
 import axios from '../../api/axios';
@@ -14,6 +7,7 @@ import MyButton from '../../components/UI/Button/MyButton';
 import styles from './SignUp.module.scss';
 import heart from '../../assets/Home/heart2.svg';
 import Modal from '../../components/Modal/Modal';
+import checkRed from '../../assets/checkRed.svg';
 
 enum GenderEnum {
   female = 'female',
@@ -23,11 +17,10 @@ enum GenderEnum {
 enum LookingEnum {
   female = 'female',
   male = 'male',
-  neutral = 'neutral',
+  everyone = 'everyone',
 }
 
 interface AuthForm {
-  // login: string;
   password: string;
   firstName: string;
   email: string;
@@ -49,14 +42,14 @@ const IMAGE_URL = '/image/upload';
 function SignUp() {
   const navigate = useNavigate();
   const [avatarSrc, setAvatarSrc] = useState('');
-  const [modalActive, setModalActive] = useState(true);
-  const [success, setSuccess] = useState(true);
+  const [success, setSuccess] = useState(false);
 
   const {
     register,
     handleSubmit,
     reset,
     control,
+    setError,
     formState: { errors },
   } = useForm<AuthForm>({ mode: 'onBlur', reValidateMode: 'onChange' });
 
@@ -68,7 +61,7 @@ function SignUp() {
       const fileData = res.data.url;
       return fileData;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return error;
     }
   };
@@ -76,20 +69,33 @@ function SignUp() {
   const sendUser = async (user: AuthForm) => {
     try {
       const res = await axios.post(REGISTER_URL, user);
-      console.log(`Server auth res ${res}`);
+      return res.data;
     } catch (error) {
-      console.log(error);
-      console.log(error?.response?.data?.message);
+      console.error(error);
+      if (error?.response?.status === 409) {
+        setError(
+          'email',
+          {
+            type: 'custom',
+            message: 'User with this email already exists',
+          },
+          { shouldFocus: true }
+        );
+      }
+      return null;
     }
   };
 
   const submitHandler: SubmitHandler<AuthForm> = async (data) => {
     const avatar = await sendImage(data.avatar);
-    await sendUser({ ...data, avatar });
-    navigate('/');
-  };
-  const submitErrorHandler: SubmitErrorHandler<AuthForm> = (data) => {
-    console.log(data);
+    const user = await sendUser({ ...data, avatar });
+
+    if (user) {
+      reset();
+      setSuccess(true);
+      setTimeout(() => navigate('/'), 3000);
+    }
+    return user;
   };
 
   const fileInputHandler = (e: ChangeEvent) => {
@@ -108,10 +114,7 @@ function SignUp() {
         </div>
       </div>
 
-      <form
-        className={styles.form}
-        onSubmit={handleSubmit(submitHandler, submitErrorHandler)}
-      >
+      <form className={styles.form} onSubmit={handleSubmit(submitHandler)}>
         <h1 className={styles.title}>CREATE ACCOUNT</h1>
         <div className={styles.formContent}>
           <div className={styles.leftSide}>
@@ -363,20 +366,21 @@ function SignUp() {
         </MyButton>
       </form>
 
-      {success && (
-        <Modal active={modalActive} setActive={setModalActive}>
-          <div className={styles.successPopup}>
-            <h2 className={styles.successTitle}>Awesome!</h2>
-            <h3 className={styles.successSubTitle}>
-              Your profile was successfully created.
-            </h3>
-            <p className={styles.successText}>Thank you for your time!</p>
-            <p className={styles.successText}>
-              Now you will be redirected to main page for authorization.
-            </p>
-          </div>
-        </Modal>
-      )}
+      <Modal active={success} setActive={setSuccess}>
+        <div className='success-popup'>
+          <h2 className='success-title'>
+            Awesome!
+            <img className='check-mark' src={checkRed} alt='checkMark' />
+          </h2>
+          <h3 className='success-sub-title'>
+            Your profile was successfully created.
+          </h3>
+          <p className='success-text'>Thank you for your time!</p>
+          <p className='success-text'>
+            Now you will be redirected to main page for authorization.
+          </p>
+        </div>
+      </Modal>
 
       <div className={styles.empty} />
     </div>

@@ -87,6 +87,15 @@
   font-size: 18rem;
 }
 
+.error {
+  color: red;
+  font-size: 16rem;
+}
+
+.name {
+  font-weight: 700;
+}
+
 @media (width <=992px) {
   .container {
     max-width: 786px;
@@ -160,6 +169,11 @@
 
     .modalfrom {
       gap: 15rem;
+    }
+
+    .error {
+      color: red;
+      font-size: 14rem;
     }
   }
 }

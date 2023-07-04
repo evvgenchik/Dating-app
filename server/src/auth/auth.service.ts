@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
@@ -32,7 +37,7 @@ export class AuthService {
       await this.verifyPassword(password, user.password);
       return user;
     } catch (error) {
-      throw new BadRequestException('Wrong credentials provided');
+      throw new UnauthorizedException('Wrong credentials provided');
     }
   }
 
@@ -46,7 +51,7 @@ export class AuthService {
   private async verifyPassword(password: string, hashedPassword: string) {
     const isPasswordMatching = await bcrypt.compare(password, hashedPassword);
     if (!isPasswordMatching) {
-      throw new BadRequestException('Wrong credentials provided');
+      throw new UnauthorizedException('Wrong credentials provided');
     }
   }
 

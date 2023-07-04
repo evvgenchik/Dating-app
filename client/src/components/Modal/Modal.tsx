@@ -18,12 +18,14 @@ const Modal: FC<Props> = ({ active, setActive, children }) => {
     }
   };
 
-  useEffect(() => {
-    if (popup.current) {
-      const input = popup.current as HTMLDivElement;
-      input.focus();
-    }
-  });
+  // Try to make focus on!!!
+
+  // useEffect(() => {
+  //   if (popup.current) {
+  //     const input = popup.current as HTMLDivElement;
+  //     input.focus();
+  //   }
+  // });
 
   return (
     <div
