@@ -13,6 +13,7 @@ import { birthdayValidator, avatarValidator } from './signUpValidator';
 import MyButton from '../../components/UI/Button/MyButton';
 import styles from './SignUp.module.scss';
 import heart from '../../assets/Home/heart2.svg';
+import Modal from '../../components/Modal/Modal';
 
 enum GenderEnum {
   female = 'female',
@@ -48,6 +49,9 @@ const IMAGE_URL = '/image/upload';
 function SignUp() {
   const navigate = useNavigate();
   const [avatarSrc, setAvatarSrc] = useState('');
+  const [modalActive, setModalActive] = useState(true);
+  const [success, setSuccess] = useState(true);
+
   const {
     register,
     handleSubmit,
@@ -71,7 +75,7 @@ function SignUp() {
 
   const sendUser = async (user: AuthForm) => {
     try {
-      const res = await axios.post(REGISTER_URL, JSON.stringify(user));
+      const res = await axios.post(REGISTER_URL, user);
       console.log(`Server auth res ${res}`);
     } catch (error) {
       console.log(error);
@@ -82,6 +86,7 @@ function SignUp() {
   const submitHandler: SubmitHandler<AuthForm> = async (data) => {
     const avatar = await sendImage(data.avatar);
     await sendUser({ ...data, avatar });
+    navigate('/');
   };
   const submitErrorHandler: SubmitErrorHandler<AuthForm> = (data) => {
     console.log(data);
@@ -357,6 +362,22 @@ function SignUp() {
           Submit
         </MyButton>
       </form>
+
+      {success && (
+        <Modal active={modalActive} setActive={setModalActive}>
+          <div className={styles.successPopup}>
+            <h2 className={styles.successTitle}>Awesome!</h2>
+            <h3 className={styles.successSubTitle}>
+              Your profile was successfully created.
+            </h3>
+            <p className={styles.successText}>Thank you for your time!</p>
+            <p className={styles.successText}>
+              Now you will be redirected to main page for authorization.
+            </p>
+          </div>
+        </Modal>
+      )}
+
       <div className={styles.empty} />
     </div>
   );

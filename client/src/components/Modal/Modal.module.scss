@@ -31,3 +31,18 @@
 .content.active {
   transform: scale(1);
 }
+
+
+.closeButton {
+  position: absolute;
+  top: 3%;
+  right: 2%;
+  width: 7%;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+
+  .closeButtonImg {
+    width: 100%;
+  }
+}

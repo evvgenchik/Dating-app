@@ -1,5 +1,6 @@
 import { FC, useEffect, useRef } from 'react';
 import styles from './Modal.module.scss';
+import closeBlack from '../../assets/closeBlack.svg';
 
 type Props = {
   active: boolean;
@@ -43,6 +44,17 @@ const Modal: FC<Props> = ({ active, setActive, children }) => {
         }
       >
         {children}
+        <button
+          type='button'
+          className={styles.closeButton}
+          onClick={() => setActive(false)}
+        >
+          <img
+            className={styles.closeButtonImg}
+            src={closeBlack}
+            alt='close button'
+          />
+        </button>
       </div>
     </div>
   );

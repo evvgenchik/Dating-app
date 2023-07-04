@@ -1,4 +1,4 @@
-import { FormEventHandler, useState } from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import heart from '../../assets/Home/heart2.svg';
 import styles from './Home.module.scss';
