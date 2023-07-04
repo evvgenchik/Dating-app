@@ -7,7 +7,7 @@ import {
   Controller,
 } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import axios from '../../api/axios';
 import { birthdayValidator, avatarValidator } from './signUpValidator';
 import MyButton from '../../components/UI/Button/MyButton';
@@ -52,17 +52,12 @@ function SignUp() {
     register,
     handleSubmit,
     reset,
-    setValue,
-    trigger,
-    getValues,
     control,
     formState: { errors },
   } = useForm<AuthForm>({ mode: 'onBlur', reValidateMode: 'onChange' });
-  console.log(errors);
 
-  const sendImage = async (fileObj) => {
+  const sendImage = async (file: File) => {
     try {
-      const file = fileObj[0];
       const formData = new FormData();
       formData.append('file', file);
       const res = await axios.post(IMAGE_URL, formData);
@@ -74,7 +69,7 @@ function SignUp() {
     }
   };
 
-  const sendUser = async (user) => {
+  const sendUser = async (user: AuthForm) => {
     try {
       const res = await axios.post(REGISTER_URL, JSON.stringify(user));
       console.log(`Server auth res ${res}`);
@@ -92,8 +87,10 @@ function SignUp() {
     console.log(data);
   };
 
-  const fileInputHandler = (e) => {
-    const fileSrc = URL.createObjectURL(e.target.files[0]);
+  const fileInputHandler = (e: ChangeEvent) => {
+    const target = e.target as HTMLInputElement;
+    const files = target.files as FileList;
+    const fileSrc = URL.createObjectURL(files[0]);
     setAvatarSrc(fileSrc);
   };
 
