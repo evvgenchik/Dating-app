@@ -10,10 +10,9 @@ const birthdayValidator = (birthDate: Date) => {
   return (age >= 18 && age <= 111) || 'Please, enter a valid date';
 };
 
-const avatarValidator = (file) => {
+const avatarValidator = (file: File) => {
   return (
-    (file[0] && file[0].type.split('/')[0] === 'image') ||
-    'Please, add correct image format'
+    file.type.split('/')[0] === 'image' || 'Please, add correct image format'
   );
 };
 

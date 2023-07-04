@@ -1,8 +1,14 @@
 /* eslint-disable no-console */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import {
+  SubmitErrorHandler,
+  SubmitHandler,
+  useForm,
+  Controller,
+} from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import axios from '../../api/axios';
 import { birthdayValidator, avatarValidator } from './signUpValidator';
 import MyButton from '../../components/UI/Button/MyButton';
 import styles from './SignUp.module.scss';
@@ -20,7 +26,7 @@ enum LookingEnum {
 }
 
 interface AuthForm {
-  login: string;
+  // login: string;
   password: string;
   firstName: string;
   email: string;
@@ -29,12 +35,15 @@ interface AuthForm {
   gender: GenderEnum;
   looking: LookingEnum;
   descriptrion: string;
-  avatar: string;
+  avatar: File;
 }
 
 const ERRORS = {
   requiredFnMsg: (field: string) => `${field} is required`,
 };
+
+const REGISTER_URL = '/auth/register';
+const IMAGE_URL = '/image/upload';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -44,12 +53,40 @@ function SignUp() {
     handleSubmit,
     reset,
     setValue,
+    trigger,
+    getValues,
+    control,
     formState: { errors },
-  } = useForm<AuthForm>({});
+  } = useForm<AuthForm>({ mode: 'onBlur', reValidateMode: 'onChange' });
+  console.log(errors);
 
-  const submitHandler: SubmitHandler<AuthForm> = (data) => {
-    console.log(data);
-    reset();
+  const sendImage = async (fileObj) => {
+    try {
+      const file = fileObj[0];
+      const formData = new FormData();
+      formData.append('file', file);
+      const res = await axios.post(IMAGE_URL, formData);
+      const fileData = res.data.url;
+      return fileData;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  };
+
+  const sendUser = async (user) => {
+    try {
+      const res = await axios.post(REGISTER_URL, JSON.stringify(user));
+      console.log(`Server auth res ${res}`);
+    } catch (error) {
+      console.log(error);
+      console.log(error?.response?.data?.message);
+    }
+  };
+
+  const submitHandler: SubmitHandler<AuthForm> = async (data) => {
+    const avatar = await sendImage(data.avatar);
+    await sendUser({ ...data, avatar });
   };
   const submitErrorHandler: SubmitErrorHandler<AuthForm> = (data) => {
     console.log(data);
@@ -77,25 +114,32 @@ function SignUp() {
         <div className={styles.formContent}>
           <div className={styles.leftSide}>
             <label className={styles.mainLabel}>
-              Login:
+              Email:
               <input
-                {...register('login', {
-                  required: ERRORS.requiredFnMsg('Login'),
-                  minLength: {
-                    value: 5,
-                    message: 'Login must contain at least 5 symbols',
-                  },
+                {...register('email', {
+                  required: ERRORS.requiredFnMsg('Email'),
                   pattern: {
-                    value: /^\S+\S$/g,
-                    message: "Login mustn't contain spaces",
+                    value: /\S+@\S+\.\S+/,
+                    message: 'Entered value does not match email format',
                   },
                 })}
+                // {...register('login', {
+                //   required: ERRORS.requiredFnMsg('Login'),
+                //   minLength: {
+                //     value: 5,
+                //     message: 'Login must contain at least 5 symbols',
+                //   },
+                //   pattern: {
+                //     value: /^\S+\S$/g,
+                //     message: "Login mustn't contain spaces",
+                //   },
+                // })}
                 className={styles.input}
-                type='text'
-                placeholder='Login'
+                type='email'
+                placeholder='Email'
               />
-              {errors.login && (
-                <p className={styles.error}>{errors.login.message}</p>
+              {errors.email && (
+                <p className={styles.error}>{errors.email.message}</p>
               )}
             </label>
 
@@ -125,7 +169,8 @@ function SignUp() {
                   required: ERRORS.requiredFnMsg('First name'),
                   pattern: {
                     value: /^[A-Z]+[a-z]/g,
-                    message: 'Name must start with a capital letter',
+                    message:
+                      "Name must start with a capital letter and doesn't contain spaces",
                   },
                 })}
                 className={styles.input}
@@ -153,15 +198,6 @@ function SignUp() {
                 <p className={styles.error}>{errors.birthday.message}</p>
               )}
             </label>
-
-            {/* <label className={styles.mainLabel}>
-              Country:
-              <input
-                className={styles.input}
-                type='text'
-                placeholder='Country'
-              />
-            </label> */}
 
             <label className={`${styles.mainLabel}`}>
               Gender:
@@ -249,8 +285,8 @@ function SignUp() {
 
             <label className={styles.mainLabel}>
               Brief description of yourself
-              <textarea
-                {...register('descriptrion', {
+              <Controller
+                rules={{
                   required: ERRORS.requiredFnMsg('Description'),
                   minLength: {
                     value: 10,
@@ -260,12 +296,17 @@ function SignUp() {
                     value: 50,
                     message: 'Description must contain no more than 50 symbols',
                   },
-                })}
-                className={styles.textarea}
-                onChange={(e) => setValue('descriptrion', e.target.value)}
-                name='description'
-                id='description'
-                placeholder='Type your answer here'
+                }}
+                name='descriptrion'
+                control={control}
+                render={({ field: { onChange, onBlur } }) => (
+                  <textarea
+                    className={styles.textarea}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    placeholder='Type your answer here'
+                  />
+                )}
               />
               {errors.descriptrion && (
                 <p className={styles.error}>{errors.descriptrion.message}</p>
@@ -278,14 +319,23 @@ function SignUp() {
               Profile photo:
               <div className={styles.inputFile}>
                 <span className={styles.inputFileText}>{avatarSrc}</span>
-                <input
-                  {...register('avatar', {
+                <Controller
+                  rules={{
                     required: ERRORS.requiredFnMsg('Photo'),
                     validate: avatarValidator,
-                  })}
-                  onChange={fileInputHandler}
-                  className={styles.input}
-                  type='file'
+                  }}
+                  name='avatar'
+                  control={control}
+                  render={({ field: { onChange } }) => (
+                    <input
+                      onChange={(e) => {
+                        fileInputHandler(e);
+                        onChange(e.target.files[0]);
+                      }}
+                      className={styles.input}
+                      type='file'
+                    />
+                  )}
                 />
                 <span className={styles.inputFileBtn}>Выберите файл</span>
               </div>
