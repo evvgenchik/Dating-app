@@ -32,7 +32,8 @@ export class EmailConfirmService {
       text: '',
       html: `
       <div>
-        <h1>Activation Link</h1>
+        <h1 style="text-align:center">Dating App</h1>
+        <h2>Activation Link:</h2>
         <a href="${url}">${url}</a>
       </div>
       `,

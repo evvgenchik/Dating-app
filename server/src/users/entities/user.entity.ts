@@ -14,12 +14,11 @@ export class UserEntity {
   descriptrion: string;
   avatar: string;
   createdAt: Date;
+  isEmailConfirmed: boolean;
 
   @Exclude()
   hashedRefreshToken?: string;
 
   @Exclude()
   password: string;
-
-  isEmailConfirmed: boolean;
 }

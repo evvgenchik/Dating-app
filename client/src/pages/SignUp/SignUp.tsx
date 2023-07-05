@@ -25,7 +25,6 @@ interface AuthForm {
   firstName: string;
   email: string;
   birthday: Date;
-  country: string;
   gender: GenderEnum;
   looking: LookingEnum;
   descriptrion: string;
@@ -375,7 +374,10 @@ function SignUp() {
           <h3 className='success-sub-title'>
             Your profile was successfully created.
           </h3>
-          <p className='success-text'>Thank you for your time!</p>
+          <p className='success-text'>
+            Thank you for your time! We sand message on your email. Please
+            confirm it.
+          </p>
           <p className='success-text'>
             Now you will be redirected to main page for authorization.
           </p>

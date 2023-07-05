@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
 import heart from '../../assets/Home/heart2.svg';
@@ -6,6 +6,7 @@ import styles from './Home.module.scss';
 import Modal from '../../components/Modal/Modal';
 import MyButton from '../../components/UI/Button/MyButton';
 import checkRed from '../../assets/checkRed.svg';
+import useAuth from '../../components/hooks/useAuth';
 
 const LOGIN_URL = '/auth/login';
 
@@ -15,6 +16,7 @@ interface UserLogin {
 }
 
 const Home = () => {
+  const { setUser } = useAuth();
   const navigate = useNavigate();
   const [modalActive, setModalActive] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -47,6 +49,7 @@ const Home = () => {
       setAuthError('');
       setSuccess(true);
       setUserName(user.firstName);
+      setUser(user);
       setTimeout(() => navigate('/app'), 2000);
     }
     return user;
