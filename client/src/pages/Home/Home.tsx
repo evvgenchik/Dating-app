@@ -6,7 +6,7 @@ import styles from './Home.module.scss';
 import Modal from '../../components/Modal/Modal';
 import MyButton from '../../components/UI/Button/MyButton';
 import checkRed from '../../assets/checkRed.svg';
-import useAuth from '../../components/hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 
 const LOGIN_URL = '/auth/login';
 
@@ -29,7 +29,7 @@ const Home = () => {
 
   const login = async (userAuthData: UserLogin) => {
     try {
-      const res = await axios.post(LOGIN_URL, userAuthData);
+      const res = await axios.post<UserType>(LOGIN_URL, userAuthData);
       return res.data;
     } catch (error) {
       console.error(error);

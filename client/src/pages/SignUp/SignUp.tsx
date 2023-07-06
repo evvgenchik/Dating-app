@@ -67,7 +67,7 @@ function SignUp() {
 
   const sendUser = async (user: AuthForm) => {
     try {
-      const res = await axios.post(REGISTER_URL, user);
+      const res = await axios.post<UserType>(REGISTER_URL, user);
       return res.data;
     } catch (error) {
       console.error(error);

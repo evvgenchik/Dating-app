@@ -5,7 +5,7 @@ import Match from '../../pages/Match/Match';
 import NotFound from '../../pages/Error/NotFound';
 import MainLayout from '../../layouts/MainLayout';
 import SignUp from '../../pages/SignUp/SignUp';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 
 const AppRouter = () => {
   const { user } = useAuth();
