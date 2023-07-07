@@ -1,5 +1,5 @@
 import styles from './Logo.module.scss';
-import heart from '../../../assets/Home/heart2.svg';
+import heart from '@/../assets/Home/heart2.svg';
 
 function Logo() {
   return (

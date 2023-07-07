@@ -1,5 +1,5 @@
 import styles from './UserBlockMatch.module.scss';
-import icon from '../../assets/signUp/girl.jpg';
+import icon from '@/assets/signUp/girl.jpg';
 import Matches from './Matches/Matches';
 
 function UserBlockMatch() {

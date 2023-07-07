@@ -1,5 +1,5 @@
 import styles from './About.module.scss';
-import hands from '../../assets/match/hands.webp';
+import hands from '@/assets/match/hands.webp';
 
 function About() {
   return (

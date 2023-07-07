@@ -1,14 +1,14 @@
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { ChangeEvent, useState } from 'react';
-import axios from '../../api/axios';
+import axios from '@/api/axios';
 import { birthdayValidator, avatarValidator } from './signUpValidator';
-import MyButton from '../../components/UI/Button/MyButton';
+import MyButton from '@/components/UI/Button/MyButton';
 import styles from './SignUp.module.scss';
-import heart from '../../assets/Home/heart2.svg';
-import Modal from '../../components/Modal/Modal';
-import checkRed from '../../assets/checkRed.svg';
-import Loader from '../../components/UI/Loader/Loader';
+import heart from '@/assets/Home/heart2.svg';
+import Modal from '@/components/Modal/Modal';
+import checkRed from '@/assets/checkRed.svg';
+import Loader from '@/components/UI/Loader/Loader';
 
 enum GenderEnum {
   female = 'female',

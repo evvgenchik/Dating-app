@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef } from 'react';
 import styles from './Modal.module.scss';
-import closeBlack from '../../assets/closeBlack.svg';
+import closeBlack from '@/assets/closeBlack.svg';
 
 type Props = {
   active: boolean;

@@ -1,12 +1,13 @@
 import { useState, ChangeEvent, useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import axios from '../../api/axios';
-import heart from '../../assets/Home/heart2.svg';
 import styles from './Home.module.scss';
-import Modal from '../../components/Modal/Modal';
-import MyButton from '../../components/UI/Button/MyButton';
-import checkRed from '../../assets/checkRed.svg';
-import useAuth from '../../hooks/useAuth';
+import heart from '@/assets/Home/heart2.svg';
+import checkRed from '@/assets/checkRed.svg';
+import axios from '@/api/axios';
+import Modal from '@/components/Modal/Modal';
+import Loader from '@/components/UI/Loader/Loader';
+import useAuth from '@/hooks/useAuth';
+import MyButton from '@/components/UI/Button/MyButton';
 
 const LOGIN_URL = '/auth/login';
 
@@ -18,6 +19,7 @@ interface UserLogin {
 const Home = () => {
   const { setUser } = useAuth();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [modalActive, setModalActive] = useState(false);
   const [success, setSuccess] = useState(false);
   const [userName, setUserName] = useState('');
@@ -45,6 +47,7 @@ const Home = () => {
 
   const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     const user = await login(authData);
 
     if (user) {
@@ -54,6 +57,7 @@ const Home = () => {
       setUser(user);
       setTimeout(() => navigate('/app'), 2000);
     }
+    setIsLoading(false);
     return user;
   };
 
@@ -146,6 +150,8 @@ const Home = () => {
             </div>
           )}
         </Modal>
+
+        {isLoading && <Loader />}
       </div>
     </div>
   );

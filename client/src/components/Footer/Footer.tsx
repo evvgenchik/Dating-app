@@ -1,6 +1,6 @@
 import styles from './Footer.module.scss';
 import Logo from '../UI/Logo/Logo';
-import git from '../../assets/github-white.svg';
+import git from '@/assets/github-white.svg';
 
 function Footer() {
   return (

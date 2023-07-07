@@ -1,5 +1,5 @@
 import styles from './Swiper.module.scss';
-import icon from '../../../assets/signUp/girl.jpg';
+import icon from '@/../assets/signUp/girl.jpg';
 import PanelControl from './PanelControl/PanelControl';
 
 function Swiper() {
