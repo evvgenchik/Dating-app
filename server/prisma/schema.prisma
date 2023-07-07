@@ -16,7 +16,6 @@ model User {
   password String 
   firstName String @map("first_name")
   birthday String
-  country String
   gender String
   looking String
   descriptrion String

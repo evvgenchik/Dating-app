@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { createTransport } from 'nodemailer';
 import * as Mail from 'nodemailer/lib/mailer';
 import { ConfigService } from '@nestjs/config';
+import { InvalidMailException } from 'src/common/exceptions/invalidMail.exception';
 
 @Injectable()
 export class MailService {
@@ -19,7 +20,11 @@ export class MailService {
     });
   }
 
-  sendMail(options: Mail.Options) {
-    return this.nodemailerTransport.sendMail(options);
+  async sendMail(options: Mail.Options) {
+    try {
+      await this.nodemailerTransport.sendMail(options);
+    } catch (error) {
+      if (error.responseCode === 550) throw new InvalidMailException();
+    }
   }
 }

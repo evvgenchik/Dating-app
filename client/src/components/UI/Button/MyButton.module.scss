@@ -27,4 +27,37 @@
   font-size: 30rem;
   margin: 0 auto;
   display: block;
+
+}
+
+@media (width <=768px) {
+  .modal-btn {
+    font-size: 12rem;
+    padding: 3rem 5rem;
+    min-width: 40rem;
+  }
+
+  .home-button {
+    font-size: 22rem;
+    padding: 21rem 45rem;
+  }
+}
+
+@media (width <=576px) {
+  .modal-btn {
+    font-size: 10rem;
+    padding: 3rem 5rem;
+    min-width: 40rem;
+  }
+
+  .home-button {
+    font-size: 16rem;
+    padding: 20rem 40rem;
+  }
+
+  .signup-btn {
+    padding: 15rem 20rem;
+    width: 180rem;
+    font-size: 20rem;
+  }
 }

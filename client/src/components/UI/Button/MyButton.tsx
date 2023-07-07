@@ -1,9 +1,10 @@
-import styles from './MyButton.module.scss';
 import { FC } from 'react';
+import styles from './MyButton.module.scss';
 
 type Props = {
   className: string;
   children: string;
+  type?: 'button' | 'submit';
   onClick?: () => void;
 };
 
@@ -11,7 +12,7 @@ const MyButton: FC<Props> = ({ className, children, ...props }) => {
   return (
     <button
       type='button'
-      className={`${styles[className]} ${styles.myBtn}`}
+      className={`${styles.myBtn} ${styles[className] ?? styles[className]} `}
       {...props}
     >
       {children}

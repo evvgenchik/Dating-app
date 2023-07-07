@@ -9,18 +9,16 @@ export class UserEntity {
   firstName: string;
   email: string;
   birthday: string;
-  country: string;
   gender: string;
   looking: string;
   descriptrion: string;
   avatar: string;
   createdAt: Date;
+  isEmailConfirmed: boolean;
 
   @Exclude()
   hashedRefreshToken?: string;
 
   @Exclude()
   password: string;
-
-  isEmailConfirmed: boolean;
 }

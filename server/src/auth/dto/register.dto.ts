@@ -21,9 +21,6 @@ export class RegisterDto {
   birthday: string;
   @IsString({ message: '$property must be a string' })
   @IsNotEmpty()
-  country: string;
-  @IsString({ message: '$property must be a string' })
-  @IsNotEmpty()
   gender: string;
   @IsString({ message: '$property must be a string' })
   @IsNotEmpty()

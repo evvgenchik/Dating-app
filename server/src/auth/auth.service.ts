@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
@@ -32,7 +37,7 @@ export class AuthService {
       await this.verifyPassword(password, user.password);
       return user;
     } catch (error) {
-      throw new BadRequestException('Wrong credentials provided');
+      throw new UnauthorizedException('Wrong credentials provided');
     }
   }
 
@@ -46,15 +51,19 @@ export class AuthService {
   private async verifyPassword(password: string, hashedPassword: string) {
     const isPasswordMatching = await bcrypt.compare(password, hashedPassword);
     if (!isPasswordMatching) {
-      throw new BadRequestException('Wrong credentials provided');
+      throw new UnauthorizedException('Wrong credentials provided');
     }
   }
 
   getCookieWithJwtToken(userId: string) {
     const payload: TokenPayload = { userId };
-    const token = this.jwtService.sign(payload);
+    const token = this.jwtService.sign(payload, {
+      secret: this.configService.get('JWT_SECRET_REFRESH_KEY'),
+      expiresIn: this.configService.get('TOKEN_REFRESH_EXPIRE_TIME'),
+    });
+
     return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get(
-      'JWT_EXPIRATION_TIME',
+      'TOKEN_EXPIRE_TIME',
     )}`;
   }
 
@@ -64,8 +73,9 @@ export class AuthService {
       secret: this.configService.get('JWT_SECRET_REFRESH_KEY'),
       expiresIn: this.configService.get('TOKEN_REFRESH_EXPIRE_TIME'),
     });
+
     const refreshTokenCookie = `Refresh=${refreshToken}; HttpOnly; Path=/; Max-Age=${this.configService.get(
-      'JTOKEN_REFRESH_EXPIRE_TIME',
+      'TOKEN_REFRESH_EXPIRE_TIME',
     )}`;
     return {
       refreshTokenCookie,

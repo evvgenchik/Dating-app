@@ -1,8 +1,12 @@
-interface routerType {
-  title: string;
-  path: string;
-  element: JSX.Element;
-  index?: boolean;
-}
-
-export type { routerType };
+type UserType = {
+  id: string;
+  email: string;
+  firstName: string;
+  birthday: string;
+  gender: string;
+  looking: string;
+  descriptrion: string;
+  avatar: string;
+  createdAt: Date;
+  isEmailConfirmed: boolean;
+};

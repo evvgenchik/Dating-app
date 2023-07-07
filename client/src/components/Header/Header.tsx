@@ -1,6 +1,6 @@
 import Menu from './Menu/Menu';
 import styles from './Header.module.scss';
-import icon from '../../assets/signUp/girl.jpg';
+import icon from '@/assets/signUp/girl.jpg';
 import Logo from '../UI/Logo/Logo';
 
 function Header() {

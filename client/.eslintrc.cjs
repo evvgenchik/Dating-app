@@ -4,7 +4,6 @@ module.exports = {
     es2021: true,
   },
   extends: [
-    'airbnb',
     'airbnb-typescript',
     'airbnb/hooks',
     'plugin:react/recommended',
@@ -17,11 +16,22 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    tsconfigRootDir: __dirname,
     project: './tsconfig.json',
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
-    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
+    'no-console': ['error', { allow: ['warn', 'error', 'log'] }],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'no-param-reassign': [2, { props: false }],
     'react/react-in-jsx-scope': 0,

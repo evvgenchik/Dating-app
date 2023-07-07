@@ -1,8 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { UsersService } from '../users/users.service';
 import { MailService } from 'src/mail/mail.service';
+import { InvalidMailException } from 'src/common/exceptions/invalidMail.exception';
 
 @Injectable()
 export class EmailConfirmService {
@@ -31,11 +32,12 @@ export class EmailConfirmService {
       subject: 'Email confirmation',
       text: '',
       html: `
-      <div>
-        <h1>Activation Link</h1>
-        <a href="${url}">${url}</a>
-      </div>
-      `,
+        <div>
+          <h1 style="text-align:center">Dating App</h1>
+          <h2>Activation Link:</h2>
+          <a href="${url}">${url}</a>
+        </div>
+        `,
     });
   }
 

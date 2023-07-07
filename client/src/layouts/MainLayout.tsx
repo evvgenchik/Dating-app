@@ -3,7 +3,7 @@ import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import styles from './MainLayout.module.scss';
 
-function MainLayout() {
+const MainLayout = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
@@ -19,6 +19,6 @@ function MainLayout() {
       </div>
     </div>
   );
-}
+};
 
 export default MainLayout;

@@ -1,5 +1,5 @@
 import styles from './Matches.module.scss';
-import icon from '../../../assets/signUp/girl.jpg';
+import icon from '@/assets/signUp/girl.jpg';
 
 function Matches() {
   return (
