@@ -30,7 +30,9 @@ const Home = () => {
   const login = async (userAuthData: UserLogin) => {
     try {
       const res = await axios.post<UserType>(LOGIN_URL, userAuthData);
-      return res.data;
+      const user = res.data;
+      localStorage.setItem('user', JSON.stringify(user));
+      return user;
     } catch (error) {
       console.error(error);
 

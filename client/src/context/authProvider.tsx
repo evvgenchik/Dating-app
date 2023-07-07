@@ -12,7 +12,8 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>(null);
 
 export const AuthProvider = ({ children }: Props) => {
-  const [user, setUser] = useState(null);
+  const currentUser = JSON.parse(localStorage.getItem('user')) || null;
+  const [user, setUser] = useState(currentUser);
   const value = useMemo(() => ({ user, setUser }), [user]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

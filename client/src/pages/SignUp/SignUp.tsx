@@ -8,6 +8,7 @@ import styles from './SignUp.module.scss';
 import heart from '../../assets/Home/heart2.svg';
 import Modal from '../../components/Modal/Modal';
 import checkRed from '../../assets/checkRed.svg';
+import Loader from '../../components/UI/Loader/Loader';
 
 enum GenderEnum {
   female = 'female',
@@ -20,7 +21,7 @@ enum LookingEnum {
   everyone = 'everyone',
 }
 
-interface AuthForm {
+type AuthForm = {
   password: string;
   firstName: string;
   email: string;
@@ -29,7 +30,9 @@ interface AuthForm {
   looking: LookingEnum;
   descriptrion: string;
   avatar: File;
-}
+};
+
+type AuthFormKeys = keyof AuthForm;
 
 const ERRORS = {
   requiredFnMsg: (field: string) => `${field} is required`,
@@ -42,6 +45,7 @@ function SignUp() {
   const navigate = useNavigate();
   const [avatarSrc, setAvatarSrc] = useState('');
   const [success, setSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -51,6 +55,17 @@ function SignUp() {
     setError,
     formState: { errors },
   } = useForm<AuthForm>({ mode: 'onBlur', reValidateMode: 'onChange' });
+
+  const errorHandler = (field: AuthFormKeys, message: string) => {
+    setError(
+      field,
+      {
+        type: 'custom',
+        message,
+      },
+      { shouldFocus: true }
+    );
+  };
 
   const sendImage = async (file: File) => {
     try {
@@ -71,30 +86,37 @@ function SignUp() {
       return res.data;
     } catch (error) {
       console.error(error);
-      if (error?.response?.status === 409) {
-        setError(
-          'email',
-          {
-            type: 'custom',
-            message: 'User with this email already exists',
-          },
-          { shouldFocus: true }
-        );
+      const statusCode = error?.response?.status;
+      if (statusCode === 409) {
+        errorHandler('email', 'User with this email already exists');
+      }
+      if (statusCode === 550) {
+        errorHandler('email', 'Incorrect emai: user with this email not found');
       }
       return null;
     }
   };
 
   const submitHandler: SubmitHandler<AuthForm> = async (data) => {
-    const avatar = await sendImage(data.avatar);
-    const user = await sendUser({ ...data, avatar });
+    setIsLoading(true);
 
-    if (user) {
-      reset();
-      setSuccess(true);
-      setTimeout(() => navigate('/'), 3000);
+    try {
+      const avatar = await sendImage(data.avatar);
+      const user = await sendUser({ ...data, avatar });
+
+      if (user) {
+        reset();
+        setSuccess(true);
+        setTimeout(() => navigate('/'), 3000);
+      }
+
+      return user;
+    } catch (error) {
+      return error;
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
-    return user;
   };
 
   const fileInputHandler = (e: ChangeEvent) => {
@@ -383,6 +405,8 @@ function SignUp() {
           </p>
         </div>
       </Modal>
+
+      {isLoading && <Loader />}
 
       <div className={styles.empty} />
     </div>
