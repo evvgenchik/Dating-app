@@ -21,7 +21,6 @@
     "noFallthroughCasesInSwitch": false,
     "jsx": "react-jsx",
     "paths": {
-      "@assets/*": ["../assets/*"],
       "@/*": ["*"]
     }
   },

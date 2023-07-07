@@ -1,5 +1,5 @@
 import styles from './Messages.module.scss';
-import icon from '@/../assets/signUp/girl.jpg';
+import icon from '@/assets/signUp/girl.jpg';
 
 function Messages() {
   return (

@@ -1,5 +1,5 @@
 import styles from './ChatPersonInfo.module.scss';
-import icon from '@/@/assets/signUp/girl.jpg';
+import icon from '@/assets/signUp/girl.jpg';
 
 function ChatPersonInfo() {
   return (
