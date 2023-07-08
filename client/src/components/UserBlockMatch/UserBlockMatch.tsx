@@ -1,6 +1,7 @@
 import styles from './UserBlockMatch.module.scss';
 import icon from '@/assets/signUp/girl.jpg';
 import Matches from './Matches/Matches';
+import Messages from './Messages/Messages';
 
 function UserBlockMatch() {
   return (
@@ -20,7 +21,7 @@ function UserBlockMatch() {
         </button>
       </div>
       <div className={styles.main}>
-        <Matches />
+        <Messages />
       </div>
     </div>
   );

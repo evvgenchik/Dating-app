@@ -5,12 +5,8 @@ import MainDisplayMatch from '@/components/MainDisplayMatch/MainDisplayMatch';
 function Match() {
   return (
     <div className={styles.content}>
-      <div className={styles.UserBlockMatch}>
-        <UserBlockMatch />
-      </div>
-      <div className={styles.MainDisplayMatch}>
-        <MainDisplayMatch />
-      </div>
+      <UserBlockMatch />
+      <MainDisplayMatch />
     </div>
   );
 }
