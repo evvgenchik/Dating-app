@@ -9,6 +9,9 @@ import heart from '@/assets/Home/heart2.svg';
 import Modal from '@/components/Modal/Modal';
 import checkRed from '@/assets/checkRed.svg';
 import Loader from '@/components/UI/Loader/Loader';
+import { useSignupMutation } from '@/app/services/authApiSlice';
+import { UserSignup, UserType } from '@/utils/types';
+import { useAvatarMutation } from '@/app/services/fileApiSlice';
 
 enum GenderEnum {
   female = 'female',
@@ -45,7 +48,10 @@ function SignUp() {
   const navigate = useNavigate();
   const [avatarSrc, setAvatarSrc] = useState('');
   const [success, setSuccess] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+
+  const [signup, { isLoading }] = useSignupMutation();
+  const [avatarSend, { isLoading: isLoadingAvatar }] = useAvatarMutation();
 
   const {
     register,
@@ -71,19 +77,18 @@ function SignUp() {
     try {
       const formData = new FormData();
       formData.append('file', file);
-      const res = await axios.post(IMAGE_URL, formData);
-      const fileData = res.data.url;
-      return fileData;
+      const res = await avatarSend(formData);
+      return res;
     } catch (error) {
       console.error(error);
       return error;
     }
   };
 
-  const sendUser = async (user: AuthForm) => {
+  const sendUser = async (user: UserSignup) => {
     try {
-      const res = await axios.post<UserType>(REGISTER_URL, user);
-      return res.data;
+      const res = signup(user);
+      return res;
     } catch (error) {
       console.error(error);
       const statusCode = error?.response?.status;
@@ -98,8 +103,6 @@ function SignUp() {
   };
 
   const submitHandler: SubmitHandler<AuthForm> = async (data) => {
-    setIsLoading(true);
-
     try {
       const avatar = await sendImage(data.avatar);
       const user = await sendUser({ ...data, avatar });
@@ -112,10 +115,8 @@ function SignUp() {
 
       return user;
     } catch (error) {
-      return error;
       console.error(error);
-    } finally {
-      setIsLoading(false);
+      return error;
     }
   };
 
@@ -406,7 +407,7 @@ function SignUp() {
         </div>
       </Modal>
 
-      {isLoading && <Loader />}
+      {(isLoading || isLoadingAvatar) && <Loader />}
 
       <div className={styles.empty} />
     </div>

@@ -1,14 +1,17 @@
-type UserType = {
+type UserType = UserSignup & {
   id: string;
+  createdAt: Date;
+  isEmailConfirmed: boolean;
+};
+
+type UserSignup = {
   email: string;
   firstName: string;
-  birthday: string;
+  birthday: Date;
   gender: string;
   looking: string;
   descriptrion: string;
   avatar: string;
-  createdAt: Date;
-  isEmailConfirmed: boolean;
 };
 
 interface UserLogin {
@@ -16,4 +19,4 @@ interface UserLogin {
   password: string;
 }
 
-export { UserType, UserLogin };
+export { UserType, UserLogin, UserSignup };

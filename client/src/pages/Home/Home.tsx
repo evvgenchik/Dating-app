@@ -9,13 +9,14 @@ import Loader from '@/components/UI/Loader/Loader';
 import useAuth from '@/hooks/useAuth';
 import MyButton from '@/components/UI/Button/MyButton';
 import { UserLogin, UserType } from '@/utils/types';
+import { useLoginMutation } from '@/app/services/authApiSlice';
 
 const LOGIN_URL = '/auth/login';
 
 const Home = () => {
   const { setUser } = useAuth();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [modalActive, setModalActive] = useState(false);
   const [success, setSuccess] = useState(false);
   const [userName, setUserName] = useState('');
@@ -25,12 +26,37 @@ const Home = () => {
     password: '',
   });
 
-  const login = async (userAuthData: UserLogin) => {
+  const [login, { isLoading }] = useLoginMutation();
+
+  // const login = async (userAuthData: UserLogin) => {
+  //   try {
+  //     const res = await axios.post<UserType>(LOGIN_URL, userAuthData);
+  //     const user = res.data;
+  //     localStorage.setItem('user', JSON.stringify(user));
+  //     return user;
+  //   } catch (error) {
+  //     console.error(error);
+
+  //     if (error?.response?.status === 401) {
+  //       setAuthError('Incorrect email or password');
+  //     }
+  //     return null;
+  //   }
+  // };
+
+  const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // setIsLoading(true);
     try {
-      const res = await axios.post<UserType>(LOGIN_URL, userAuthData);
-      const user = res.data;
-      localStorage.setItem('user', JSON.stringify(user));
-      return user;
+      const user = await login(authData).unwrap();
+      if (user) {
+        setAuthError('');
+        setSuccess(true);
+        setUserName(user.firstName);
+        setUser(user);
+        setTimeout(() => navigate('/app'), 2000);
+        return user;
+      }
     } catch (error) {
       console.error(error);
 
@@ -39,22 +65,10 @@ const Home = () => {
       }
       return null;
     }
-  };
 
-  const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
-    const user = await login(authData);
+    // const user = await login(authData);
 
-    if (user) {
-      setAuthError('');
-      setSuccess(true);
-      setUserName(user.firstName);
-      setUser(user);
-      setTimeout(() => navigate('/app'), 2000);
-    }
-    setIsLoading(false);
-    return user;
+    // setIsLoading(false);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
