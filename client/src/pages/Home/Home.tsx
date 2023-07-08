@@ -3,18 +3,14 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './Home.module.scss';
 import heart from '@/assets/Home/heart2.svg';
 import checkRed from '@/assets/checkRed.svg';
-import axios from '@/api/axios';
+import axios from '@/app/api/axios';
 import Modal from '@/components/Modal/Modal';
 import Loader from '@/components/UI/Loader/Loader';
 import useAuth from '@/hooks/useAuth';
 import MyButton from '@/components/UI/Button/MyButton';
+import { UserLogin, UserType } from '@/utils/types';
 
 const LOGIN_URL = '/auth/login';
-
-interface UserLogin {
-  email: string;
-  password: string;
-}
 
 const Home = () => {
   const { setUser } = useAuth();

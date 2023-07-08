@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { ChangeEvent, useState } from 'react';
-import axios from '@/api/axios';
+import axios from '@/app/api/axios';
 import { birthdayValidator, avatarValidator } from './signUpValidator';
 import MyButton from '@/components/UI/Button/MyButton';
 import styles from './SignUp.module.scss';

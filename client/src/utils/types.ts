@@ -10,3 +10,10 @@ type UserType = {
   createdAt: Date;
   isEmailConfirmed: boolean;
 };
+
+interface UserLogin {
+  email: string;
+  password: string;
+}
+
+export { UserType, UserLogin };
