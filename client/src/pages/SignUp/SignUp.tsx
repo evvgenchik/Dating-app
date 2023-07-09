@@ -1,7 +1,6 @@
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { ChangeEvent, useState } from 'react';
-import axios from '@/api/axios';
 import { birthdayValidator, avatarValidator } from './signUpValidator';
 import MyButton from '@/components/UI/Button/MyButton';
 import styles from './SignUp.module.scss';
@@ -9,37 +8,15 @@ import heart from '@/assets/Home/heart2.svg';
 import Modal from '@/components/Modal/Modal';
 import checkRed from '@/assets/checkRed.svg';
 import Loader from '@/components/UI/Loader/Loader';
-
-enum GenderEnum {
-  female = 'female',
-  male = 'male',
-  neutral = 'neutral',
-}
-enum LookingEnum {
-  female = 'female',
-  male = 'male',
-  everyone = 'everyone',
-}
-
-type AuthForm = {
-  password: string;
-  firstName: string;
-  email: string;
-  birthday: Date;
-  gender: GenderEnum;
-  looking: LookingEnum;
-  descriptrion: string;
-  avatar: File;
-};
+import { AuthAPI } from '@/api/services/authApi';
+import { AuthForm } from '@/utils/types';
+import { FileAPI } from '@/api/services/userAPI';
 
 type AuthFormKeys = keyof AuthForm;
 
 const ERRORS = {
   requiredFnMsg: (field: string) => `${field} is required`,
 };
-
-const REGISTER_URL = '/auth/register';
-const IMAGE_URL = '/image/upload';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -67,11 +44,9 @@ function SignUp() {
     );
   };
 
-  const sendImage = async (file: File) => {
+  const sendImage = async (icon: File) => {
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-      const res = await axios.post(IMAGE_URL, formData);
+      const res = await FileAPI.avatar(icon);
       const fileData = res.data.url;
       return fileData;
     } catch (error) {
@@ -82,41 +57,34 @@ function SignUp() {
 
   const sendUser = async (user: AuthForm) => {
     try {
-      const res = await axios.post<UserType>(REGISTER_URL, user);
+      const res = await AuthAPI.signup(user);
       return res.data;
     } catch (error) {
-      console.error(error);
       const statusCode = error?.response?.status;
       if (statusCode === 409) {
         errorHandler('email', 'User with this email already exists');
+        return null;
       }
       if (statusCode === 550) {
         errorHandler('email', 'Incorrect emai: user with this email not found');
+        return null;
       }
-      return null;
+      console.error(error);
     }
   };
 
   const submitHandler: SubmitHandler<AuthForm> = async (data) => {
     setIsLoading(true);
 
-    try {
-      const avatar = await sendImage(data.avatar);
-      const user = await sendUser({ ...data, avatar });
+    const avatar = await sendImage(data.avatar);
+    const user = await sendUser({ ...data, avatar });
 
-      if (user) {
-        reset();
-        setSuccess(true);
-        setTimeout(() => navigate('/'), 3000);
-      }
-
-      return user;
-    } catch (error) {
-      return error;
-      console.error(error);
-    } finally {
-      setIsLoading(false);
+    if (user) {
+      reset();
+      setSuccess(true);
+      setTimeout(() => navigate('/'), 3000);
     }
+    setIsLoading(false);
   };
 
   const fileInputHandler = (e: ChangeEvent) => {

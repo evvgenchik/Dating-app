@@ -8,6 +8,7 @@ import MyButton from '../UI/Button/MyButton';
 import { NavLink } from 'react-router-dom';
 import styles from './login.module.scss';
 import checkRed from '@/assets/checkRed.svg';
+import { AuthAPI } from '@/api/services/authApi';
 
 const LOGIN_URL = '/auth/login';
 
@@ -17,10 +18,9 @@ interface UserLogin {
 }
 
 const Login = ({ modalActive, setModalActive, setIsLoading }) => {
-  const { setUser } = useAuth();
+  const { user, setUser } = useAuth();
   const navigate = useNavigate();
   const [success, setSuccess] = useState(false);
-  const [userName, setUserName] = useState('');
   const [authError, setAuthError] = useState('');
   const [authData, setAuthData] = useState({
     email: '',
@@ -29,17 +29,16 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
 
   const login = async (userAuthData: UserLogin) => {
     try {
-      const res = await axios.post<UserType>(LOGIN_URL, userAuthData);
+      const res = await AuthAPI.login(userAuthData);
       const user = res.data;
       localStorage.setItem('user', JSON.stringify(user));
       return user;
     } catch (error) {
-      console.error(error);
-
       if (error?.response?.status === 401) {
         setAuthError('Incorrect email or password');
+        return null;
       }
-      return null;
+      console.error(error);
     }
   };
 
@@ -51,12 +50,10 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
     if (user) {
       setAuthError('');
       setSuccess(true);
-      setUserName(user.firstName);
       setUser(user);
       setTimeout(() => navigate('/app'), 2000);
     }
     setIsLoading(false);
-    return user;
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -78,7 +75,7 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
               <img className='check-mark' src={checkRed} alt='check mark' />
             </h2>
             <h3 className='success-text'>
-              Welocome, <span className={styles.name}>{userName}</span>!
+              Welocome, <span className={styles.name}>{user.firstName}</span>!
               <p>Hope you are enjoy our app</p>
             </h3>
           </div>
