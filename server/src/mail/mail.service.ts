@@ -24,7 +24,9 @@ export class MailService {
     try {
       await this.nodemailerTransport.sendMail(options);
     } catch (error) {
-      if (error.responseCode === 550) throw new InvalidMailException();
+      // Not throw error on invalid email
+      // if (error.responseCode === 550) throw new InvalidMailException();
+      console.log(error);
     }
   }
 }

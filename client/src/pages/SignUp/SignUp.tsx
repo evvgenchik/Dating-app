@@ -10,7 +10,7 @@ import checkRed from '@/assets/checkRed.svg';
 import Loader from '@/components/UI/Loader/Loader';
 import { AuthAPI } from '@/api/services/authApi';
 import { AuthForm } from '@/utils/types';
-import { FileAPI } from '@/api/services/userAPI';
+import { UserAPI } from '@/api/services/userAPI';
 
 type AuthFormKeys = keyof AuthForm;
 
@@ -46,7 +46,7 @@ function SignUp() {
 
   const sendImage = async (icon: File) => {
     try {
-      const res = await FileAPI.avatar(icon);
+      const res = await UserAPI.avatar(icon);
       const fileData = res.data.url;
       return fileData;
     } catch (error) {

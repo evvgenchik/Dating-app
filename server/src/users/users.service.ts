@@ -51,6 +51,7 @@ export class UsersService {
   async setCurrentRefreshToken(refreshToken: string, id: string) {
     const salt = +this.configService.get<number>('CRYPT_SALT');
     const hashedRefreshToken = await bcrypt.hash(refreshToken, salt);
+
     await this.prisma.user.update({
       where: {
         id,
@@ -62,6 +63,8 @@ export class UsersService {
   }
 
   async verifyRefreshToken(refreshToken: string, id: string) {
+    console.log('im here in verifyRefreshToken');
+
     const user = await this.findOne(id);
 
     const isRefreshTokenMatching = await bcrypt.compare(

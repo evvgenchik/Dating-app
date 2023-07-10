@@ -1,41 +1,57 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import TinderCard from 'react-tinder-card';
 import styles from './Swiper.module.scss';
 import { AiFillHeart as HeartIcon } from 'react-icons/ai';
 import { MdOutlineClose as CloseIcon } from 'react-icons/md';
 import { TbRefresh as RefreshIcon } from 'react-icons/tb';
+import { UserAPI } from '@/api/services/userAPI';
+import { UserType } from '@/utils/types';
+import { ageCalculate } from '@/pages/SignUp/signUpValidator';
 
 type Direction = 'left' | 'right' | 'up' | 'down';
 
-const db = [
-  {
-    name: 'Richard Hendricks',
-    url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-  },
-  {
-    name: 'Erlich Bachman',
-    url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-  },
-  {
-    name: 'Monica Hall',
-    url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-  },
-  {
-    name: 'Jared Dunn',
-    url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-  },
-  {
-    name: 'Dinesh Chugtai',
-    url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-  },
-];
+// const db = [
+//   {
+//     name: 'Richard Hendricks',
+//     url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+//   },
+//   {
+//     name: 'Erlich Bachman',
+//     url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+//   },
+//   {
+//     name: 'Monica Hall',
+//     url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+//   },
+//   {
+//     name: 'Jared Dunn',
+//     url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+//   },
+//   {
+//     name: 'Dinesh Chugtai',
+//     url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+//   },
+// ];
 
 function Swiper() {
-  const [currentIndex, setCurrentIndex] = useState<number>(db.length - 1);
+  const [users, setUsers] = useState<UserType[]>([]);
+  const [currentIndex, setCurrentIndex] = useState<number>(users.length - 1);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const res = await UserAPI.getUsers();
+      const users = res.data;
+
+      setUsers(users);
+      setCurrentIndex(users.length);
+    };
+
+    fetchUsers().catch(console.log);
+  }, []);
 
   const childRefs = useMemo<any>(
     () =>
-      Array(db.length)
+      Array(users.length)
         .fill(0)
         .map((i) => React.createRef()),
     []
@@ -45,7 +61,7 @@ function Swiper() {
     setCurrentIndex(val);
   };
 
-  const canGoBack = currentIndex < db.length - 1;
+  const canGoBack = currentIndex < users.length - 1;
   const canSwipe = currentIndex >= 0;
 
   const swiped = (
@@ -57,7 +73,7 @@ function Swiper() {
   };
 
   const swipe = async (dir: string) => {
-    if (canSwipe && currentIndex < db.length) {
+    if (canSwipe && currentIndex < users.length) {
       await childRefs[currentIndex].current.swipe(dir);
     }
   };
@@ -72,30 +88,35 @@ function Swiper() {
   return (
     <div className={styles.person}>
       <div className={styles.cardContainer}>
-        {db.map((character, index) => (
-          <TinderCard
-            ref={childRefs[index]}
-            className={styles.swipe}
-            key={character.name}
-            onSwipe={(dir) => swiped(dir, character.name, index)}
-            preventSwipe={['up', 'down']}
-            swipeRequirementType='position'
-            swipeThreshold={50}
-          >
-            <div
-              style={{ backgroundImage: 'url(' + character.url + ')' }}
-              className={styles.card}
+        {users &&
+          users.map((character, index) => (
+            <TinderCard
+              ref={childRefs[index]}
+              className={styles.swipe}
+              key={character.email}
+              onSwipe={(dir) => swiped(dir, character.firstName, index)}
+              preventSwipe={['up', 'down']}
+              swipeRequirementType='position'
+              swipeThreshold={50}
             >
-              <div className={styles.cardInfo}>
-                <p className={styles.name}>
-                  {character.name} <span className={styles.age}>25</span>{' '}
-                </p>
-                <p className={styles.status}>Online now</p>
-                <p className={styles.location}>3km from you</p>
+              <div
+                style={{ backgroundImage: 'url(' + character.avatar + ')' }}
+                className={styles.card}
+              >
+                <div className={styles.cardInfo}>
+                  <p className={styles.name}>
+                    {character.firstName}{' '}
+                    <span className={styles.age}>
+                      {ageCalculate(new Date(character.birthday))}
+                    </span>{' '}
+                  </p>
+                  <p className={styles.description}>{character.descriptrion}</p>
+                  {/* <p className={styles.status}>Online now</p>
+                  <p className={styles.location}>3km from you</p> */}
+                </div>
               </div>
-            </div>
-          </TinderCard>
-        ))}
+            </TinderCard>
+          ))}
       </div>
       <div className={styles.panelControl}>
         <CloseIcon

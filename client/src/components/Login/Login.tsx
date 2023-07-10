@@ -2,15 +2,12 @@ import useAuth from '@/hooks/useAuth';
 import Modal from '../Modal/Modal';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
-import axios from '@/api/axios';
 import { ChangeEvent } from 'react';
 import MyButton from '../UI/Button/MyButton';
 import { NavLink } from 'react-router-dom';
 import styles from './login.module.scss';
 import checkRed from '@/assets/checkRed.svg';
 import { AuthAPI } from '@/api/services/authApi';
-
-const LOGIN_URL = '/auth/login';
 
 interface UserLogin {
   email: string;
