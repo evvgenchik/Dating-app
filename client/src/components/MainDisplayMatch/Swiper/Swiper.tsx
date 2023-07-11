@@ -9,42 +9,19 @@ import { UserType } from '@/utils/types';
 import { ageCalculate } from '@/utils/helper';
 import { useQuery } from '@tanstack/react-query';
 import Loader from '@/components/UI/Loader/Loader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type Direction = 'left' | 'right' | 'up' | 'down';
 
-// const db = [
-//   {
-//     name: 'Richard Hendricks',
-//     url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-//   },
-//   {
-//     name: 'Erlich Bachman',
-//     url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-//   },
-//   {
-//     name: 'Monica Hall',
-//     url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-//   },
-//   {
-//     name: 'Jared Dunn',
-//     url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-//   },
-//   {
-//     name: 'Dinesh Chugtai',
-//     url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-//   },
-// ];
-
 function Swiper() {
   const [users, setUsers] = useState<UserType[]>([]);
-  const { isLoading, isError, data, error, isSuccess } = useQuery({
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [childRefs, setChildRefs] = useState([]);
+  const { isLoading, data, error } = useQuery({
     queryKey: ['users'],
     queryFn: UserAPI.getUsers,
   });
-
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [childRefs, setChildRefs] = useState([]);
-
   useEffect(() => {
     if (data) {
       setUsers(data);
@@ -58,6 +35,7 @@ function Swiper() {
     }
   }, [data]);
 
+  //Without react-query!!!
   // useEffect(() => {
   //   const fetchUsers = async () => {
   //     const res = await UserAPI.getUsers();
@@ -109,6 +87,19 @@ function Swiper() {
     await childRefs[newIndex].current.restoreCard();
   };
 
+  if (error) {
+    console.error(error);
+
+    toast.error('OOPS something went wrong', {
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: 'light',
+    });
+  }
+
   return (
     <div className={styles.person}>
       <div className={styles.cardContainer}>
@@ -159,8 +150,8 @@ function Swiper() {
           className={`${styles.heart} ${styles.button}`}
         />
       </div>
-
       {isLoading && <Loader />}
+      <ToastContainer />
     </div>
   );
 }
