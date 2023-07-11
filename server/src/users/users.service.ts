@@ -63,8 +63,6 @@ export class UsersService {
   }
 
   async verifyRefreshToken(refreshToken: string, id: string) {
-    console.log('im here in verifyRefreshToken');
-
     const user = await this.findOne(id);
 
     const isRefreshTokenMatching = await bcrypt.compare(

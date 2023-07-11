@@ -2,11 +2,13 @@ import React, { useState, useMemo, useEffect } from 'react';
 import TinderCard from 'react-tinder-card';
 import styles from './Swiper.module.scss';
 import { AiFillHeart as HeartIcon } from 'react-icons/ai';
-import { MdOutlineClose as CloseIcon } from 'react-icons/md';
+import { MdOutlineClose as DenyIcon } from 'react-icons/md';
 import { TbRefresh as RefreshIcon } from 'react-icons/tb';
 import { UserAPI } from '@/api/services/userAPI';
 import { UserType } from '@/utils/types';
-import { ageCalculate } from '@/pages/SignUp/signUpValidator';
+import { ageCalculate } from '@/utils/helper';
+import { useQuery } from '@tanstack/react-query';
+import Loader from '@/components/UI/Loader/Loader';
 
 type Direction = 'left' | 'right' | 'up' | 'down';
 
@@ -35,27 +37,47 @@ type Direction = 'left' | 'right' | 'up' | 'down';
 
 function Swiper() {
   const [users, setUsers] = useState<UserType[]>([]);
-  const [currentIndex, setCurrentIndex] = useState<number>(users.length - 1);
+  const { isLoading, isError, data, error, isSuccess } = useQuery({
+    queryKey: ['users'],
+    queryFn: UserAPI.getUsers,
+  });
+
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [childRefs, setChildRefs] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const res = await UserAPI.getUsers();
-      const users = res.data;
+    if (data) {
+      setUsers(data);
+      setCurrentIndex(data.length - 1);
 
-      setUsers(users);
-      setCurrentIndex(users.length);
-    };
+      setChildRefs(
+        Array(data.length)
+          .fill(0)
+          .map((i) => React.createRef())
+      );
+    }
+  }, [data]);
 
-    fetchUsers().catch(console.log);
-  }, []);
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     const res = await UserAPI.getUsers();
+  //     const users = res.data;
+  //     console.log('two');
 
-  const childRefs = useMemo<any>(
-    () =>
-      Array(users.length)
-        .fill(0)
-        .map((i) => React.createRef()),
-    []
-  );
+  //     setUsers(users);
+  //     setCurrentIndex(users.length);
+  //   };
+
+  //   fetchUsers().catch(console.log);
+  // }, []);
+
+  // const childRefs = useMemo<any>(
+  //   () =>
+  //     Array(users.length)
+  //       .fill(0)
+  //       .map((i) => React.createRef()),
+  //   []
+  // );
 
   const updateCurrentIndex = (val: number) => {
     setCurrentIndex(val);
@@ -74,6 +96,8 @@ function Swiper() {
 
   const swipe = async (dir: string) => {
     if (canSwipe && currentIndex < users.length) {
+      console.log('br2');
+
       await childRefs[currentIndex].current.swipe(dir);
     }
   };
@@ -119,7 +143,7 @@ function Swiper() {
           ))}
       </div>
       <div className={styles.panelControl}>
-        <CloseIcon
+        <DenyIcon
           style={{ backgroundColor: !canSwipe && '#c3c4d3' }}
           onClick={() => swipe('left')}
           className={`${styles.reject} ${styles.button}`}
@@ -135,6 +159,8 @@ function Swiper() {
           className={`${styles.heart} ${styles.button}`}
         />
       </div>
+
+      {isLoading && <Loader />}
     </div>
   );
 }

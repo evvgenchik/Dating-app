@@ -13,6 +13,6 @@ export const UserAPI = {
   },
   getUsers: async () => {
     const res = await axiosReauth.get<UserType[]>(USERS_URL);
-    return res;
+    return res.data;
   },
 };
