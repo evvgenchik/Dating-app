@@ -3,5 +3,11 @@
   justify-content: center;
   height: 100%;
   flex: 0 1 80%;
-  height: 100%;
+}
+
+
+@media (width <=1500px) {
+  .content {
+    flex: 0 1 70%;
+  }
 }

@@ -21,7 +21,7 @@ function UserBlockMatch() {
         </button>
       </div>
       <div className={styles.main}>
-        <Messages />
+        <Matches />
       </div>
     </div>
   );

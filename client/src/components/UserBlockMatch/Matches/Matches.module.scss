@@ -3,12 +3,15 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 15rem;
   margin-top: 30rem;
-
 }
 
-.info {
+.PplItem {
   position: relative;
+  cursor: pointer;
 
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .photo {
@@ -20,10 +23,41 @@
 .name {
   color: #fff;
   position: absolute;
-  width: 100%;
-  height: 100%;
   top: 80%;
   left: 7%;
   font-weight: 600;
-  font-size: 18rem;
+  font-size: 20rem;
+}
+
+
+@media (width <=1125px) {
+  .Ppllist {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width <=986px) {
+  .Ppllist {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 120rem;
+    gap: 10rem;
+    margin-top: 10rem;
+  }
+}
+
+@media (width <=786px) {
+  .Ppllist {
+    grid-template-columns: repeat(2, minmax(60rem, 90rem));
+    grid-auto-rows: 100rem;
+    justify-content: space-between;
+    margin-top: 10rem;
+  }
+}
+
+@media (width <=651px) {
+  .Ppllist {
+    grid-template-columns: repeat(1, minmax(60rem, 150rem));
+    grid-auto-rows: auto;
+    justify-content: center;
+  }
 }

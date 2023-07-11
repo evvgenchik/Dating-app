@@ -17,7 +17,7 @@
 
 .card {
   position: relative;
-  box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.30);
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.30);
   border-radius: 20px;
   background-size: cover;
   background-position: center;
@@ -59,7 +59,6 @@
 }
 
 .panelControl {
-  font-size: 30rem;
   display: flex;
   gap: 70rem;
   align-items: center;
@@ -92,4 +91,124 @@
   color: lightgreen;
   border: 1rem solid lightgreen;
   height: 90rem;
+}
+
+
+@media (width <=1201px) {
+  .cardContainer {
+    width: 400rem;
+    height: 550rem;
+  }
+
+  .card {
+    width: 400rem;
+    height: 550rem;
+  }
+
+  .panelControl {
+    gap: 50rem;
+  }
+}
+
+@media (width <=986px) {
+  .cardContainer {
+    width: 350rem;
+  }
+
+  .card {
+    width: 350rem;
+  }
+
+  .panelControl {
+    gap: 50rem;
+  }
+
+  .button {
+    padding: 10rem;
+    width: 70rem;
+    height: 70rem;
+  }
+}
+
+@media (width <=786px) {
+  .cardContainer {
+    width: 300rem;
+    height: 450rem;
+  }
+
+  .card {
+    width: 300rem;
+    height: 450rem;
+    box-shadow: none;
+  }
+
+  .panelControl {
+    gap: 30rem;
+  }
+
+  .button {
+    padding: 10rem;
+    width: 50rem;
+    height: 50rem;
+  }
+}
+
+@media (width <=551px) {
+  .cardContainer {
+    width: 300rem;
+    height: 450rem;
+  }
+
+  .card {
+    width: 300rem;
+    height: 450rem;
+  }
+
+  .panelControl {
+    gap: 30rem;
+  }
+
+  .button {
+    padding: 10rem;
+    width: 50rem;
+    height: 50rem;
+  }
+
+  .name {
+    font-weight: 700;
+    font-size: 25rem;
+  }
+
+  .age {
+    font-weight: 400;
+    font-size: 25rem;
+  }
+
+  .description {
+    font-weight: 400;
+    font-size: 24rem;
+  }
+
+}
+
+@media (width <=451px) {
+  .cardContainer {
+    width: 250rem;
+    height: 400rem;
+  }
+
+  .card {
+    width: 250rem;
+    height: 400rem;
+  }
+
+  .panelControl {
+    gap: 25rem;
+  }
+
+  .button {
+    padding: 10rem;
+    width: 50rem;
+    height: 50rem;
+  }
 }
