@@ -35,7 +35,7 @@ export class UsersController {
     return new UserEntity(await this.usersService.findOne(id));
   }
 
-  @Patch('dislike:id')
+  @Patch('dislike/:id')
   async updateDislike(@Param('id') id: string, @Body() email: object) {
     return new UserEntity(await this.usersService.updateDislike(id, email));
   }

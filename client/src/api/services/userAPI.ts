@@ -16,4 +16,14 @@ export const UserAPI = {
     const res = await axiosReauth.get<UserType[]>(USERS_URL);
     return res.data;
   },
+
+  getUniqueUser: async (id: string) => {
+    const res = await axiosReauth.get<UserType>(USERS_URL + '/' + id);
+    return res.data;
+  },
+
+  updateDislike: async (id: string, email: string) => {
+    const res = await axiosReauth.patch<UserType>(USERS_URL + '/' + id, email);
+    return res.data;
+  },
 };

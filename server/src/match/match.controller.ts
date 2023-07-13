@@ -4,7 +4,7 @@ import { MatchDto } from './dto/mathc.dto';
 import { MatchService } from './match.service';
 import { UsersService } from 'src/users/users.service';
 
-// @UseGuards(JwtAuthenticationGuard)
+@UseGuards(JwtAuthenticationGuard)
 @Controller('match')
 export class MatchController {
   constructor(

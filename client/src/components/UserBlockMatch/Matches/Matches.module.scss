@@ -1,6 +1,7 @@
 .Ppllist {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 100%;
   gap: 15rem;
   margin-top: 30rem;
 }

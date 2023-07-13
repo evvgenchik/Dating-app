@@ -33,6 +33,8 @@ function Swiper() {
 
   const usersFilter = (users: UserType[]) => {
     const dislikeEmails = propertyGetter<UserType>(user.disliking, 'email');
+    console.log(dislikeEmails);
+
     const matchingEmails = propertyGetter<MatchType>(
       user.matching,
       'userAddressEmail'
@@ -88,21 +90,29 @@ function Swiper() {
   const canGoBack = currentIndex < users.length - 1;
   const canSwipe = currentIndex >= 0;
 
-  const likeHandler = async (sourceEmail: string) => {
+  const likeHandler = async (adressEmail: string) => {
     const match = user.matchedBy.find(
-      (match) => match.userSourceEmail === sourceEmail
+      (match) => match.userSourceEmail === adressEmail
     );
 
     if (match) {
       await MatchAPI.update(match.id, true);
     } else {
-      await MatchAPI.create(user.email, sourceEmail);
+      await MatchAPI.create(user.email, adressEmail);
     }
+  };
+
+  const dislikeHandler = async (adressEmail: string) => {
+    UserAPI.updateDislike(user.id, adressEmail);
   };
 
   const swiped = (dir: Direction, email: string, index: number) => {
     if (dir === 'right') {
       likeHandler(email);
+    }
+
+    if (dir === 'left') {
+      dislikeHandler(email);
     }
 
     updateCurrentIndex(index - 1);

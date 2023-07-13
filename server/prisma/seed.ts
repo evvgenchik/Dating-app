@@ -127,6 +127,60 @@ async function main() {
       isEmailConfirmed: false,
     },
   });
+  const bob7 = await prisma.user.upsert({
+    where: { email: 'bob@prisma7.io' },
+    update: {},
+    create: {
+      id: '7dbf3fec-b876-46fe-b2c4-348cd72649ed',
+      email: 'bob@prisma7.io',
+      password: '$2b$10$Zpai8LYqfW8sVU1n08bSpeJSBm2wSyMAJ7Blw53EtWBIYAX50MeqC',
+      firstName: 'Ivan',
+      birthday: '1998-12-12T00:00:00.000Z',
+      gender: 'man',
+      looking: 'man',
+      descriptrion: 'Love big and small yes',
+      avatar:
+        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+      createdAt: new Date('2023-07-09 12:57:46.78'),
+      isEmailConfirmed: false,
+    },
+  });
+  const bob8 = await prisma.user.upsert({
+    where: { email: 'bob@prisma8.io' },
+    update: {},
+    create: {
+      id: '9dbf0fec-b876-46fe-b2c4-348cd72649ed',
+      email: 'bob@prisma8.io',
+      password: '$2b$10$Zpai8LYqfW8sVU1n08bSpeJSBm2wSyMAJ7Blw53EtWBIYAX50MeqC',
+      firstName: 'Oleg',
+      birthday: '1998-12-12T00:00:00.000Z',
+      gender: 'man',
+      looking: 'man',
+      descriptrion: 'Love big and small yes',
+      avatar:
+        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+      createdAt: new Date('2023-07-09 12:57:46.78'),
+      isEmailConfirmed: false,
+    },
+  });
+  // const bob9 = await prisma.user.upsert({
+  //   where: { email: 'bob@prisma9.io' },
+  //   update: {},
+  //   create: {
+  //     id: '9dbf3fec-b876-46fe-b2c4-348cd72649ed',
+  //     email: 'bob@prisma9.io',
+  //     password: '$2b$10$Zpai8LYqfW8sVU1n08bSpeJSBm2wSyMAJ7Blw53EtWBIYAX50MeqC',
+  //     firstName: 'Vadim',
+  //     birthday: '1998-12-12T00:00:00.000Z',
+  //     gender: 'man',
+  //     looking: 'man',
+  //     descriptrion: 'Love big and small yes',
+  //     avatar:
+  //       'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+  //     createdAt: new Date('2023-07-09 12:57:46.78'),
+  //     isEmailConfirmed: false,
+  //   },
+  // });
   console.log({ alice, bob });
 }
 main()
