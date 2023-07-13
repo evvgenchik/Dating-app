@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { MailModule } from './mail/mail.module';
 import { EmailConfirmModule } from './emailConfirm/emailConfirm.module';
+import { MatchModule } from './match/match.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { EmailConfirmModule } from './emailConfirm/emailConfirm.module';
     CloudinaryModule,
     MailModule,
     EmailConfirmModule,
+    MatchModule,
   ],
   controllers: [AppController],
   providers: [AppService],

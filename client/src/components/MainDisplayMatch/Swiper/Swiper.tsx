@@ -74,8 +74,6 @@ function Swiper() {
 
   const swipe = async (dir: string) => {
     if (canSwipe && currentIndex < users.length) {
-      console.log('br2');
-
       await childRefs[currentIndex].current.swipe(dir);
     }
   };
@@ -109,7 +107,7 @@ function Swiper() {
               ref={childRefs[index]}
               className={styles.swipe}
               key={character.email}
-              onSwipe={(dir) => swiped(dir, character.firstName, index)}
+              onSwipe={(dir) => swiped(dir, character.email, index)}
               preventSwipe={['up', 'down']}
               swipeRequirementType='position'
               swipeThreshold={50}

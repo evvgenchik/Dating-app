@@ -14,7 +14,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
 import JwtAuthenticationGuard from 'src/auth/guards/jwtAuth.guard';
 
-@UseGuards(JwtAuthenticationGuard)
+// @UseGuards(JwtAuthenticationGuard)
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -35,8 +35,14 @@ export class UsersController {
     return new UserEntity(await this.usersService.findOne(id));
   }
 
+  @Patch('dislike:id')
+  async updateDislike(@Param('id') id: string, @Body() email: object) {
+    return new UserEntity(await this.usersService.updateDislike(id, email));
+  }
+
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    console.log(id);
     return new UserEntity(await this.usersService.update(id, updateUserDto));
   }
 

@@ -23,5 +23,27 @@ model User {
   createdAt DateTime @default(now())
   hashedRefreshToken String?  @map("hashed_refresh_token")
   isEmailConfirmed Boolean  @default(false) @map("is_email_confirmed")
+  // match Match[]
+  matchedBy Match[]  @relation("matchedBy")
+  matching  Match[]  @relation("matching")
+  dislikeBy  User[]  @relation("UserDislikes")
+  disliking  User[]  @relation("UserDislikes")
 }
 
+model Match {
+  id String @id @default(uuid())
+  userSource User @relation("matching",fields: [userSourceEmail], references: [email])
+  userSourceEmail String @map("user_source_email")
+  userAddress User @relation("matchedBy",fields: [userAddressEmail], references: [email])
+  userAddressEmail String @map("user_address_email")
+  userAddressAnswer Boolean @default(false) @map("user_address_answer")
+}
+
+// model Dislike {
+//   id String @id @default(uuid())
+//   userSource User @relation("disliking",fields: [userSourceEmail], references: [email])
+//   userSourceEmail String @map("user_source_email")
+//   userAddress User @relation("dislikeBy",fields: [userAddressEmail], references: [email])
+//   userAddressEmail String @map("user_address_email")
+//   userAddressAnswer Boolean @default(false) @map("user_address_answer")
+// }

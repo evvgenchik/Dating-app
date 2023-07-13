@@ -16,11 +16,26 @@ export class UsersService {
   }
 
   async findAll() {
-    return this.prisma.user.findMany();
+    return this.prisma.user.findMany({
+      include: {
+        matching: true,
+        matchedBy: true,
+        dislikeBy: true,
+        disliking: true,
+      },
+    });
   }
 
   async findOne(id: string) {
-    const user = await this.prisma.user.findUnique({ where: { id } });
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+      include: {
+        matching: true,
+        matchedBy: true,
+        dislikeBy: true,
+        disliking: true,
+      },
+    });
 
     if (!user) {
       throw new NotFoundException('User not found');
@@ -30,7 +45,15 @@ export class UsersService {
   }
 
   async findByEmail(email: string) {
-    const user = await this.prisma.user.findUnique({ where: { email } });
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+      include: {
+        matching: true,
+        matchedBy: true,
+        dislikeBy: true,
+        disliking: true,
+      },
+    });
 
     if (!user) {
       throw new NotFoundException('User not found');
@@ -40,7 +63,23 @@ export class UsersService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    return this.prisma.user.update({ where: { id }, data: updateUserDto });
+    return await this.prisma.user.update({
+      where: { id },
+      data: updateUserDto,
+    });
+  }
+
+  async updateDislike(id: string, email: object) {
+    return await this.prisma.user.update({
+      where: { id },
+      data: {
+        disliking: {
+          connect: {
+            ...email,
+          },
+        },
+      },
+    });
   }
 
   async remove(id: string) {
