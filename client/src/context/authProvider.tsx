@@ -1,3 +1,4 @@
+import { UserType } from '@/utils/types';
 import { createContext, useState, useMemo } from 'react';
 
 type Props = {

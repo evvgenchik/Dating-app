@@ -9,6 +9,18 @@ type UserType = {
   avatar: string;
   createdAt: Date;
   isEmailConfirmed: boolean;
+  matchedBy: MatchType[];
+  matching: MatchType[];
+  dislikeBy: UserType[];
+  disliking: UserType[];
+};
+
+type MatchType = {
+  id: string;
+  userSourceEmail: string;
+  userAddressEmail: string;
+  userAddressAnswer: boolean;
+  userAddress: UserType;
 };
 
 enum GenderEnum {
@@ -38,4 +50,4 @@ type AuthForm = {
   avatar: File;
 };
 
-export { UserType, GenderEnum, LookingEnum, UserLogin, AuthForm };
+export { UserType, GenderEnum, LookingEnum, UserLogin, AuthForm, MatchType };

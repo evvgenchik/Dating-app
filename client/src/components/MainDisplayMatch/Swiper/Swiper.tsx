@@ -1,34 +1,58 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useContext } from 'react';
 import TinderCard from 'react-tinder-card';
 import styles from './Swiper.module.scss';
 import { AiFillHeart as HeartIcon } from 'react-icons/ai';
 import { MdOutlineClose as DenyIcon } from 'react-icons/md';
 import { TbRefresh as RefreshIcon } from 'react-icons/tb';
 import { UserAPI } from '@/api/services/userAPI';
-import { UserType } from '@/utils/types';
+import { MatchType, UserType } from '@/utils/types';
 import { ageCalculate } from '@/utils/helper';
 import { useQuery } from '@tanstack/react-query';
 import Loader from '@/components/UI/Loader/Loader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AuthContext from '@/context/authProvider';
+import { MatchAPI } from '@/api/services/matchApi';
 
 type Direction = 'left' | 'right' | 'up' | 'down';
 
 function Swiper() {
+  const { user } = useContext(AuthContext);
   const [users, setUsers] = useState<UserType[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [childRefs, setChildRefs] = useState([]);
+
   const { isLoading, data, error } = useQuery({
     queryKey: ['users'],
     queryFn: UserAPI.getUsers,
   });
+
+  const propertyGetter = <T,>(arr: T[], key: keyof T) => {
+    return arr.map((user) => user[key]);
+  };
+
+  const usersFilter = (users: UserType[]) => {
+    const dislikeEmails = propertyGetter<UserType>(user.disliking, 'email');
+    const matchingEmails = propertyGetter<MatchType>(
+      user.matching,
+      'userAddressEmail'
+    );
+
+    return users.filter(
+      ({ email }) =>
+        !dislikeEmails.includes(email) && !matchingEmails.includes(email)
+    );
+  };
+
   useEffect(() => {
     if (data) {
-      setUsers(data);
-      setCurrentIndex(data.length - 1);
+      const filteredUsers = usersFilter(data);
+
+      setUsers(filteredUsers);
+      setCurrentIndex(filteredUsers.length - 1);
 
       setChildRefs(
-        Array(data.length)
+        Array(filteredUsers.length)
           .fill(0)
           .map((i) => React.createRef())
       );
@@ -64,11 +88,23 @@ function Swiper() {
   const canGoBack = currentIndex < users.length - 1;
   const canSwipe = currentIndex >= 0;
 
-  const swiped = (
-    direction: Direction,
-    nameToDelete: string,
-    index: number
-  ) => {
+  const likeHandler = async (sourceEmail: string) => {
+    const match = user.matchedBy.find(
+      (match) => match.userSourceEmail === sourceEmail
+    );
+
+    if (match) {
+      await MatchAPI.update(match.id, true);
+    } else {
+      await MatchAPI.create(user.email, sourceEmail);
+    }
+  };
+
+  const swiped = (dir: Direction, email: string, index: number) => {
+    if (dir === 'right') {
+      likeHandler(email);
+    }
+
     updateCurrentIndex(index - 1);
   };
 

@@ -17,7 +17,7 @@ export class MatchService {
   }
 
   async findAll() {
-    return this.prisma.match.findMany();
+    return this.prisma.match.findMany({});
   }
 
   async findBySource(userSourceEmail: string) {

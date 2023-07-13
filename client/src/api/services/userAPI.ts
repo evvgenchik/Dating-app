@@ -11,6 +11,7 @@ export const UserAPI = {
     const res = await axios.post(IMAGE_URL, formData);
     return res;
   },
+
   getUsers: async () => {
     const res = await axiosReauth.get<UserType[]>(USERS_URL);
     return res.data;
