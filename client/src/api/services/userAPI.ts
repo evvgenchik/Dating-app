@@ -23,7 +23,10 @@ export const UserAPI = {
   },
 
   updateDislike: async (id: string, email: string) => {
-    const res = await axiosReauth.patch<UserType>(USERS_URL + '/' + id, email);
+    const res = await axiosReauth.patch<UserType>(
+      USERS_URL + '/dislike/' + id,
+      { email }
+    );
     return res.data;
   },
 };
