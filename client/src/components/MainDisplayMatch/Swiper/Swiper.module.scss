@@ -13,6 +13,7 @@
 
 .swipe {
   position: absolute;
+  transition: all 1ms;
 }
 
 .card {
@@ -24,6 +25,7 @@
   width: 500rem;
   height: 650rem;
   cursor: pointer;
+  background-color: #fff;
 }
 
 .cardContent {

@@ -17,9 +17,9 @@ import { MatchAPI } from '@/api/services/matchApi';
 type Direction = 'left' | 'right' | 'up' | 'down';
 
 function Swiper() {
-  const { user } = useContext(AuthContext);
+  const { user, refetch } = useContext(AuthContext);
   const [users, setUsers] = useState<UserType[]>([]);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [currentIndex, setCurrentIndex] = useState<number>(users.length);
   const [childRefs, setChildRefs] = useState([]);
 
   const { isLoading, data, error } = useQuery({
@@ -33,7 +33,6 @@ function Swiper() {
 
   const usersFilter = (users: UserType[]) => {
     const dislikeEmails = propertyGetter<UserType>(user.disliking, 'email');
-    console.log(dislikeEmails);
 
     const matchingEmails = propertyGetter<MatchType>(
       user.matching,
@@ -42,7 +41,9 @@ function Swiper() {
 
     return users.filter(
       ({ email }) =>
-        !dislikeEmails.includes(email) && !matchingEmails.includes(email)
+        !dislikeEmails.includes(email) &&
+        !matchingEmails.includes(email) &&
+        email !== user.email
     );
   };
 
@@ -59,7 +60,7 @@ function Swiper() {
           .map((i) => React.createRef())
       );
     }
-  }, [data]);
+  }, [data, user]);
 
   //Without react-query!!!
   // useEffect(() => {
@@ -83,12 +84,12 @@ function Swiper() {
   //   []
   // );
 
-  const updateCurrentIndex = (val: number) => {
-    setCurrentIndex(val);
-  };
+  // const updateCurrentIndex = (val: number) => {
+  //   setCurrentIndex(val);
+  // };
 
   const canGoBack = currentIndex < users.length - 1;
-  const canSwipe = currentIndex >= 0;
+  const canSwipe = currentIndex >= 0 && currentIndex < users.length;
 
   const likeHandler = async (adressEmail: string) => {
     const match = user.matchedBy.find(
@@ -103,23 +104,25 @@ function Swiper() {
   };
 
   const dislikeHandler = async (adressEmail: string) => {
-    UserAPI.updateDislike(user.id, adressEmail);
+    await UserAPI.updateDislike(user.id, adressEmail);
   };
 
-  const swiped = (dir: Direction, email: string, index: number) => {
+  const swiped = async (dir: Direction, email: string, index: number) => {
+    setCurrentIndex(index + 1);
+
     if (dir === 'right') {
-      likeHandler(email);
+      await likeHandler(email);
     }
 
     if (dir === 'left') {
-      dislikeHandler(email);
+      await dislikeHandler(email);
     }
 
-    updateCurrentIndex(index - 1);
+    setTimeout(() => refetch(), 1000);
   };
 
   const swipe = async (dir: string) => {
-    if (canSwipe && currentIndex < users.length) {
+    if (canSwipe) {
       await childRefs[currentIndex].current.swipe(dir);
     }
   };
@@ -127,7 +130,7 @@ function Swiper() {
   const goBack = async () => {
     if (!canGoBack) return;
     const newIndex = currentIndex + 1;
-    updateCurrentIndex(newIndex);
+    setCurrentIndex(newIndex);
     await childRefs[newIndex].current.restoreCard();
   };
 
@@ -155,8 +158,7 @@ function Swiper() {
               key={character.email}
               onSwipe={(dir) => swiped(dir, character.email, index)}
               preventSwipe={['up', 'down']}
-              swipeRequirementType='position'
-              swipeThreshold={50}
+              swipeRequirementType='velocity'
             >
               <div
                 style={{ backgroundImage: 'url(' + character.avatar + ')' }}

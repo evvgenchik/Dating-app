@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { MatchDto } from './dto/mathc.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ConfigService } from '@nestjs/config';
+import { log } from 'console';
+import { Match } from '@prisma/client';
 
 @Injectable()
 export class MatchService {
@@ -13,6 +15,18 @@ export class MatchService {
   async create(matchDto: MatchDto) {
     return this.prisma.match.create({
       data: matchDto,
+    });
+  }
+
+  async createMutual(matchDto: Match) {
+    delete matchDto.id;
+
+    return this.prisma.match.create({
+      data: {
+        userAddressEmail: matchDto.userSourceEmail,
+        userSourceEmail: matchDto.userAddressEmail,
+        userAddressAnswer: true,
+      },
     });
   }
 

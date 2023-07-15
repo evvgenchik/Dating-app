@@ -10,24 +10,36 @@ type Props = {
 type AuthContextType = {
   user: UserType | null;
   setUser: (user: UserType) => void;
+  refetch: () => void;
 };
 
 const AuthContext = createContext<AuthContextType>(null);
 
 export const AuthProvider = ({ children }: Props) => {
-  const currentUser = JSON.parse(localStorage.getItem('user')) || null;
-  const { id } = currentUser || '1';
-  const [user, setUser] = useState<UserType>(currentUser);
-  const value = useMemo(() => ({ user, setUser }), [user]);
+  const storedUser = JSON.parse(localStorage.getItem('user')) || null;
+  const [user, setUser] = useState<UserType>(storedUser);
+  const { isLoading, data, error, isSuccess, refetch } = useQuery({
+    queryKey: ['currentUser'],
+    queryFn: () => UserAPI.getUniqueUser(storedUser.id),
+    enabled: !!storedUser,
+  });
+  const value = useMemo(() => ({ user, setUser, refetch }), [user]);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const userFromApi = (await UserAPI.getUniqueUser(id)) || null;
-      setUser(userFromApi);
-    };
+    if (data) {
+      localStorage.setItem('user', JSON.stringify(data));
+      setUser(data);
+    }
+  }, [data]);
 
-    fetchUser();
-  }, [user]);
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     const userFromApi = (await UserAPI.getUniqueUser(id)) || null;
+  //     setUser(userFromApi);
+  //   };
+
+  //   fetchUser();
+  // }, []);
 
   // const { isLoading, data, error } = useQuery({
   //   queryKey: ['currentUser'],

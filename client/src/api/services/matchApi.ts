@@ -13,10 +13,9 @@ export const MatchAPI = {
   },
 
   update: async (id: string, userAddressAnswer: boolean) => {
-    const res = await axiosReauth.patch<MatchType>(
-      MATCH_URL + id,
-      userAddressAnswer
-    );
+    const res = await axiosReauth.patch<MatchType>(MATCH_URL + '/' + id, {
+      userAddressAnswer,
+    });
     return res.data;
   },
 };

@@ -1,4 +1,12 @@
-import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import JwtAuthenticationGuard from 'src/auth/guards/jwtAuth.guard';
 import { MatchDto } from './dto/mathc.dto';
 import { MatchService } from './match.service';
@@ -17,11 +25,14 @@ export class MatchController {
     return await this.matchService.create(matchDto);
   }
 
-  async findAll(@Body() matchDto: MatchDto) {
+  @Get()
+  async findAll() {
     return await this.matchService.findAll();
   }
 
-  async update(@Param('id') id: string, @Body() userAddressAnswer: boolean) {
-    return await this.matchService.update(id, userAddressAnswer);
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() { userAddressAnswer }) {
+    const match = await this.matchService.update(id, userAddressAnswer);
+    return await this.matchService.createMutual(match);
   }
 }

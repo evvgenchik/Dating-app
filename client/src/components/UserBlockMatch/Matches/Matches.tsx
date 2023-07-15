@@ -10,7 +10,7 @@ function Matches() {
     <ul className={styles.Ppllist}>
       {user.matching &&
         user.matching.map((match) => {
-          const { userAddress } = match;
+          const { userAddressAnswer, userAddress } = match;
           return userAddress ? (
             <li key={userAddress.id} className={styles.PplItem}>
               <img
