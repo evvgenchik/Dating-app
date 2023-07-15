@@ -108,7 +108,7 @@ function Swiper() {
   };
 
   const swiped = async (dir: Direction, email: string, index: number) => {
-    //setCurrentIndex(index + 1);
+    setCurrentIndex(index + 1);
 
     if (dir === 'right') {
       await likeHandler(email);

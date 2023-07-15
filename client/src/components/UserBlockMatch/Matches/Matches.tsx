@@ -11,7 +11,7 @@ function Matches() {
       {user.matching &&
         user.matching.map((match) => {
           const { userAddressAnswer, userAddress } = match;
-          return userAddress ? (
+          return userAddressAnswer ? (
             <li key={userAddress.id} className={styles.PplItem}>
               <img
                 className={styles.photo}

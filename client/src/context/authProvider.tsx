@@ -18,15 +18,17 @@ const AuthContext = createContext<AuthContextType>(null);
 export const AuthProvider = ({ children }: Props) => {
   const storedUser = JSON.parse(localStorage.getItem('user')) || null;
   const [user, setUser] = useState<UserType>(storedUser);
-  const { isLoading, data, error, isSuccess, refetch } = useQuery({
+  const { data, error, refetch } = useQuery({
     queryKey: ['currentUser'],
     queryFn: () => UserAPI.getUniqueUser(storedUser.id),
     enabled: !!storedUser,
   });
   const value = useMemo(() => ({ user, setUser, refetch }), [user]);
+  console.log('AuthProvider');
 
   useEffect(() => {
     if (data) {
+      console.log('AuthProvider useEffect');
       localStorage.setItem('user', JSON.stringify(data));
       setUser(data);
     }
