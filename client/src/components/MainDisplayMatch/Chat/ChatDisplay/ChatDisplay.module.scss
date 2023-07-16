@@ -6,6 +6,7 @@
   justify-content: space-between;
   align-content: stretch;
   min-height: 100%;
+  position: relative;
 }
 
 .chatHeaderText {
@@ -19,6 +20,15 @@
   flex-direction: column;
   gap: 10rem;
   padding: 0 10rem;
+  justify-self: start;
+  position: absolute;
+  top: 100rem;
+}
+
+.messageContainer {
+  display: flex;
+  gap: 5rem;
+  align-items: center;
 }
 
 .message {
@@ -29,8 +39,6 @@
 }
 
 .messageReceived {
-  text-align: left;
-
   .message {
     background-color: rgba(240, 242, 244, 1);
     color: #000;
@@ -38,8 +46,7 @@
 }
 
 .messageSent {
-  text-align: right;
-
+  justify-content: end;
 
   .message {
     background-color: #106bd5;
@@ -77,4 +84,72 @@
   transform: translate(0, -50%);
   right: 3%;
   cursor: pointer;
+}
+
+@media (width<=986px) {
+  .chatHeaderText {
+    font-size: 14rem;
+    padding: 20rem 5rem;
+    text-align: center;
+  }
+
+  .display {
+    top: 75rem;
+  }
+}
+
+@media (width<=768px) {
+  .chatHeaderText {
+    font-size: 14rem;
+    padding: 17rem 2rem;
+  }
+
+  .display {
+    gap: 5rem;
+    padding: 0 5rem;
+    top: 65rem;
+  }
+
+  .message {
+    border-radius: 5rem;
+    padding: 5rem;
+    font-size: 14rem;
+    max-width: 90%;
+  }
+
+  .chatDisplayContainer {
+    flex: 0 1 85%;
+  }
+
+  .messageDate {
+    display: none;
+  }
+
+  .chatFieldForm {
+    width: 100%;
+    position: relative;
+  }
+
+  .chatField {
+    width: 100%;
+    height: 40rem;
+    padding: 10rem;
+    font-size: 14rem;
+  }
+
+  .sendBtn {
+    right: 5%;
+    font-size: 12rem;
+  }
+}
+
+@media (width<=651px) {
+  .chatHeaderText {
+    font-size: 12rem;
+    padding: 13rem 2rem;
+  }
+
+  .display {
+    top: 55rem;
+  }
 }

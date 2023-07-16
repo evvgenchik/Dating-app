@@ -8,11 +8,10 @@
 }
 
 .personInfo {
-  flex: 1 1 auto
-}
-
-.photoContainer {
-  overflow: hidden;
+  flex: 1 1 auto;
+  gap: 10rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .photo {
@@ -46,7 +45,6 @@
   }
 }
 
-
 .description {
   font-size: 18rem;
   color: #333;
@@ -77,4 +75,37 @@
 
 .btnDelete {
   border-right: 0.1rem solid rgba(51, 51, 51, 0.4);
+}
+
+@media (width<=986px) {
+  .info {
+    padding: 0 5rem;
+    padding-bottom: 10rem;
+
+    .name {
+      font-size: 18rem;
+    }
+  }
+
+  .description {
+    font-size: 14rem;
+    padding: 0 5rem;
+    padding-bottom: 10rem;
+  }
+
+  .personInfoBtn {
+    font-size: 12rem;
+  }
+}
+
+@media (width<=600px) {
+  .info {
+    .name {
+      font-size: 14rem;
+    }
+  }
+
+  .personInfoControls {
+    flex-direction: column;
+  }
 }

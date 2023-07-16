@@ -34,21 +34,19 @@ function ChatDisplay({ chatCompanion }: Props) {
 
   return (
     <div className={styles.chatDisplayContainer}>
-      <div className={styles.chatHeader}>
-        <h3 className={styles.chatHeaderText}>
-          {`You and ${chatCompanion.firstName} formed a couple on ${mutualMatchDate}`}
-        </h3>
-      </div>
+      <h3 className={styles.chatHeaderText}>
+        {`You and ${chatCompanion.firstName} formed a couple on ${mutualMatchDate}`}
+      </h3>
       <div className={styles.display}>
-        <div className={styles.messageReceived}>
+        <div className={`${styles.messageContainer} ${styles.messageReceived}`}>
           <p className={styles.message}>Hi there</p>
           <span className={styles.messageDate}>12:12</span>
         </div>
-        <div className={styles.messageReceived}>
+        <div className={`${styles.messageContainer} ${styles.messageReceived}`}>
           <p className={styles.message}>Hi there</p>
           <span className={styles.messageDate}>12:12</span>
         </div>
-        <div className={styles.messageSent}>
+        <div className={`${styles.messageContainer} ${styles.messageSent}`}>
           <span className={styles.messageDate}>12:12</span>
           <p className={styles.message}>
             Hi Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis,
@@ -57,34 +55,22 @@ function ChatDisplay({ chatCompanion }: Props) {
             exercitationem iusto quidem beatae esse?
           </p>
         </div>
-        <div className={styles.messageReceived}>
+        <div
+          className={`${styles.messageContainer} ${styles.messageReceived}}`}
+        >
           <p className={styles.message}>Hi there</p>
           <span className={styles.messageDate}>12:12</span>
-        </div>
-        <div className={styles.messageSent}>
-          <span className={styles.messageDate}>12:12</span>
-          <p className={styles.message}>Hi there</p>
-        </div>
-        <div className={styles.messageReceived}>
-          <p className={styles.message}>Hi there</p>
-          <span className={styles.messageDate}>12:12</span>
-        </div>
-        <div className={styles.messageSent}>
-          <span className={styles.messageDate}>12:12</span>
-          <p className={styles.message}>Hi there</p>
         </div>
       </div>
-      <div>
-        <form className={styles.chatFieldForm}>
-          <textarea
-            className={styles.chatField}
-            placeholder='Type your message'
-            name='message'
-            id='message'
-          />
-          <SendIcon className={styles.sendBtn} />
-        </form>
-      </div>
+      <form className={styles.chatFieldForm}>
+        <textarea
+          className={styles.chatField}
+          placeholder='Type your message'
+          name='message'
+          id='message'
+        />
+        <SendIcon className={styles.sendBtn} />
+      </form>
     </div>
   );
 }

@@ -1,11 +1,17 @@
 import styles from './MainDisplayMatch.module.scss';
-import ChatContainer from './Chat/ChatContainer';
 import Swiper from './Swiper/Swiper';
+import ChatDisplay from './Chat/ChatDisplay/ChatDisplay';
+import ChatPersonInfo from './Chat/ChatPersonInfo/ChatPersonInfo';
 
 function MainDisplayMatch({ contentKey, chatCompanion }) {
   const contents = {
     Swiper: <Swiper />,
-    ChatContainer: <ChatContainer chatCompanion={chatCompanion} />,
+    ChatContainer: (
+      <>
+        <ChatDisplay chatCompanion={chatCompanion} />
+        <ChatPersonInfo chatCompanion={chatCompanion} />
+      </>
+    ),
   };
 
   return <div className={styles.content}>{contents[contentKey]}</div>;

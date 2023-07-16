@@ -9,42 +9,36 @@ function Messages({ changeContentHandler }) {
   return (
     <ul className={styles.Ppllist}>
       <li onClick={clickHanler} className={styles.PplItem}>
-        <div className={styles.info}>
-          <div className={styles.photoContainer}>
-            <img className={styles.photo} src={icon} alt='person' />
-          </div>
-          <div className={styles.text}>
-            <p className={styles.name}>Julia</p>
-            <p className={styles.message}>
-              Hey man! Whats up? Waht you are doing! how are you
-            </p>
-          </div>
+        <div className={styles.photoContainer}>
+          <img className={styles.photo} src={icon} alt='person' />
+        </div>
+        <div className={styles.text}>
+          <p className={styles.name}>Julia</p>
+          <p className={styles.message}>
+            Hey man! Whats up? Waht you are doing! how are you
+          </p>
         </div>
       </li>
       <li className={styles.PplItem}>
-        <div className={styles.info}>
-          <div className={styles.photoContainer}>
-            <img className={styles.photo} src={icon} alt='person' />
-          </div>
-          <div className={styles.text}>
-            <p className={styles.name}>Julia</p>
-            <p className={styles.message}>
-              Hey man! Whats up? Waht you are doing! how are you
-            </p>
-          </div>
+        <div className={styles.photoContainer}>
+          <img className={styles.photo} src={icon} alt='person' />
+        </div>
+        <div className={styles.text}>
+          <p className={styles.name}>Julia</p>
+          <p className={styles.message}>
+            Hey man! Whats up? Waht you are doing! how are you
+          </p>
         </div>
       </li>
       <li className={styles.PplItem}>
-        <div className={styles.info}>
-          <div className={styles.photoContainer}>
-            <img className={styles.photo} src={icon} alt='person' />
-          </div>
-          <div className={styles.text}>
-            <p className={styles.name}>Julia</p>
-            <p className={styles.message}>
-              Hey man! Whats up? Waht you are doing! how are you
-            </p>
-          </div>
+        <div className={styles.photoContainer}>
+          <img className={styles.photo} src={icon} alt='person' />
+        </div>
+        <div className={styles.text}>
+          <p className={styles.name}>Julia</p>
+          <p className={styles.message}>
+            Hey man! Whats up? Waht you are doing! how are you
+          </p>
         </div>
       </li>
     </ul>

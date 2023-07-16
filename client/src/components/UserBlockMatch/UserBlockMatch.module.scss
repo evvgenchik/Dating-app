@@ -71,9 +71,13 @@
     gap: 15rem;
     padding: 15rem;
   }
+
+  .header {
+    height: 65rem;
+  }
 }
 
-@media (width <=786px) {
+@media (width <=768px) {
   .controlPanel {
     gap: 10rem;
     padding: 15rem;
@@ -82,12 +86,30 @@
   .controlBtn {
     font-size: 16rem;
   }
+
+  .header {
+    height: 55rem;
+  }
 }
 
 @media (width <=651px) {
   .content {
     flex: 0 1 25%;
   }
+
+  .header {
+    height: 45rem;
+  }
+
+  .photoContainer {
+    width: 35rem;
+    height: 35rem;
+  }
+
+  .name {
+    font-size: 16rem;
+  }
+
 
   .controlPanel {
     gap: 0rem;

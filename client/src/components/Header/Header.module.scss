@@ -5,6 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  display: none;
 }
 
 .photoContainer {
@@ -19,5 +20,4 @@
   height: 100%;
   object-fit: cover;
   border: 2rem solid rgba(253, 58, 115, 0.7);
-  ;
 }
