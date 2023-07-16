@@ -24,11 +24,9 @@ export const AuthProvider = ({ children }: Props) => {
     enabled: !!storedUser,
   });
   const value = useMemo(() => ({ user, setUser, refetch }), [user]);
-  console.log('AuthProvider');
 
   useEffect(() => {
     if (data) {
-      console.log('AuthProvider useEffect');
       localStorage.setItem('user', JSON.stringify(data));
       setUser(data);
     }

@@ -1,11 +1,11 @@
 import ChatPersonInfo from './ChatPersonInfo/ChatPersonInfo';
 import ChatDisplay from './ChatDisplay/ChatDisplay';
 
-function ChatContainer() {
+function ChatContainer({ chatCompanion }) {
   return (
     <>
-      <ChatDisplay />
-      <ChatPersonInfo />
+      <ChatDisplay chatCompanion={chatCompanion} />
+      <ChatPersonInfo chatCompanion={chatCompanion} />
     </>
   );
 }

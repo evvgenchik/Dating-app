@@ -1,12 +1,42 @@
+import { useContext } from 'react';
 import { AiOutlineSend as SendIcon } from 'react-icons/ai';
 import styles from './ChatDisplay.module.scss';
+import AuthContext from '@/context/authProvider';
+import { UserType } from '@/utils/types';
+import { format } from 'date-fns';
 
-function ChatDisplay() {
+type Props = {
+  chatCompanion: UserType;
+};
+
+function ChatDisplay({ chatCompanion }: Props) {
+  const { user } = useContext(AuthContext);
+
+  const calculateMutualMatch = (
+    chatCompanionEmail: string,
+    currentUser: UserType
+  ) => {
+    const { createdAt: matchingCreated } = currentUser.matching.find(
+      (match) => match.userAddressEmail === chatCompanionEmail
+    );
+    const { createdAt: matchedByCreated } = currentUser.matchedBy.find(
+      (match) => match.userSourceEmail === chatCompanionEmail
+    );
+
+    const answerDate = new Date(
+      matchingCreated > matchedByCreated ? matchingCreated : matchedByCreated
+    );
+
+    return format(answerDate, 'dd/MM/yyyy');
+  };
+
+  const mutualMatchDate = calculateMutualMatch(chatCompanion.email, user);
+
   return (
     <div className={styles.chatDisplayContainer}>
       <div className={styles.chatHeader}>
         <h3 className={styles.chatHeaderText}>
-          You and Alina formed a couple on 01.03.2023.
+          {`You and ${chatCompanion.firstName} formed a couple on ${mutualMatchDate}`}
         </h3>
       </div>
       <div className={styles.display}>

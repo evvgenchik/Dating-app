@@ -2,9 +2,14 @@ import styles from './Matches.module.scss';
 import { useContext } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthContext from '@/context/authProvider';
+import { UserType } from '@/utils/types';
 
-function Matches() {
+function Matches({ changeContentHandler }) {
   const { user } = useContext(AuthContext);
+
+  const clickHanler = (user: UserType) => {
+    changeContentHandler('ChatContainer', user);
+  };
 
   return (
     <ul className={styles.Ppllist}>
@@ -12,7 +17,11 @@ function Matches() {
         user.matching.map((match) => {
           const { userAddressAnswer, userAddress } = match;
           return userAddressAnswer ? (
-            <li key={userAddress.id} className={styles.PplItem}>
+            <li
+              onClick={() => clickHanler(userAddress)}
+              key={userAddress.id}
+              className={styles.PplItem}
+            >
               <img
                 className={styles.photo}
                 src={userAddress.avatar}

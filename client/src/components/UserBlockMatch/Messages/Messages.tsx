@@ -1,10 +1,14 @@
 import styles from './Messages.module.scss';
 import icon from '@/assets/signUp/girl.jpg';
 
-function Messages() {
+function Messages({ changeContentHandler }) {
+  const clickHanler = () => {
+    changeContentHandler('ChatContainer');
+  };
+
   return (
     <ul className={styles.Ppllist}>
-      <li className={styles.PplItem}>
+      <li onClick={clickHanler} className={styles.PplItem}>
         <div className={styles.info}>
           <div className={styles.photoContainer}>
             <img className={styles.photo} src={icon} alt='person' />

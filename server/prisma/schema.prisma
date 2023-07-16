@@ -37,6 +37,7 @@ model Match {
   userAddress User @relation("matchedBy",fields: [userAddressEmail], references: [email])
   userAddressEmail String @map("user_address_email")
   userAddressAnswer Boolean @default(false) @map("user_address_answer")
+  createdAt DateTime @default(now())
 }
 
 // model Dislike {

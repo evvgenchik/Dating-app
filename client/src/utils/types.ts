@@ -21,6 +21,7 @@ type MatchType = {
   userAddressEmail: string;
   userAddressAnswer: boolean;
   userAddress: UserType;
+  createdAt: Date;
 };
 
 enum GenderEnum {

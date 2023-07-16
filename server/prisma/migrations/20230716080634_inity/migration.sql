@@ -22,6 +22,7 @@ CREATE TABLE "Match" (
     "user_source_email" TEXT NOT NULL,
     "user_address_email" TEXT NOT NULL,
     "user_address_answer" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Match_pkey" PRIMARY KEY ("id")
 );

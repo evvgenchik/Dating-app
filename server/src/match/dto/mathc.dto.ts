@@ -8,4 +8,5 @@ export class MatchDto {
   @IsNotEmpty()
   userAddressEmail: string;
   userAddressAnswer: boolean;
+  createdAt: Date;
 }
