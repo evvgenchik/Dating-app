@@ -11,6 +11,7 @@ import { MailModule } from './mail/mail.module';
 import { EmailConfirmModule } from './emailConfirm/emailConfirm.module';
 import { MatchModule } from './match/match.module';
 import { MessageModule } from './message/message.module';
+import { ConversationModule } from './conversation/conversation.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { MessageModule } from './message/message.module';
     EmailConfirmModule,
     MatchModule,
     MessageModule,
+    ConversationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

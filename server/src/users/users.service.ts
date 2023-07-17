@@ -23,8 +23,7 @@ export class UsersService {
         matchedBy: true,
         dislikeBy: true,
         disliking: true,
-        messageRecieved: true,
-        messageSent: true,
+        conversations: true,
       },
     });
   }
@@ -41,8 +40,7 @@ export class UsersService {
         matchedBy: true,
         dislikeBy: true,
         disliking: true,
-        messageRecieved: true,
-        messageSent: true,
+        conversations: true,
       },
     });
 
@@ -65,8 +63,7 @@ export class UsersService {
         matchedBy: true,
         dislikeBy: true,
         disliking: true,
-        messageRecieved: true,
-        messageSent: true,
+        conversations: true,
       },
     });
 

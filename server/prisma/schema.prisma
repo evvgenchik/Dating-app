@@ -30,6 +30,7 @@ model User {
   disliking  User[]  @relation("UserDislikes")
   messageSent  Message[]  @relation("messageSent")
   messageRecieved Message[]  @relation("messageRecieved")
+  conversations Conversation[] 
 }
 
 model Match {
@@ -42,6 +43,13 @@ model Match {
   createdAt DateTime @default(now())
 }
 
+model Conversation {
+  id String @id @default(uuid())
+  users User[] 
+  createdAt DateTime @default(now())
+  messages Message[]
+}
+
 model Message {
   id String @id @default(uuid())
   userSource User @relation("messageSent",fields: [userSourceEmail], references: [email])
@@ -50,6 +58,8 @@ model Message {
   userAddressEmail String @map("user_address_email")
   createdAt DateTime @default(now())
   content String
+  conversation Conversation @relation(fields: [conversationId], references: [id])
+  conversationId String
 }
 
 // model Dislike {

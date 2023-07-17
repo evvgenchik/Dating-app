@@ -9,4 +9,5 @@ export class CreateMessageDto {
   userAddressEmail: string;
   createdAt: Date;
   content: string;
+  conversationId: string;
 }
