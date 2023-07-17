@@ -28,6 +28,8 @@ model User {
   matching  Match[]  @relation("matching")
   dislikeBy  User[]  @relation("UserDislikes")
   disliking  User[]  @relation("UserDislikes")
+  messageSent  Message[]  @relation("messageSent")
+  messageRecieved Message[]  @relation("messageRecieved")
 }
 
 model Match {
@@ -38,6 +40,16 @@ model Match {
   userAddressEmail String @map("user_address_email")
   userAddressAnswer Boolean @default(false) @map("user_address_answer")
   createdAt DateTime @default(now())
+}
+
+model Message {
+  id String @id @default(uuid())
+  userSource User @relation("messageSent",fields: [userSourceEmail], references: [email])
+  userSourceEmail String @map("user_source_email")
+  userAddress User @relation("messageRecieved",fields: [userAddressEmail], references: [email])
+  userAddressEmail String @map("user_address_email")
+  createdAt DateTime @default(now())
+  content String
 }
 
 // model Dislike {

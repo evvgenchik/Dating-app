@@ -28,6 +28,17 @@ CREATE TABLE "Match" (
 );
 
 -- CreateTable
+CREATE TABLE "Message" (
+    "id" TEXT NOT NULL,
+    "user_source_email" TEXT NOT NULL,
+    "user_address_email" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "content" TEXT NOT NULL,
+
+    CONSTRAINT "Message_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "_UserDislikes" (
     "A" TEXT NOT NULL,
     "B" TEXT NOT NULL
@@ -47,6 +58,12 @@ ALTER TABLE "Match" ADD CONSTRAINT "Match_user_source_email_fkey" FOREIGN KEY ("
 
 -- AddForeignKey
 ALTER TABLE "Match" ADD CONSTRAINT "Match_user_address_email_fkey" FOREIGN KEY ("user_address_email") REFERENCES "User"("email") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Message" ADD CONSTRAINT "Message_user_source_email_fkey" FOREIGN KEY ("user_source_email") REFERENCES "User"("email") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Message" ADD CONSTRAINT "Message_user_address_email_fkey" FOREIGN KEY ("user_address_email") REFERENCES "User"("email") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_UserDislikes" ADD CONSTRAINT "_UserDislikes_A_fkey" FOREIGN KEY ("A") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

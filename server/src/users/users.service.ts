@@ -11,6 +11,7 @@ export class UsersService {
     private prisma: PrismaService,
     private readonly configService: ConfigService,
   ) {}
+
   async create(createUserDto: CreateUserDto) {
     return this.prisma.user.create({ data: createUserDto });
   }
@@ -22,6 +23,8 @@ export class UsersService {
         matchedBy: true,
         dislikeBy: true,
         disliking: true,
+        messageRecieved: true,
+        messageSent: true,
       },
     });
   }
@@ -38,6 +41,8 @@ export class UsersService {
         matchedBy: true,
         dislikeBy: true,
         disliking: true,
+        messageRecieved: true,
+        messageSent: true,
       },
     });
 
@@ -60,6 +65,8 @@ export class UsersService {
         matchedBy: true,
         dislikeBy: true,
         disliking: true,
+        messageRecieved: true,
+        messageSent: true,
       },
     });
 

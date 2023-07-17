@@ -10,6 +10,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { MailModule } from './mail/mail.module';
 import { EmailConfirmModule } from './emailConfirm/emailConfirm.module';
 import { MatchModule } from './match/match.module';
+import { MessageModule } from './message/message.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { MatchModule } from './match/match.module';
     MailModule,
     EmailConfirmModule,
     MatchModule,
+    MessageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

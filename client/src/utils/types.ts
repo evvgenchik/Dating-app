@@ -13,6 +13,8 @@ type UserType = {
   matching: MatchType[];
   dislikeBy: UserType[];
   disliking: UserType[];
+  messageSent: MessageType[];
+  messageRecieved: MessageType[];
 };
 
 type MatchType = {
@@ -22,6 +24,14 @@ type MatchType = {
   userAddressAnswer: boolean;
   userAddress: UserType;
   createdAt: Date;
+};
+
+type MessageType = {
+  id: string;
+  userSourceEmail: string;
+  userAddressEmail: string;
+  createdAt: Date;
+  content: string;
 };
 
 enum GenderEnum {

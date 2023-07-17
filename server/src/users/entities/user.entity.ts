@@ -1,6 +1,7 @@
 import { Exclude } from 'class-transformer';
 import { MatchDto } from 'src/match/dto/mathc.dto';
 import { CreateUserDto } from '../dto/create-user.dto';
+import { CreateMessageDto } from 'src/message/dto/create-message.dto';
 
 export class UserEntity {
   constructor(partial: Partial<UserEntity>) {
@@ -21,6 +22,8 @@ export class UserEntity {
   matching: MatchDto[];
   dislikeBy: CreateUserDto[];
   disliking: CreateUserDto[];
+  messageSent: CreateMessageDto[];
+  messageRecieved: CreateMessageDto[];
 
   @Exclude()
   hashedRefreshToken?: string;
