@@ -7,7 +7,8 @@ export class CreateMessageDto {
   @IsEmail()
   @IsNotEmpty()
   userAddressEmail: string;
-  createdAt: Date;
+  @IsNotEmpty()
   content: string;
+  @IsNotEmpty()
   conversationId: string;
 }

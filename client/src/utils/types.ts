@@ -15,6 +15,7 @@ type UserType = {
   disliking: UserType[];
   messageSent: MessageType[];
   messageRecieved: MessageType[];
+  conversations: ConversationType[];
 };
 
 type MatchType = {
@@ -26,12 +27,28 @@ type MatchType = {
   createdAt: Date;
 };
 
-type MessageType = {
-  id: string;
+type CreateConversationDto = {
   userSourceEmail: string;
   userAddressEmail: string;
+};
+
+type ConversationType = {
+  id: string;
   createdAt: Date;
+  messages: MessageType[];
+  users: UserType[];
+};
+
+type CreateMessageDto = {
+  userSourceEmail: string;
+  userAddressEmail: string;
   content: string;
+  conversationId: string;
+};
+
+type MessageType = CreateMessageDto & {
+  id: string;
+  createdAt: Date;
 };
 
 enum GenderEnum {
@@ -61,4 +78,15 @@ type AuthForm = {
   avatar: File;
 };
 
-export { UserType, GenderEnum, LookingEnum, UserLogin, AuthForm, MatchType };
+export {
+  UserType,
+  GenderEnum,
+  LookingEnum,
+  UserLogin,
+  AuthForm,
+  MatchType,
+  ConversationType,
+  MessageType,
+  CreateMessageDto,
+  CreateConversationDto,
+};

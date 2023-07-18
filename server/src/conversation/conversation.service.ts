@@ -8,11 +8,11 @@ export class ConversationService {
   constructor(private prisma: PrismaService) {}
 
   create(createConversationDto: CreateConversationDto) {
-    const { emailOne, emailTwo } = createConversationDto;
+    const { userAddressEmail, userSourceEmail } = createConversationDto;
     return this.prisma.conversation.create({
       data: {
         users: {
-          connect: [{ email: emailOne }, { email: emailTwo }],
+          connect: [{ email: userAddressEmail }, { email: userSourceEmail }],
         },
       },
     });

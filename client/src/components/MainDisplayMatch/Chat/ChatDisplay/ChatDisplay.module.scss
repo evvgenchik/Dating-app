@@ -23,6 +23,7 @@
   justify-self: start;
   position: absolute;
   top: 100rem;
+  width: 100%;
 }
 
 .messageContainer {
@@ -39,6 +40,7 @@
 }
 
 .messageReceived {
+
   .message {
     background-color: rgba(240, 242, 244, 1);
     color: #000;
@@ -76,6 +78,13 @@
   input:focus {
     outline: none;
   }
+}
+
+.sendBtnContainer {
+  border: none;
+  position: absolute;
+  top: 50%;
+  right: 3%;
 }
 
 .sendBtn {

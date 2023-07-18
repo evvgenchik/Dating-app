@@ -1,0 +1,45 @@
+.messageContainer {
+  display: flex;
+  gap: 5rem;
+  align-items: center;
+}
+
+.message {
+  border-radius: 10rem;
+  display: inline-block;
+  max-width: 85%;
+  padding: 10rem;
+}
+
+.messageReceived {
+  .message {
+    background-color: rgba(240, 242, 244, 1);
+    color: #000;
+  }
+}
+
+.messageSent {
+  justify-content: end;
+
+  .message {
+    background-color: #106bd5;
+    color: #fff;
+  }
+}
+
+.messageDate {
+  font-size: 12rem;
+}
+
+@media (width<=768px) {
+  .message {
+    border-radius: 5rem;
+    padding: 5rem;
+    font-size: 14rem;
+    max-width: 90%;
+  }
+
+  .messageDate {
+    display: none;
+  }
+}

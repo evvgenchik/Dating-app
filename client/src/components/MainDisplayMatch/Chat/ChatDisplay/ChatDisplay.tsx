@@ -1,18 +1,63 @@
-import { useContext } from 'react';
+import { FormEvent, useContext, useEffect, useState } from 'react';
 import { AiOutlineSend as SendIcon } from 'react-icons/ai';
 import styles from './ChatDisplay.module.scss';
 import AuthContext from '@/context/authProvider';
-import { UserType } from '@/utils/types';
+import { ConversationType, MessageType, UserType } from '@/utils/types';
 import { format } from 'date-fns';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { conversationApi } from '@/api/services/conversationApi';
+import Message from '../Message/Message';
+import { toast } from 'react-toastify';
+import Loader from '@/components/UI/Loader/Loader';
+import { messageApi } from '@/api/services/messageApi';
 
 type Props = {
   chatCompanion: UserType;
 };
 
+type createConversationDtoType = {
+  userAddressEmail: string;
+  userSourceEmail: string;
+};
+
+type createMessgaeDtoType = {
+  userAddressEmail: string;
+  userSourceEmail: string;
+  content: string;
+  conversationId: string;
+};
+
 function ChatDisplay({ chatCompanion }: Props) {
   const { user } = useContext(AuthContext);
+  const [messageText, setMessageText] = useState<string>('');
+  const { id: conversationId } = {
+    ...user.conversations.find((conversation) =>
+      conversation.users.some(({ email }) => email === chatCompanion.email)
+    ),
+  };
+  const [conversation, setConversation] = useState<ConversationType>(null);
 
-  const calculateMutualMatch = (
+  const { isLoading, data, error } = useQuery({
+    queryKey: ['conversation'],
+    queryFn: () => conversationApi.getUniqueConversation(conversationId),
+    enabled: !!conversationId,
+  });
+  const createConversation = useMutation({
+    mutationFn: (createConversationDto: createConversationDtoType) => {
+      return conversationApi.create(createConversationDto);
+    },
+  });
+  const createMessage = useMutation({
+    mutationFn: (createMessgaeDto: createMessgaeDtoType) => {
+      return messageApi.create(createMessgaeDto);
+    },
+  });
+
+  useEffect(() => {
+    setConversation(data);
+  }, [data]);
+
+  const calculateDateMatch = (
     chatCompanionEmail: string,
     currentUser: UserType
   ) => {
@@ -30,7 +75,42 @@ function ChatDisplay({ chatCompanion }: Props) {
     return format(answerDate, 'dd/MM/yyyy');
   };
 
-  const mutualMatchDate = calculateMutualMatch(chatCompanion.email, user);
+  const mutualMatchDate = calculateDateMatch(chatCompanion.email, user);
+
+  const submitHandler = (e: FormEvent) => {
+    e.preventDefault();
+
+    if (!conversation) {
+      const createConversationDto = {
+        userSourceEmail: user.email,
+        userAddressEmail: chatCompanion.email,
+      };
+
+      createConversation.mutate(createConversationDto);
+    }
+
+    const createMessgaeDto = {
+      content: messageText,
+      userSourceEmail: user.email,
+      userAddressEmail: chatCompanion.email,
+      conversationId: conversation.id,
+    };
+
+    createMessage.mutate(createMessgaeDto);
+  };
+
+  if (error) {
+    console.error(error);
+
+    toast.error('OOPS something went wrong', {
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: 'light',
+    });
+  }
 
   return (
     <div className={styles.chatDisplayContainer}>
@@ -38,39 +118,31 @@ function ChatDisplay({ chatCompanion }: Props) {
         {`You and ${chatCompanion.firstName} formed a couple on ${mutualMatchDate}`}
       </h3>
       <div className={styles.display}>
-        <div className={`${styles.messageContainer} ${styles.messageReceived}`}>
-          <p className={styles.message}>Hi there</p>
-          <span className={styles.messageDate}>12:12</span>
-        </div>
-        <div className={`${styles.messageContainer} ${styles.messageReceived}`}>
-          <p className={styles.message}>Hi there</p>
-          <span className={styles.messageDate}>12:12</span>
-        </div>
-        <div className={`${styles.messageContainer} ${styles.messageSent}`}>
-          <span className={styles.messageDate}>12:12</span>
-          <p className={styles.message}>
-            Hi Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis,
-            incidunt cum? Quidem nihil dolorem quibusdam laboriosam unde autem,
-            sit quas porro. Recusandae consectetur tempora impedit
-            exercitationem iusto quidem beatae esse?
-          </p>
-        </div>
-        <div
-          className={`${styles.messageContainer} ${styles.messageReceived}}`}
-        >
-          <p className={styles.message}>Hi there</p>
-          <span className={styles.messageDate}>12:12</span>
-        </div>
+        {conversation &&
+          conversation.messages.map((message) => {
+            return (
+              <Message
+                key={message.id}
+                userEmail={user.email}
+                message={message}
+              />
+            );
+          })}
       </div>
-      <form className={styles.chatFieldForm}>
+      <form onSubmit={(e) => submitHandler(e)} className={styles.chatFieldForm}>
         <textarea
+          value={messageText}
+          onChange={(e) => setMessageText(e.target.value)}
           className={styles.chatField}
           placeholder='Type your message'
           name='message'
           id='message'
         />
-        <SendIcon className={styles.sendBtn} />
+        <button className={styles.sendBtnContainer} type='submit'>
+          <SendIcon className={styles.sendBtn} />
+        </button>
       </form>
+      {isLoading && <Loader />}
     </div>
   );
 }

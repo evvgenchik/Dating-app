@@ -40,7 +40,13 @@ export class UsersService {
         matchedBy: true,
         dislikeBy: true,
         disliking: true,
-        conversations: true,
+        conversations: {
+          include: {
+            users: {
+              select: { email: true },
+            },
+          },
+        },
       },
     });
 
@@ -63,7 +69,13 @@ export class UsersService {
         matchedBy: true,
         dislikeBy: true,
         disliking: true,
-        conversations: true,
+        conversations: {
+          include: {
+            users: {
+              select: { email: true },
+            },
+          },
+        },
       },
     });
 
