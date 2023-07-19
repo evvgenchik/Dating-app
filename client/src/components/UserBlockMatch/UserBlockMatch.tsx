@@ -3,12 +3,13 @@ import icon from '@/assets/signUp/girl.jpg';
 import Matches from './Matches/Matches';
 import Messages from './Messages/Messages';
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
-function UserBlockMatch({ changeContentHandler }) {
+function UserBlockMatch() {
   const [block, setBlock] = useState('Matches');
   const content = {
-    Matches: <Matches changeContentHandler={changeContentHandler} />,
-    Messages: <Messages changeContentHandler={changeContentHandler} />,
+    Matches: <Matches />,
+    Messages: <Messages />,
   };
 
   return (

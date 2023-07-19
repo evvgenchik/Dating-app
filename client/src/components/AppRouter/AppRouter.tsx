@@ -6,6 +6,10 @@ import NotFound from '@/pages/Error/NotFound';
 import MainLayout from '@/layouts/MainLayout';
 import SignUp from '@/pages/SignUp/SignUp';
 import useAuth from '@/hooks/useAuth';
+import Swiper from '../MainDisplayMatch/Swiper/Swiper';
+import ChatDisplay from '../MainDisplayMatch/Chat/ChatDisplay/ChatDisplay';
+import ChatPersonInfo from '../MainDisplayMatch/Chat/ChatPersonInfo/ChatPersonInfo';
+import ChatContainer from '../MainDisplayMatch/Chat/ChatContainer/ChatContainer';
 
 const AppRouter = () => {
   const { user } = useAuth();
@@ -26,7 +30,33 @@ const AppRouter = () => {
         {
           path: '',
           element: <Match />,
-          index: true,
+          children: [
+            {
+              path: '',
+              element: <Swiper />,
+            },
+            {
+              path: 'message/:id',
+              element: <ChatContainer />,
+            },
+            // {
+            //   path: 'message:id',
+            //   element: (
+            //     <>
+            //       <ChatDisplay />
+            //       <ChatPersonInfo />
+            //     </>
+            //   ),
+            // },
+            {
+              path: 'about',
+              element: <About />,
+            },
+            {
+              path: 'app/about',
+              element: <About />,
+            },
+          ],
         },
         {
           path: 'app/about',

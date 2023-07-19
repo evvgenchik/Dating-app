@@ -1,14 +1,17 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './Messages.module.scss';
 import icon from '@/assets/signUp/girl.jpg';
 
-function Messages({ changeContentHandler }) {
-  const clickHanler = () => {
-    changeContentHandler('ChatContainer');
+function Messages() {
+  const navigate = useNavigate();
+
+  const clickHanler = ({ id }) => {
+    navigate(`/app/message/${id}`);
   };
 
   return (
     <ul className={styles.Ppllist}>
-      <li onClick={clickHanler} className={styles.PplItem}>
+      <li className={styles.PplItem}>
         <div className={styles.photoContainer}>
           <img className={styles.photo} src={icon} alt='person' />
         </div>

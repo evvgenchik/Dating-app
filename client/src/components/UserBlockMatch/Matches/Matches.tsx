@@ -3,12 +3,14 @@ import { useContext } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthContext from '@/context/authProvider';
 import { UserType } from '@/utils/types';
+import { useNavigate } from 'react-router-dom';
 
-function Matches({ changeContentHandler }) {
+function Matches() {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const clickHanler = (user: UserType) => {
-    changeContentHandler('ChatContainer', user);
+    navigate(`/app/message/${user.id}`, { state: user });
   };
 
   return (

@@ -2,7 +2,12 @@ import { FormEvent, useContext, useEffect, useState } from 'react';
 import { AiOutlineSend as SendIcon } from 'react-icons/ai';
 import styles from './ChatDisplay.module.scss';
 import AuthContext from '@/context/authProvider';
-import { ConversationType, MessageType, UserType } from '@/utils/types';
+import {
+  ConversationType,
+  CreateConversationDto,
+  CreateMessageDto,
+  UserType,
+} from '@/utils/types';
 import { format } from 'date-fns';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { conversationApi } from '@/api/services/conversationApi';
@@ -15,40 +20,28 @@ type Props = {
   chatCompanion: UserType;
 };
 
-type createConversationDtoType = {
-  userAddressEmail: string;
-  userSourceEmail: string;
-};
-
-type createMessgaeDtoType = {
-  userAddressEmail: string;
-  userSourceEmail: string;
-  content: string;
-  conversationId: string;
-};
-
 function ChatDisplay({ chatCompanion }: Props) {
   const { user } = useContext(AuthContext);
   const [messageText, setMessageText] = useState<string>('');
+  const [conversation, setConversation] = useState<ConversationType>(null);
   const { id: conversationId } = {
     ...user.conversations.find((conversation) =>
       conversation.users.some(({ email }) => email === chatCompanion.email)
     ),
   };
-  const [conversation, setConversation] = useState<ConversationType>(null);
 
-  const { isLoading, data, error } = useQuery({
-    queryKey: ['conversation'],
+  const { data, error, isInitialLoading } = useQuery({
+    queryKey: ['conversation', conversationId],
     queryFn: () => conversationApi.getUniqueConversation(conversationId),
     enabled: !!conversationId,
   });
   const createConversation = useMutation({
-    mutationFn: (createConversationDto: createConversationDtoType) => {
+    mutationFn: (createConversationDto: CreateConversationDto) => {
       return conversationApi.create(createConversationDto);
     },
   });
   const createMessage = useMutation({
-    mutationFn: (createMessgaeDto: createMessgaeDtoType) => {
+    mutationFn: (createMessgaeDto: CreateMessageDto) => {
       return messageApi.create(createMessgaeDto);
     },
   });
@@ -68,11 +61,11 @@ function ChatDisplay({ chatCompanion }: Props) {
       (match) => match.userSourceEmail === chatCompanionEmail
     );
 
-    const answerDate = new Date(
+    const answerMatchDate = new Date(
       matchingCreated > matchedByCreated ? matchingCreated : matchedByCreated
     );
 
-    return format(answerDate, 'dd/MM/yyyy');
+    return format(answerMatchDate, 'dd/MM/yyyy');
   };
 
   const mutualMatchDate = calculateDateMatch(chatCompanion.email, user);
@@ -97,6 +90,7 @@ function ChatDisplay({ chatCompanion }: Props) {
     };
 
     createMessage.mutate(createMessgaeDto);
+    setMessageText('');
   };
 
   if (error) {
@@ -142,7 +136,7 @@ function ChatDisplay({ chatCompanion }: Props) {
           <SendIcon className={styles.sendBtn} />
         </button>
       </form>
-      {isLoading && <Loader />}
+      {isInitialLoading && <Loader />}
     </div>
   );
 }
