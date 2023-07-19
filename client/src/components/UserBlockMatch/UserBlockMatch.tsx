@@ -1,16 +1,16 @@
+import { useState } from 'react';
 import styles from './UserBlockMatch.module.scss';
 import icon from '@/assets/signUp/girl.jpg';
 import Matches from './Matches/Matches';
 import Messages from './Messages/Messages';
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+
+const content = {
+  Matches: <Matches />,
+  Messages: <Messages />,
+};
 
 function UserBlockMatch() {
   const [block, setBlock] = useState('Matches');
-  const content = {
-    Matches: <Matches />,
-    Messages: <Messages />,
-  };
 
   return (
     <div className={styles.content}>

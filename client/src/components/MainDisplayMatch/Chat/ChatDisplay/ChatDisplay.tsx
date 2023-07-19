@@ -70,8 +70,14 @@ function ChatDisplay({ chatCompanion }: Props) {
 
   const mutualMatchDate = calculateDateMatch(chatCompanion.email, user);
 
-  const submitHandler = (e: FormEvent) => {
+  const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
+    const createMessgaeDto = {
+      content: messageText,
+      userSourceEmail: user.email,
+      userAddressEmail: chatCompanion.email,
+      conversationId: conversation?.id,
+    };
 
     if (!conversation) {
       const createConversationDto = {
@@ -79,15 +85,13 @@ function ChatDisplay({ chatCompanion }: Props) {
         userAddressEmail: chatCompanion.email,
       };
 
-      createConversation.mutate(createConversationDto);
-    }
+      const createdNovConversation = await createConversation.mutateAsync(
+        createConversationDto
+      );
 
-    const createMessgaeDto = {
-      content: messageText,
-      userSourceEmail: user.email,
-      userAddressEmail: chatCompanion.email,
-      conversationId: conversation.id,
-    };
+      setConversation(createdNovConversation);
+      createMessgaeDto.conversationId = createdNovConversation.id;
+    }
 
     createMessage.mutate(createMessgaeDto);
     setMessageText('');
@@ -113,7 +117,7 @@ function ChatDisplay({ chatCompanion }: Props) {
       </h3>
       <div className={styles.display}>
         {conversation &&
-          conversation.messages.map((message) => {
+          conversation.messages?.map((message) => {
             return (
               <Message
                 key={message.id}

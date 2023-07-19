@@ -21,4 +21,11 @@ export const conversationApi = {
     );
     return res.data;
   },
+
+  getAllForUser: async (id: string) => {
+    const res = await axiosReauth.get<ConversationType[]>(
+      CONVERSTION_URL + '/all/' + id
+    );
+    return res.data;
+  },
 };

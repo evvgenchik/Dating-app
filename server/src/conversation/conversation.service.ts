@@ -22,6 +22,28 @@ export class ConversationService {
     return `This action returns all conversation`;
   }
 
+  async findAllForUser(id: string) {
+    const conversations = await this.prisma.conversation.findMany({
+      where: {
+        users: {
+          some: { id },
+        },
+      },
+      include: {
+        users: true,
+        messages: {
+          take: 1,
+        },
+      },
+    });
+
+    if (!conversations) {
+      throw new NotFoundException('Conversations not found');
+    }
+
+    return conversations;
+  }
+
   async findOne(id: string) {
     const conversation = await this.prisma.conversation.findUnique({
       where: { id },
@@ -37,11 +59,7 @@ export class ConversationService {
     return conversation;
   }
 
-  update(id: number, updateConversationDto: UpdateConversationDto) {
-    return `This action updates a #${id} conversation`;
-  }
-
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} conversation`;
   }
 }
