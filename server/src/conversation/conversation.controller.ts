@@ -21,6 +21,11 @@ export class ConversationController {
     return this.conversationService.findOne(id);
   }
 
+  @Post()
+  findOneForUsers(@Body() userEmails: CreateConversationDto) {
+    return this.conversationService.findOneForUsers(userEmails);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.conversationService.remove(id);

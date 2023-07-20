@@ -12,6 +12,7 @@ import { EmailConfirmModule } from './emailConfirm/emailConfirm.module';
 import { MatchModule } from './match/match.module';
 import { MessageModule } from './message/message.module';
 import { ConversationModule } from './conversation/conversation.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { ConversationModule } from './conversation/conversation.module';
     MatchModule,
     MessageModule,
     ConversationModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],

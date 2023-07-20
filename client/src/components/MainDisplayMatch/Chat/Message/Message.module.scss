@@ -20,6 +20,7 @@
 
 .messageSent {
   justify-content: end;
+  flex-direction: row-reverse;
 
   .message {
     background-color: #106bd5;

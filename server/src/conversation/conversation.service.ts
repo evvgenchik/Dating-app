@@ -59,6 +59,20 @@ export class ConversationService {
     return conversation;
   }
 
+  async findOneForUsers({ userSourceEmail, userAddressEmail }) {
+    const conversation = await this.prisma.conversation.findFirst({
+      where: {
+        users: {
+          some: { email: userSourceEmail } && { email: userAddressEmail },
+        },
+      },
+      include: {
+        messages: true,
+      },
+    });
+    return conversation;
+  }
+
   remove(id: string) {
     return `This action removes a #${id} conversation`;
   }

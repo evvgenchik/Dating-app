@@ -6,6 +6,7 @@ import {
   ConversationType,
   CreateConversationDto,
   CreateMessageDto,
+  MessageType,
   UserType,
 } from '@/utils/types';
 import { format } from 'date-fns';
@@ -15,6 +16,7 @@ import Message from '../Message/Message';
 import { toast } from 'react-toastify';
 import Loader from '@/components/UI/Loader/Loader';
 import { messageApi } from '@/api/services/messageApi';
+import { socket } from '@/socket';
 
 type Props = {
   chatCompanion: UserType;
@@ -24,31 +26,31 @@ function ChatDisplay({ chatCompanion }: Props) {
   const { user } = useContext(AuthContext);
   const [messageText, setMessageText] = useState<string>('');
   const [conversation, setConversation] = useState<ConversationType>(null);
-  const { id: conversationId } = {
-    ...user.conversations.find((conversation) =>
-      conversation.users.some(({ email }) => email === chatCompanion.email)
-    ),
-  };
+  // const { id: conversationId } = {
+  //   ...user.conversations.find((conversation) =>
+  //     conversation.users.some(({ email }) => email === chatCompanion.email)
+  //   ),
+  // };
 
-  const { data, error, isInitialLoading } = useQuery({
-    queryKey: ['conversation', conversationId],
-    queryFn: () => conversationApi.getUniqueConversation(conversationId),
-    enabled: !!conversationId,
-  });
-  const createConversation = useMutation({
-    mutationFn: (createConversationDto: CreateConversationDto) => {
-      return conversationApi.create(createConversationDto);
-    },
-  });
-  const createMessage = useMutation({
-    mutationFn: (createMessgaeDto: CreateMessageDto) => {
-      return messageApi.create(createMessgaeDto);
-    },
-  });
+  // const { data, error, isInitialLoading } = useQuery({
+  //   queryKey: ['conversation', conversationId],
+  //   queryFn: () => conversationApi.getUniqueConversation(conversationId),
+  //   enabled: !!conversationId,
+  // });
+  // const createConversation = useMutation({
+  //   mutationFn: (createConversationDto: CreateConversationDto) => {
+  //     return conversationApi.create(createConversationDto);
+  //   },
+  // });
+  // const createMessage = useMutation({
+  //   mutationFn: (createMessgaeDto: CreateMessageDto) => {
+  //     return messageApi.create(createMessgaeDto);
+  //   },
+  // });
 
-  useEffect(() => {
-    setConversation(data);
-  }, [data]);
+  // useEffect(() => {
+  //   setConversation(data);
+  // }, [data]);
 
   const calculateDateMatch = (
     chatCompanionEmail: string,
@@ -72,43 +74,90 @@ function ChatDisplay({ chatCompanion }: Props) {
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
+
+    if (!messageText) return;
+
     const createMessgaeDto = {
       content: messageText,
       userSourceEmail: user.email,
       userAddressEmail: chatCompanion.email,
-      conversationId: conversation?.id,
+      conversationId: conversation.id,
     };
 
-    if (!conversation) {
-      const createConversationDto = {
-        userSourceEmail: user.email,
-        userAddressEmail: chatCompanion.email,
-      };
+    // if (!conversation) {
+    //   const createConversationDto = {
+    //     userSourceEmail: user.email,
+    //     userAddressEmail: chatCompanion.email,
+    //   };
 
-      const createdNovConversation = await createConversation.mutateAsync(
-        createConversationDto
-      );
+    //   const createdNovConversation = await createConversation.mutateAsync(
+    //     createConversationDto
+    //   );
 
-      setConversation(createdNovConversation);
-      createMessgaeDto.conversationId = createdNovConversation.id;
-    }
+    //   setConversation(createdNovConversation);
+    //   createMessgaeDto.conversationId = createdNovConversation.id;
+    // }
 
-    createMessage.mutate(createMessgaeDto);
+    // createMessage.mutate(createMessgaeDto);
+    socket.emit('sendMessage', createMessgaeDto);
     setMessageText('');
   };
 
-  if (error) {
-    console.error(error);
+  // if (error) {
+  //   console.error(error);
 
-    toast.error('OOPS something went wrong', {
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      theme: 'light',
-    });
-  }
+  //   toast.error('OOPS something went wrong', {
+  //     autoClose: 3000,
+  //     hideProgressBar: false,
+  //     closeOnClick: true,
+  //     pauseOnHover: true,
+  //     draggable: true,
+  //     theme: 'light',
+  //   });
+  // }
+
+  const [isConnected, setIsConnected] = useState(socket.connected);
+  const [fooEvents, setFooEvents] = useState([]);
+
+  useEffect(() => {
+    const conversationDto = {
+      userSourceEmail: user.email,
+      userAddressEmail: chatCompanion.email,
+    };
+
+    setConversation(null);
+    socket.emit('getConversationForEmails', conversationDto);
+
+    function onConnect() {
+      setIsConnected(true);
+    }
+
+    function onDisconnect() {
+      setIsConnected(false);
+    }
+
+    function receiveConversation(value: ConversationType) {
+      console.log('Dude its a conversation from websocket');
+      console.log(value);
+      setConversation(value);
+    }
+
+    function receiveMessage(value: MessageType) {
+      socket.emit('getConversation', value.conversationId);
+    }
+
+    socket.on('connect', onConnect);
+    socket.on('disconnect', onDisconnect);
+    socket.on('receiveConversation', receiveConversation);
+    socket.on('receiveMessage', receiveMessage);
+
+    return () => {
+      socket.off('connect', onConnect);
+      socket.off('disconnect', onDisconnect);
+      socket.off('receiveConversation', receiveConversation);
+      socket.off('receiveMessage', receiveMessage);
+    };
+  }, [chatCompanion.id]);
 
   return (
     <div className={styles.chatDisplayContainer}>
@@ -140,7 +189,7 @@ function ChatDisplay({ chatCompanion }: Props) {
           <SendIcon className={styles.sendBtn} />
         </button>
       </form>
-      {isInitialLoading && <Loader />}
+      {/* {isInitialLoading && <Loader />} */}
     </div>
   );
 }

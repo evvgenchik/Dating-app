@@ -15,6 +15,12 @@ export class MessageService {
     return await this.prisma.message.findMany();
   }
 
+  async findAllForConversation(id: string) {
+    return await this.prisma.message.findMany({
+      where: { conversationId: id },
+    });
+  }
+
   async findOne(id: string) {
     const message = await this.prisma.message.findUnique({
       where: { id },
