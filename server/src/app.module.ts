@@ -10,8 +10,8 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { MailModule } from './mail/mail.module';
 import { EmailConfirmModule } from './emailConfirm/emailConfirm.module';
 import { MatchModule } from './match/match.module';
-import { MessageModule } from './message/message.module';
-import { ConversationModule } from './conversation/conversation.module';
+import { MessageModule } from './chat/message/message.module';
+import { ConversationModule } from './chat/conversation/conversation.module';
 import { ChatModule } from './chat/chat.module';
 
 @Module({

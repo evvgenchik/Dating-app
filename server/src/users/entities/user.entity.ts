@@ -1,7 +1,6 @@
 import { Exclude } from 'class-transformer';
 import { MatchDto } from 'src/match/dto/mathc.dto';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { CreateMessageDto } from 'src/message/dto/create-message.dto';
 import { Conversation } from '@prisma/client';
 
 export class UserEntity {
@@ -24,8 +23,6 @@ export class UserEntity {
   dislikeBy: CreateUserDto[];
   disliking: CreateUserDto[];
   conversations: Conversation[];
-  // messageSent: CreateMessageDto[];
-  // messageRecieved: CreateMessageDto[];
 
   @Exclude()
   hashedRefreshToken?: string;

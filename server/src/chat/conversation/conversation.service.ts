@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateConversationDto } from './dto/create-conversation.dto';
-import { UpdateConversationDto } from './dto/update-conversation.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -16,10 +15,6 @@ export class ConversationService {
         },
       },
     });
-  }
-
-  findAll() {
-    return `This action returns all conversation`;
   }
 
   async findAllForUser(id: string) {
@@ -62,9 +57,23 @@ export class ConversationService {
   async findOneForUsers({ userSourceEmail, userAddressEmail }) {
     const conversation = await this.prisma.conversation.findFirst({
       where: {
-        users: {
-          some: { email: userSourceEmail } && { email: userAddressEmail },
-        },
+        AND: [
+          {
+            users: {
+              some: { email: userAddressEmail },
+            },
+          },
+          {
+            users: {
+              some: { email: userSourceEmail },
+            },
+          },
+        ],
+        // users: {
+        //   some: { email: userSourceEmail } && {
+        //     email: userAddressEmail,
+        //   },
+        // },
       },
       include: {
         messages: true,

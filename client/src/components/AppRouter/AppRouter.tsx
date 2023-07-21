@@ -9,7 +9,6 @@ import useAuth from '@/hooks/useAuth';
 import Swiper from '../MainDisplayMatch/Swiper/Swiper';
 import ChatDisplay from '../MainDisplayMatch/Chat/ChatDisplay/ChatDisplay';
 import ChatPersonInfo from '../MainDisplayMatch/Chat/ChatPersonInfo/ChatPersonInfo';
-import ChatContainer from '../MainDisplayMatch/Chat/ChatContainer/ChatContainer';
 
 const AppRouter = () => {
   const { user } = useAuth();
@@ -37,7 +36,12 @@ const AppRouter = () => {
             },
             {
               path: 'message/:id',
-              element: <ChatContainer />,
+              element: (
+                <>
+                  <ChatDisplay />
+                  <ChatPersonInfo />
+                </>
+              ),
             },
             // {
             //   path: 'message:id',

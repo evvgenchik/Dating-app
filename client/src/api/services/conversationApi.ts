@@ -1,8 +1,4 @@
-import {
-  ConversationType,
-  CreateConversationDto,
-  UserType,
-} from '@/utils/types';
+import { ConversationType, CreateConversationDto } from '@/utils/types';
 import { axiosReauth } from '../axios';
 
 const CONVERSTION_URL = '/conversation';

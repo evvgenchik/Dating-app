@@ -11,10 +11,6 @@ export class MessageService {
     return await this.prisma.message.create({ data: createMessageDto });
   }
 
-  async findAll() {
-    return await this.prisma.message.findMany();
-  }
-
   async findAllForConversation(id: string) {
     return await this.prisma.message.findMany({
       where: { conversationId: id },
@@ -38,9 +34,5 @@ export class MessageService {
       where: { id },
       data: { ...updateMessageDto },
     });
-  }
-
-  async remove(id: string) {
-    await this.prisma.user.delete({ where: { id } });
   }
 }

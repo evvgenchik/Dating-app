@@ -1,13 +1,10 @@
-import { UserType } from '@/utils/types';
 import styles from './ChatPersonInfo.module.scss';
-import icon from '@/assets/signUp/girl.jpg';
 import { ageCalculate } from '@/utils/helper';
+import { useLocation } from 'react-router-dom';
 
-type Props = {
-  chatCompanion: UserType;
-};
+function ChatPersonInfo() {
+  const { state: chatCompanion } = useLocation();
 
-function ChatPersonInfo({ chatCompanion }: Props) {
   return (
     <div className={styles.personInfoContainer}>
       <div className={styles.personInfo}>
@@ -25,8 +22,6 @@ function ChatPersonInfo({ chatCompanion }: Props) {
               {ageCalculate(new Date(chatCompanion.birthday))}
             </span>
           </h2>
-          {/* <h2 className={styles.location}>Live in Moscow</h2>
-          <h2 className={styles.distance}>400 km from you</h2> */}
         </div>
         <div className={styles.description}>{chatCompanion.descriptrion}</div>
       </div>

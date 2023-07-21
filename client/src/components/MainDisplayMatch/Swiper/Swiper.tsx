@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import TinderCard from 'react-tinder-card';
 import styles from './Swiper.module.scss';
 import { AiFillHeart as HeartIcon } from 'react-icons/ai';
@@ -61,32 +61,6 @@ function Swiper() {
       );
     }
   }, [data, user]);
-
-  //Without react-query!!!
-  // useEffect(() => {
-  //   const fetchUsers = async () => {
-  //     const res = await UserAPI.getUsers();
-  //     const users = res.data;
-  //     console.log('two');
-
-  //     setUsers(users);
-  //     setCurrentIndex(users.length);
-  //   };
-
-  //   fetchUsers().catch(console.log);
-  // }, []);
-
-  // const childRefs = useMemo<any>(
-  //   () =>
-  //     Array(users.length)
-  //       .fill(0)
-  //       .map((i) => React.createRef()),
-  //   []
-  // );
-
-  // const updateCurrentIndex = (val: number) => {
-  //   setCurrentIndex(val);
-  // };
 
   const canGoBack = currentIndex < users.length - 1;
   const canSwipe = currentIndex >= 0 && currentIndex < users.length;
@@ -172,8 +146,7 @@ function Swiper() {
                     </span>{' '}
                   </p>
                   <p className={styles.description}>{character.descriptrion}</p>
-                  {/* <p className={styles.status}>Online now</p>
-                  <p className={styles.location}>3km from you</p> */}
+                  {/* <p className={styles.status}>Online now</p>*/}
                 </div>
               </div>
             </TinderCard>
