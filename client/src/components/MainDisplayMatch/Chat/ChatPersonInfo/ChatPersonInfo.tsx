@@ -2,21 +2,42 @@ import { useContext } from 'react';
 import AuthContext from '@/context/authProvider';
 import styles from './ChatPersonInfo.module.scss';
 import { ageCalculate } from '@/utils/helper';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { MatchAPI } from '@/api/services/matchApi';
+import Loader from '@/components/UI/Loader/Loader';
+import { ToastContainer, toast } from 'react-toastify';
 
 function ChatPersonInfo() {
   const { state: chatCompanion } = useLocation();
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const deleteMatchMutation = useMutation({
+  const {
+    mutateAsync: deleteMatchMutation,
+    isLoading,
+    error,
+  } = useMutation({
     mutationFn: () => MatchAPI.delete(user.email, chatCompanion.email),
   });
 
-  const removeHandler = () => {
-    deleteMatchMutation.mutate();
+  const removeHandler = async () => {
+    await deleteMatchMutation();
+    navigate(`/app`);
   };
+
+  if (error) {
+    console.error(error);
+
+    toast.error('OOPS something went wrong', {
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: 'light',
+    });
+  }
 
   return (
     <div className={styles.personInfoContainer}>
@@ -46,10 +67,9 @@ function ChatPersonInfo() {
         >
           UNMATCH
         </button>
-        {/* <button type='button' className={styles.personInfoBtn}>
-          COMPLAINT
-        </button> */}
       </div>
+      {isLoading && <Loader />}
+      <ToastContainer />
     </div>
   );
 }

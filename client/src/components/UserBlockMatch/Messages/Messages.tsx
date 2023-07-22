@@ -5,7 +5,7 @@ import AuthContext from '@/context/authProvider';
 import { conversationApi } from '@/api/services/conversationApi';
 import { useQuery } from '@tanstack/react-query';
 import Loader from '@/components/UI/Loader/Loader';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { UserType } from '@/utils/types';
 
 function Messages() {
@@ -36,69 +36,35 @@ function Messages() {
 
   return (
     <ul className={styles.Ppllist}>
-      {
-        isSuccess &&
-          data.map((conversation) => {
-            const chatCompanion = conversation.users.find(
-              (user) => user.email !== currentUser.email
-            );
-            return (
-              <li
-                onClick={() => clickHanler(chatCompanion)}
-                key={conversation.id}
-                className={styles.PplItem}
-              >
-                <div className={styles.photoContainer}>
-                  <img
-                    className={styles.photo}
-                    src={chatCompanion.avatar}
-                    alt='person'
-                  />
-                </div>
-                <div className={styles.text}>
-                  <p className={styles.name}>{chatCompanion.firstName}</p>
-                  <p className={styles.message}>
-                    {conversation.messages[0]?.content}
-                  </p>
-                </div>
-              </li>
-            );
-          })
-        // <li className={styles.PplItem}>
-        //   <div className={styles.photoContainer}>
-        //     <img className={styles.photo} src={icon} alt='person' />
-        //   </div>
-        //   <div className={styles.text}>
-        //     <p className={styles.name}>Julia</p>
-        //     <p className={styles.message}>
-        //       Hey man! Whats up? Waht you are doing! how are you
-        //     </p>
-        //   </div>
-        // </li>
-        // <li className={styles.PplItem}>
-        //   <div className={styles.photoContainer}>
-        //     <img className={styles.photo} src={icon} alt='person' />
-        //   </div>
-        //   <div className={styles.text}>
-        //     <p className={styles.name}>Julia</p>
-        //     <p className={styles.message}>
-        //       Hey man! Whats up? Waht you are doing! how are you
-        //     </p>
-        //   </div>
-        // </li>
-        // <li className={styles.PplItem}>
-        //   <div className={styles.photoContainer}>
-        //     <img className={styles.photo} src={icon} alt='person' />
-        //   </div>
-        //   <div className={styles.text}>
-        //     <p className={styles.name}>Julia</p>
-        //     <p className={styles.message}>
-        //       Hey man! Whats up? Waht you are doing! how are you
-        //     </p>
-        //   </div>
-        // </li>
-      }
+      {isSuccess &&
+        data.map((conversation) => {
+          const chatCompanion = conversation.users.find(
+            (user) => user.email !== currentUser.email
+          );
+          return (
+            <li
+              onClick={() => clickHanler(chatCompanion)}
+              key={conversation.id}
+              className={styles.PplItem}
+            >
+              <div className={styles.photoContainer}>
+                <img
+                  className={styles.photo}
+                  src={chatCompanion.avatar}
+                  alt='person'
+                />
+              </div>
+              <div className={styles.text}>
+                <p className={styles.name}>{chatCompanion.firstName}</p>
+                <p className={styles.message}>
+                  {conversation.messages[0]?.content}
+                </p>
+              </div>
+            </li>
+          );
+        })}
       {isLoading && <Loader />}
+      <ToastContainer />
     </ul>
   );
 }
