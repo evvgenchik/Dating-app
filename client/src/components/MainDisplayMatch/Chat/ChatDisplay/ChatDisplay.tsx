@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useEffect, useState } from 'react';
+import { FormEvent, useContext, useEffect, useRef, useState } from 'react';
 import { AiOutlineSend as SendIcon } from 'react-icons/ai';
 import styles from './ChatDisplay.module.scss';
 import AuthContext from '@/context/authProvider';
@@ -14,6 +14,7 @@ function ChatDisplay() {
   const { user } = useContext(AuthContext);
   const [messageText, setMessageText] = useState<string>('');
   const [conversation, setConversation] = useState<ConversationType>(null);
+  const conversationRef = useRef<ConversationType>();
 
   const calculateDateMatch = (
     chatCompanionEmail: string,
@@ -81,6 +82,7 @@ function ChatDisplay() {
     socket.emit('getConversationForEmails', conversationDto);
 
     function receiveConversation(value: ConversationType) {
+      conversationRef.current = value;
       setConversation(value);
     }
 
@@ -92,6 +94,12 @@ function ChatDisplay() {
     socket.on('receiveMessage', receiveMessage);
 
     return () => {
+      const converstion = conversationRef.current;
+
+      if (converstion && !converstion.messages.length) {
+        socket.emit('deleteConversation', converstion.id);
+      }
+
       socket.off('receiveConversation', receiveConversation);
       socket.off('receiveMessage', receiveMessage);
     };

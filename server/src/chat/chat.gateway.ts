@@ -56,10 +56,8 @@ export class ChatGateway {
     this.server.sockets.emit('receiveConversation', conversation);
   }
 
-  @SubscribeMessage('createConversation')
-  async createConverstion(@MessageBody() usersEmails: CreateConversationDto) {
-    const conversation = await this.convversationService.create(usersEmails);
-
-    this.server.sockets.emit('receiveConversation', conversation);
+  @SubscribeMessage('deleteConversation')
+  async deleteConverstion(@MessageBody() id: string) {
+    await this.convversationService.remove(id);
   }
 }

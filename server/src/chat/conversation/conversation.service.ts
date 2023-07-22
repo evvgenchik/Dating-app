@@ -82,7 +82,7 @@ export class ConversationService {
     return conversation;
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} conversation`;
+  async remove(id: string) {
+    return await this.prisma.conversation.delete({ where: { id } });
   }
 }
