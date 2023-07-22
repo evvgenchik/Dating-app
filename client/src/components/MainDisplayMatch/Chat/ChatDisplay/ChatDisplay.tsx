@@ -95,8 +95,9 @@ function ChatDisplay() {
 
     return () => {
       const converstion = conversationRef.current;
+      console.log(converstion);
 
-      if (converstion && !converstion.messages.length) {
+      if (converstion && !converstion.messages?.length) {
         socket.emit('deleteConversation', converstion.id);
       }
 
