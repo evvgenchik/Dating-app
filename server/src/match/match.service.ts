@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { MatchDto } from './dto/mathc.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ConfigService } from '@nestjs/config';
-import { log } from 'console';
 import { Match } from '@prisma/client';
 
 @Injectable()
@@ -42,6 +41,20 @@ export class MatchService {
     return this.prisma.match.update({
       where: { id },
       data: { userAddressAnswer },
+    });
+  }
+
+  async remove({ userAddressEmail, userSourceEmail }) {
+    return await this.prisma.match.deleteMany({
+      where: {
+        OR: [
+          { userAddressEmail, userSourceEmail },
+          {
+            userAddressEmail: userSourceEmail,
+            userSourceEmail: userAddressEmail,
+          },
+        ],
+      },
     });
   }
 }

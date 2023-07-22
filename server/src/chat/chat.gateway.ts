@@ -8,7 +8,7 @@ import { Server } from 'socket.io';
 import { MessageService } from './message/message.service';
 import { CreateMessageDto } from './message/dto/create-message.dto';
 import { ConversationService } from './conversation/conversation.service';
-import { CreateConversationDto } from './conversation/dto/create-conversation.dto';
+import { CreateConversationDto } from './conversation/dto/conversation.dto';
 
 @WebSocketGateway({
   cors: {
@@ -27,7 +27,6 @@ export class ChatGateway {
   @SubscribeMessage('sendMessage')
   async create(@MessageBody() createMessageDto: CreateMessageDto) {
     const message = await this.messageService.create(createMessageDto);
-
     this.server.sockets.emit('receiveMessage', message);
   }
 

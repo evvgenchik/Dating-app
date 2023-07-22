@@ -60,7 +60,8 @@
 
 .personInfoBtn {
   border: none;
-  font-size: 18rem;
+  font-size: 20rem;
+  font-weight: 600;
   padding: 20rem 10rem;
   flex: 0 1 100%;
   cursor: pointer;
@@ -94,7 +95,7 @@
   }
 
   .personInfoBtn {
-    font-size: 12rem;
+    font-size: 14rem;
   }
 }
 
@@ -103,9 +104,5 @@
     .name {
       font-size: 14rem;
     }
-  }
-
-  .personInfoControls {
-    flex-direction: column;
   }
 }

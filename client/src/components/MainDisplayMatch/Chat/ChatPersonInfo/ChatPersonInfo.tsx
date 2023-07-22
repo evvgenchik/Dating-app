@@ -1,9 +1,22 @@
+import { useContext } from 'react';
+import AuthContext from '@/context/authProvider';
 import styles from './ChatPersonInfo.module.scss';
 import { ageCalculate } from '@/utils/helper';
 import { useLocation } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { MatchAPI } from '@/api/services/matchApi';
 
 function ChatPersonInfo() {
   const { state: chatCompanion } = useLocation();
+  const { user } = useContext(AuthContext);
+
+  const deleteMatchMutation = useMutation({
+    mutationFn: () => MatchAPI.delete(user.email, chatCompanion.email),
+  });
+
+  const removeHandler = () => {
+    deleteMatchMutation.mutate();
+  };
 
   return (
     <div className={styles.personInfoContainer}>
@@ -27,14 +40,15 @@ function ChatPersonInfo() {
       </div>
       <div className={styles.personInfoControls}>
         <button
+          onClick={removeHandler}
           type='button'
           className={`${styles.personInfoBtn} ${styles.btnDelete}`}
         >
-          REMOVE
+          UNMATCH
         </button>
-        <button type='button' className={styles.personInfoBtn}>
+        {/* <button type='button' className={styles.personInfoBtn}>
           COMPLAINT
-        </button>
+        </button> */}
       </div>
     </div>
   );

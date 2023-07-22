@@ -41,8 +41,8 @@ model Match {
   userAddressEmail String @map("user_address_email")
   userAddressAnswer Boolean @default(false) @map("user_address_answer")
   createdAt DateTime @default(now())
-  // conversation Conversation? @relation(fields: [conversationId], references: [id], onDelete: Cascade )
-  // conversationId String?
+  conversation Conversation? @relation(fields: [conversationId], references: [id], onDelete: SetNull )
+  conversationId String?
 }
 
 model Conversation {
@@ -50,7 +50,7 @@ model Conversation {
   users User[] 
   createdAt DateTime @default(now())
   messages Message[]
- // matches Match[]
+  matches Match[] 
 }
 
 model Message {
@@ -61,7 +61,7 @@ model Message {
   userAddressEmail String @map("user_address_email")
   createdAt DateTime @default(now())
   content String
-  conversation Conversation @relation(fields: [conversationId], references: [id])
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   conversationId String
 }
 

@@ -18,4 +18,14 @@ export const MatchAPI = {
     });
     return res.data;
   },
+
+  delete: async (userSourceEmail: string, userAddressEmail: string) => {
+    const res = await axiosReauth.delete<MatchType>(MATCH_URL, {
+      data: {
+        userSourceEmail,
+        userAddressEmail,
+      },
+    });
+    return res.data;
+  },
 };

@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateConversationDto } from './dto/create-conversation.dto';
+import { CreateConversationDto } from './dto/conversation.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -84,5 +84,15 @@ export class ConversationService {
 
   async remove(id: string) {
     return await this.prisma.conversation.delete({ where: { id } });
+  }
+
+  async removeByEmails({ userAddressEmail, userSourceEmail }) {
+    return await this.prisma.conversation.deleteMany({
+      where: {
+        users: {
+          some: { email: userAddressEmail } && { email: userSourceEmail },
+        },
+      },
+    });
   }
 }
