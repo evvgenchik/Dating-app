@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import styles from './UserBlockMatch.module.scss';
 import icon from '@/assets/signUp/girl.jpg';
 import Matches from './Matches/Matches';
 import Messages from './Messages/Messages';
+import AuthContext from '@/context/authProvider';
 
 const content = {
   Matches: <Matches />,
@@ -11,14 +12,15 @@ const content = {
 
 function UserBlockMatch() {
   const [block, setBlock] = useState('Matches');
+  const { user } = useContext(AuthContext);
 
   return (
     <div className={styles.content}>
       <div className={styles.header}>
         <div className={styles.photoContainer}>
-          <img className={styles.photo} src={icon} alt='profile' />
+          <img className={styles.photo} src={user.avatar} alt='profile' />
         </div>
-        <span className={styles.name}>Julia</span>
+        <span className={styles.name}>{user.firstName}</span>
       </div>
       <div className={styles.controlPanel}>
         <button
