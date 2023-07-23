@@ -21,6 +21,14 @@
 
 @media (width<=768px) {
   .nav {
-    display: none;
+    gap: 10rem;
+    font-size: 20rem;
+  }
+}
+
+@media (width<=500px) {
+  .nav {
+    gap: 7rem;
+    font-size: 16rem;
   }
 }
