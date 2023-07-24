@@ -7,14 +7,16 @@ import { Outlet } from 'react-router-dom';
 function Match() {
   const [isShow, setIsShow] = useState<boolean>(false);
 
-  const showHandler = () => {
+  const showMatchesHandler = () => {
     setIsShow(!isShow);
   };
 
   return (
     <div className={styles.content}>
-      <MessageIcon onClick={showHandler} className={styles.showBtn} />
-
+      {isShow && (
+        <div onClick={showMatchesHandler} className={styles.showBtnWrapper} />
+      )}
+      <MessageIcon onClick={showMatchesHandler} className={styles.showBtn} />
       <UserBlockMatch isShow={isShow} />
       <div className={styles.mainContent}>
         <Outlet />

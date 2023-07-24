@@ -1,25 +1,25 @@
 import { useContext, useLayoutEffect, useState } from 'react';
-import Menu from './Menu/Menu';
+import Menu from '../Menu/Menu';
 import styles from './Header.module.scss';
 import Logo from '../UI/Logo/Logo';
 import AuthContext from '@/context/authProvider';
 
 function Header() {
   const { user } = useContext(AuthContext);
-  const mediaMatch = matchMedia('(max-width: 766px)');
-  const [isBurger, setIsBurger] = useState<boolean>(mediaMatch.matches);
+  // const mediaMatch = matchMedia('(max-width: 766px)');
+  // const [isBurger, setIsBurger] = useState<boolean>(mediaMatch.matches);
 
-  useLayoutEffect(() => {
-    const handler = () => setIsBurger(mediaMatch.matches);
-    mediaMatch.addEventListener('change', handler);
+  // useLayoutEffect(() => {
+  //   const handler = () => setIsBurger(mediaMatch.matches);
+  //   mediaMatch.addEventListener('change', handler);
 
-    return () => mediaMatch.removeEventListener('change', handler);
-  }, []);
+  //   return () => mediaMatch.removeEventListener('change', handler);
+  // }, []);
 
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <p></p>
+        <p />
         <Logo />
         <div className={styles.MenuWrapper}>
           <Menu />

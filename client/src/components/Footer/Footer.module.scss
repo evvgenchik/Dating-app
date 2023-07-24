@@ -18,6 +18,8 @@
 
   .container {
     padding: 10rem 5rem;
+    justify-content: center;
+    gap: 40rem;
   }
 
   .text {
@@ -26,13 +28,9 @@
 
   .git {
     width: 25rem;
-  }
-}
-
-@media (width<=380px) {
-  .container {
-    justify-content: center;
-    gap: 40rem;
+    position: absolute;
+    bottom: 5rem;
+    right: 0;
   }
 
   .logoContainer {

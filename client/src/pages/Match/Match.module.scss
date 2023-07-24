@@ -1,6 +1,7 @@
 .content {
   display: flex;
   height: 100%;
+  position: relative;
 }
 
 .mainContent {
@@ -15,8 +16,15 @@
   width: 22rem;
   height: 22rem;
   position: absolute;
-  top: 16rem;
+  top: -30rem;
   left: 5rem;
+}
+
+.showBtnWrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 @media (width <=1500px) {

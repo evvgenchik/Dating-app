@@ -2,7 +2,7 @@ import { useState, useLayoutEffect } from 'react';
 import styles from './Footer.module.scss';
 import Logo from '../UI/Logo/Logo';
 import git from '@/assets/github-white.svg';
-import Menu from '../Header/Menu/Menu';
+import Menu from '../Menu/Menu';
 
 function Footer() {
   const mediaMatch = matchMedia('(max-width: 500px)');
