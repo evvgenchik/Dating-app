@@ -7,6 +7,20 @@
   align-content: stretch;
   min-height: 100%;
   position: relative;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.ChatInfo {
+  display: flex;
+}
+
+.chatCompanionAvatar {
+  width: 45rem;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+  border-radius: 2rem;
 }
 
 .chatHeaderText {
@@ -16,15 +30,18 @@
   width: 100%;
 }
 
+.UnmatchBtnWrapper {
+  display: none;
+}
+
 .display {
   display: flex;
   flex-direction: column;
   gap: 10rem;
   padding: 0 10rem;
   justify-self: start;
-  position: absolute;
-  top: 100rem;
-  width: 100%;
+  overflow: auto;
+  height: 75vh;
 }
 
 .chatFieldForm {
@@ -59,22 +76,6 @@
   transform: translate(0, -50%);
   right: 3%;
   cursor: pointer;
-}
-
-.ChatInfo {
-  display: flex;
-}
-
-.chatCompanionAvatar {
-  width: 45rem;
-  height: 100%;
-  object-fit: cover;
-  display: none;
-  border-radius: 2rem;
-}
-
-.UnmatchBtnWrapper {
-  display: none;
 }
 
 @media (width<=986px) {
