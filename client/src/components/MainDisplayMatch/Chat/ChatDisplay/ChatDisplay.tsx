@@ -8,6 +8,7 @@ import Message from '../Message/Message';
 import { toast } from 'react-toastify';
 import { socket } from '@/socket';
 import { useLocation } from 'react-router-dom';
+import UnmatchBtn from '@/components/UnmatchBtn/UnmatchBtn';
 
 function ChatDisplay() {
   const { state: chatCompanion } = useLocation();
@@ -113,9 +114,19 @@ function ChatDisplay() {
 
   return (
     <div className={styles.chatDisplayContainer}>
-      <h3 className={styles.chatHeaderText}>
-        {`You and ${chatCompanion.firstName} formed a couple on ${mutualMatchDate}`}
-      </h3>
+      <div className={styles.ChatInfo}>
+        <img
+          className={styles.chatCompanionAvatar}
+          src={chatCompanion.avatar}
+          alt='chatCompanion photo'
+        />
+        <h3 className={styles.chatHeaderText}>
+          {`You and ${chatCompanion.firstName} formed a couple on ${mutualMatchDate}`}
+        </h3>
+        <div className={styles.UnmatchBtnWrapper}>
+          <UnmatchBtn />
+        </div>
+      </div>
       <div className={styles.display}>
         {conversation &&
           conversation.messages?.map((message) => {

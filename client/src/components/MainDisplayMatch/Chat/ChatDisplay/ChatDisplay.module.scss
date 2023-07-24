@@ -13,6 +13,7 @@
   font-size: 18rem;
   padding: 30rem 15rem;
   background-color: #fff;
+  width: 100%;
 }
 
 .display {
@@ -24,40 +25,6 @@
   position: absolute;
   top: 100rem;
   width: 100%;
-}
-
-.messageContainer {
-  display: flex;
-  gap: 5rem;
-  align-items: center;
-}
-
-.message {
-  border-radius: 10rem;
-  display: inline-block;
-  max-width: 85%;
-  padding: 10rem;
-}
-
-.messageReceived {
-
-  .message {
-    background-color: rgba(240, 242, 244, 1);
-    color: #000;
-  }
-}
-
-.messageSent {
-  justify-content: end;
-
-  .message {
-    background-color: #106bd5;
-    color: #fff;
-  }
-}
-
-.messageDate {
-  font-size: 12rem;
 }
 
 .chatFieldForm {
@@ -94,6 +61,22 @@
   cursor: pointer;
 }
 
+.ChatInfo {
+  display: flex;
+}
+
+.chatCompanionAvatar {
+  width: 45rem;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+  border-radius: 2rem;
+}
+
+.UnmatchBtnWrapper {
+  display: none;
+}
+
 @media (width<=986px) {
   .chatHeaderText {
     font-size: 14rem;
@@ -118,19 +101,8 @@
     top: 65rem;
   }
 
-  .message {
-    border-radius: 5rem;
-    padding: 5rem;
-    font-size: 14rem;
-    max-width: 90%;
-  }
-
   .chatDisplayContainer {
     flex: 0 1 85%;
-  }
-
-  .messageDate {
-    display: none;
   }
 
   .chatFieldForm {
@@ -159,5 +131,19 @@
 
   .display {
     top: 55rem;
+  }
+}
+
+@media (width<=500px) {
+  .chatDisplayContainer {
+    flex: 1 1 75%;
+  }
+
+  .chatCompanionAvatar {
+    display: block;
+  }
+
+  .UnmatchBtnWrapper {
+    display: block;
   }
 }

@@ -12,12 +12,14 @@
 }
 
 .showBtn {
+  display: none;
   color: #fd267a;
   width: 22rem;
   height: 22rem;
   position: absolute;
   top: -30rem;
   left: 5rem;
+  cursor: pointer;
 }
 
 .showBtnWrapper {
@@ -30,5 +32,11 @@
 @media (width <=1500px) {
   .mainContent {
     flex: 1 1 75%;
+  }
+}
+
+@media (width <=500px) {
+  .showBtn {
+    display: block;
   }
 }

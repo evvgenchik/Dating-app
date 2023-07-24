@@ -9,7 +9,8 @@
   display: inline-block;
   max-width: 85%;
   padding: 10rem;
-  white-space: pre-wrap;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 .messageReceived {
@@ -26,6 +27,7 @@
   .message {
     background-color: #106bd5;
     color: #fff;
+
   }
 }
 
@@ -42,6 +44,6 @@
   }
 
   .messageDate {
-    display: none;
+    font-size: 10rem;
   }
 }

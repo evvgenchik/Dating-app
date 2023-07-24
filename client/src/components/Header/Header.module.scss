@@ -25,6 +25,9 @@
     display: none;
   }
 
+  .empty {
+    display: none;
+  }
 
   @media (width<=768px) {
     .container {
@@ -38,12 +41,6 @@
   }
 
   @media (width<=500px) {
-
-    // .container {
-    //   position: absolute;
-    //   right: 0;
-    //   top: 0;
-    // }
     .menuBtn {
       display: block;
     }
@@ -56,5 +53,9 @@
       width: 35rem;
       height: 35rem;
       border: 1rem;
+    }
+
+    .empty {
+      display: block;
     }
   }

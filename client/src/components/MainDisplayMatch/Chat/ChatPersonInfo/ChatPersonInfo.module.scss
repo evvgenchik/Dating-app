@@ -58,25 +58,6 @@
   height: 55rem;
 }
 
-.personInfoBtn {
-  border: none;
-  font-size: 20rem;
-  font-weight: 600;
-  flex: 0 1 100%;
-  cursor: pointer;
-  opacity: 0.8;
-
-  &:hover {
-    background: linear-gradient(45deg, #fd267a, #ff6036);
-    transition: 0.5s;
-    opacity: 1;
-  }
-}
-
-.btnDelete {
-  border-right: 0.1rem solid rgba(51, 51, 51, 0.4);
-}
-
 @media (width<=986px) {
   .info {
     padding: 0 5rem;
@@ -92,10 +73,6 @@
     padding: 0 5rem;
     padding-bottom: 10rem;
   }
-
-  .personInfoBtn {
-    font-size: 14rem;
-  }
 }
 
 @media (width<=768px) {
@@ -109,5 +86,11 @@
     .name {
       font-size: 14rem;
     }
+  }
+}
+
+@media (width<=500px) {
+  .personInfoContainer {
+    display: none;
   }
 }
