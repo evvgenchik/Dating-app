@@ -123,7 +123,8 @@
   }
 }
 
-@media (width<=651px) {
+
+@media (width<=650px) {
   .chatHeaderText {
     font-size: 12rem;
     padding: 13rem 2rem;
@@ -132,9 +133,7 @@
   .display {
     top: 55rem;
   }
-}
 
-@media (width<=500px) {
   .chatDisplayContainer {
     flex: 1 1 75%;
   }

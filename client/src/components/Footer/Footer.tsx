@@ -5,7 +5,7 @@ import git from '@/assets/github-white.svg';
 import Menu from '../Menu/Menu';
 
 function Footer() {
-  const mediaMatch = matchMedia('(max-width: 500px)');
+  const mediaMatch = matchMedia('(max-width: 650px)');
   const [isShow, setIsBurger] = useState<boolean>(mediaMatch.matches);
 
   useLayoutEffect(() => {

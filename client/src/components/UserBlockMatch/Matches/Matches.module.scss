@@ -53,7 +53,7 @@
   }
 }
 
-@media (width <=500px) {
+@media (width <=650px) {
   .Ppllist {
     grid-template-columns: repeat(2, minmax(0, 0.6fr));
     grid-auto-rows: 90rem;
@@ -63,10 +63,3 @@
     font-size: 16rem;
   }
 }
-
-// @media (width <=651px) {
-//   .Ppllist {
-//     grid-template-columns: repeat(1, minmax(0, 1fr));
-//     justify-content: center;
-//   }
-// }
