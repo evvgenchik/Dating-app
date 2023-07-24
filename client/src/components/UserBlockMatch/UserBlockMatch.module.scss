@@ -63,15 +63,6 @@
   padding: 0 15rem;
 }
 
-.showBtn {
-  position: absolute;
-  top: -25rem;
-  left: 10rem;
-  color: #fd267a;
-  width: 20rem;
-  height: 20rem;
-}
-
 @media (width <=1500px) {
   .content {
     flex: 0 1 30%;
@@ -105,14 +96,12 @@
 }
 
 @media (width <=500px) {
-  .wrapper {
-    position: fixed;
-    height: 100%;
-  }
-
   .content {
     transform: translate(-100%, 0);
     transition: all 1s;
+    position: fixed;
+    height: 100%;
+    z-index: 1;
   }
 
   .content.active {

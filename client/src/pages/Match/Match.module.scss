@@ -10,6 +10,15 @@
   flex: 0 1 80%;
 }
 
+.showBtn {
+  color: #fd267a;
+  width: 22rem;
+  height: 22rem;
+  position: absolute;
+  top: 16rem;
+  left: 5rem;
+}
+
 @media (width <=1500px) {
   .mainContent {
     flex: 1 1 75%;
