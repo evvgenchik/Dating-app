@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Loader from '../UI/Loader/Loader';
 
 const UnmatchBtn = () => {
-  const { user } = useContext(AuthContext);
+  const { user, refetch } = useContext(AuthContext);
   const { state: chatCompanion } = useLocation();
   const navigate = useNavigate();
 
@@ -22,6 +22,7 @@ const UnmatchBtn = () => {
 
   const removeHandler = async () => {
     await deleteMatchMutation();
+    refetch();
     navigate(`/app`);
   };
 
@@ -39,11 +40,17 @@ const UnmatchBtn = () => {
   }
 
   return (
-    <button onClick={removeHandler} type='button' className={styles.unMatchBtn}>
-      UNMATCH
+    <div className={styles.unmatchBtContainer}>
+      <button
+        onClick={removeHandler}
+        type='button'
+        className={styles.unMatchBtn}
+      >
+        UNMATCH
+      </button>
       {isLoading && <Loader />}
       <ToastContainer />
-    </button>
+    </div>
   );
 };
 
