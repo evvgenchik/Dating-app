@@ -16,16 +16,18 @@ import { MailService } from 'src/mail/mail.service';
     UsersModule,
     PassportModule,
     ConfigModule,
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.get('JWT_SECRET_KEY'),
-        signOptions: {
-          expiresIn: configService.get('TOKEN_EXPIRE_TIME'),
-        },
-      }),
-    }),
+    JwtModule,
+    // For common jwt
+    // .registerAsync({
+    //   imports: [ConfigModule],
+    //   inject: [ConfigService],
+    //   useFactory: async (configService: ConfigService) => ({
+    //     secret: configService.get('JWT_SECRET_KEY'),
+    //     signOptions: {
+    //       expiresIn: +configService.get('TOKEN_EXPIRE_TIME'),
+    //     },
+    //   }),
+    // }),
   ],
   controllers: [AuthController],
   providers: [

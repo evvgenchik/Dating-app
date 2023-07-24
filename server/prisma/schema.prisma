@@ -23,5 +23,53 @@ model User {
   createdAt DateTime @default(now())
   hashedRefreshToken String?  @map("hashed_refresh_token")
   isEmailConfirmed Boolean  @default(false) @map("is_email_confirmed")
+  // match Match[]
+  matchedBy Match[]  @relation("matchedBy")
+  matching  Match[]  @relation("matching")
+  dislikeBy  User[]  @relation("UserDislikes")
+  disliking  User[]  @relation("UserDislikes")
+  messageSent  Message[]  @relation("messageSent")
+  messageRecieved Message[]  @relation("messageRecieved")
+  conversations Conversation[] 
 }
 
+model Match {
+  id String @id @default(uuid())
+  userSource User @relation("matching",fields: [userSourceEmail], references: [email])
+  userSourceEmail String @map("user_source_email")
+  userAddress User @relation("matchedBy",fields: [userAddressEmail], references: [email])
+  userAddressEmail String @map("user_address_email")
+  userAddressAnswer Boolean @default(false) @map("user_address_answer")
+  createdAt DateTime @default(now())
+  conversation Conversation? @relation(fields: [conversationId], references: [id], onDelete: SetNull )
+  conversationId String?
+}
+
+model Conversation {
+  id String @id @default(uuid())
+  users User[] 
+  createdAt DateTime @default(now())
+  messages Message[]
+  matches Match[] 
+}
+
+model Message {
+  id String @id @default(uuid())
+  userSource User @relation("messageSent",fields: [userSourceEmail], references: [email])
+  userSourceEmail String @map("user_source_email")
+  userAddress User @relation("messageRecieved",fields: [userAddressEmail], references: [email])
+  userAddressEmail String @map("user_address_email")
+  createdAt DateTime @default(now())
+  content String
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  conversationId String
+}
+
+// model Dislike {
+//   id String @id @default(uuid())
+//   userSource User @relation("disliking",fields: [userSourceEmail], references: [email])
+//   userSourceEmail String @map("user_source_email")
+//   userAddress User @relation("dislikeBy",fields: [userAddressEmail], references: [email])
+//   userAddressEmail String @map("user_address_email")
+//   userAddressAnswer Boolean @default(false) @map("user_address_answer")
+// }

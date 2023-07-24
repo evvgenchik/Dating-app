@@ -10,3 +10,30 @@
   justify-content: space-between;
   align-items: center;
 }
+
+@media (width<=650px) {
+  .footer {
+    z-index: 1;
+  }
+
+  .container {
+    padding: 10rem 5rem;
+    justify-content: center;
+    gap: 40rem;
+  }
+
+  .text {
+    display: none;
+  }
+
+  .git {
+    width: 25rem;
+    position: absolute;
+    bottom: 5rem;
+    right: 0;
+  }
+
+  .logoContainer {
+    display: none;
+  }
+}

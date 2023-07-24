@@ -35,6 +35,11 @@ export class UsersController {
     return new UserEntity(await this.usersService.findOne(id));
   }
 
+  @Patch('dislike/:id')
+  async updateDislike(@Param('id') id: string, @Body() email: object) {
+    return new UserEntity(await this.usersService.updateDislike(id, email));
+  }
+
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return new UserEntity(await this.usersService.update(id, updateUserDto));

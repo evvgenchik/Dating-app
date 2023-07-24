@@ -17,3 +17,19 @@
 .link:hover {
   color: rgba(253, 58, 115, 1);
 }
+
+@media (width<=768px) {
+  .nav {
+    gap: 10rem;
+    font-size: 20rem;
+  }
+}
+
+@media (width<=650px) {
+  .nav {
+    width: 85%;
+    gap: 10rem;
+    font-size: 18rem;
+    justify-content: space-between;
+  }
+}

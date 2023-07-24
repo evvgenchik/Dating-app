@@ -1,11 +1,7 @@
-const birthdayValidator = (birthDate: Date) => {
-  const today = new Date();
-  let age = today.getFullYear() - birthDate.getFullYear();
-  const m = today.getMonth() - birthDate.getMonth();
+import { ageCalculate } from '@/utils/helper';
 
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    age -= 1;
-  }
+const birthdayValidator = (birthDate: Date) => {
+  const age = ageCalculate(birthDate);
 
   return (age >= 18 && age <= 111) || 'Please, enter a valid date';
 };
@@ -16,4 +12,4 @@ const avatarValidator = (file: File) => {
   );
 };
 
-export { birthdayValidator, avatarValidator };
+export { birthdayValidator, avatarValidator, ageCalculate };

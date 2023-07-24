@@ -1,15 +1,43 @@
 .content {
   display: flex;
   height: 100%;
+  position: relative;
 }
 
-.UserBlockMatch {
-  flex: 0 1 20%;
-  overflow: hidden;
-  background-color: #fff;
-}
-
-.MainDisplayMatch {
-  flex: 0 1 80%;
+.mainContent {
+  display: flex;
+  justify-content: center;
   height: 100%;
+  flex: 0 1 80%;
+  overflow: hidden;
+}
+
+.showBtn {
+  display: none;
+  color: #fd267a;
+  width: 22rem;
+  height: 22rem;
+  position: absolute;
+  top: -30rem;
+  left: 5rem;
+  cursor: pointer;
+}
+
+.showBtnWrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+@media (width <=1500px) {
+  .mainContent {
+    flex: 1 1 75%;
+  }
+}
+
+@media (width <=650px) {
+  .showBtn {
+    display: block;
+  }
 }

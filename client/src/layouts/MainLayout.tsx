@@ -6,17 +6,13 @@ import styles from './MainLayout.module.scss';
 const MainLayout = () => {
   return (
     <div className={styles.wrapper}>
-      <div className={styles.header}>
-        <Header />
-      </div>
+      <Header />
       <div className={styles.main}>
         <div className={styles.container}>
           <Outlet />
         </div>
       </div>
-      <div className={styles.footer}>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };

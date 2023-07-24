@@ -1,4 +1,7 @@
 import { Exclude } from 'class-transformer';
+import { MatchDto } from 'src/match/dto/mathc.dto';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { Conversation } from '@prisma/client';
 
 export class UserEntity {
   constructor(partial: Partial<UserEntity>) {
@@ -15,6 +18,11 @@ export class UserEntity {
   avatar: string;
   createdAt: Date;
   isEmailConfirmed: boolean;
+  matchedBy: MatchDto[];
+  matching: MatchDto[];
+  dislikeBy: CreateUserDto[];
+  disliking: CreateUserDto[];
+  conversations: Conversation[];
 
   @Exclude()
   hashedRefreshToken?: string;

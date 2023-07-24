@@ -1,0 +1,80 @@
+.modalTitle {
+  font-size: 40rem;
+}
+
+.modalfrom {
+  display: flex;
+  flex-direction: column;
+  gap: 20rem;
+  align-items: center;
+}
+
+.modalinput {
+  outline: 0;
+  border-width: 0 0 2px;
+  width: 100%;
+
+  &:focus {
+    border-color: blueviolet;
+  }
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  gap: 30rem;
+  padding: 20rem;
+  font-size: 18rem;
+}
+
+.error {
+  color: red;
+  font-size: 16rem;
+}
+
+.name {
+  font-weight: 700;
+}
+
+
+@media (width <=768px) {
+  .login {
+    display: flex;
+    flex-direction: column;
+    gap: 20rem;
+    padding: 10rem;
+    font-size: 16rem;
+
+    .modalTitle {
+      font-size: 20rem;
+    }
+
+    .modalfrom {
+      gap: 15rem;
+    }
+
+    .error {
+      color: red;
+      font-size: 14rem;
+    }
+  }
+}
+
+@media (width <=576px) {
+
+  .login {
+    display: flex;
+    flex-direction: column;
+    gap: 10rem;
+    padding: 10rem;
+    font-size: 12rem;
+
+    .modalTitle {
+      font-size: 18rem;
+    }
+
+    .modalfrom {
+      gap: 10rem;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 html {
   font-size: 1px;
   height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -13,7 +14,6 @@ body {
   font-size: 16rem;
   background-color: rgba(240, 242, 244, 0.5);
 }
-
 
 .app {
   height: 100%;

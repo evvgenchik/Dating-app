@@ -9,6 +9,10 @@ import { AuthModule } from './auth/auth.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { MailModule } from './mail/mail.module';
 import { EmailConfirmModule } from './emailConfirm/emailConfirm.module';
+import { MatchModule } from './match/match.module';
+import { MessageModule } from './chat/message/message.module';
+import { ConversationModule } from './chat/conversation/conversation.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -22,6 +26,10 @@ import { EmailConfirmModule } from './emailConfirm/emailConfirm.module';
     CloudinaryModule,
     MailModule,
     EmailConfirmModule,
+    MatchModule,
+    MessageModule,
+    ConversationModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],

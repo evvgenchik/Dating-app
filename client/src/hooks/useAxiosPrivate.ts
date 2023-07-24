@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from '../api/axios';
+import { axios } from '../api/axios';
 import { useContext } from 'react';
 import AuthContext from '@/context/authProvider';
 
