@@ -4,7 +4,7 @@ import styles from './Swiper.module.scss';
 import { AiFillHeart as HeartIcon } from 'react-icons/ai';
 import { MdOutlineClose as DenyIcon } from 'react-icons/md';
 import { TbRefresh as RefreshIcon } from 'react-icons/tb';
-import { UserAPI } from '@/api/services/userAPI';
+import { UserAPI } from '@/api/services/userApi';
 import { MatchType, UserType } from '@/utils/types';
 import { ageCalculate } from '@/utils/helper';
 import { useQuery } from '@tanstack/react-query';

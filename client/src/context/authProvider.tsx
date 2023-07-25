@@ -1,4 +1,4 @@
-import { UserAPI } from '@/api/services/userAPI';
+import { UserAPI } from '@/api/services/userApi';
 import { UserType } from '@/utils/types';
 import { useQuery } from '@tanstack/react-query';
 import { createContext, useState, useMemo, useEffect } from 'react';

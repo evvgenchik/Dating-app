@@ -10,7 +10,7 @@ import checkRed from '@/assets/checkRed.svg';
 import Loader from '@/components/UI/Loader/Loader';
 import { AuthAPI } from '@/api/services/authApi';
 import { AuthForm } from '@/utils/types';
-import { UserAPI } from '@/api/services/userAPI';
+import { UserAPI } from '@/api/services/userApi';
 
 type AuthFormKeys = keyof AuthForm;
 
