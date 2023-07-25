@@ -32,20 +32,6 @@ export const AuthProvider = ({ children }: Props) => {
     }
   }, [data]);
 
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     const userFromApi = (await UserAPI.getUniqueUser(id)) || null;
-  //     setUser(userFromApi);
-  //   };
-
-  //   fetchUser();
-  // }, []);
-
-  // const { isLoading, data, error } = useQuery({
-  //   queryKey: ['currentUser'],
-  //   queryFn: UserAPI.getUniqueUser,
-  // });
-
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 

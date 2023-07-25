@@ -3,12 +3,22 @@
   gap: 15rem;
   margin-top: 20rem;
   flex-direction: column;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
 }
 
 .PplItem {
   display: flex;
   align-items: center;
   gap: 20rem;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
 .photoContainer {

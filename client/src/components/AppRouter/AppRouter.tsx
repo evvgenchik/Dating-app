@@ -13,7 +13,7 @@ import ChatPersonInfo from '../MainDisplayMatch/Chat/ChatPersonInfo/ChatPersonIn
 const AppRouter = () => {
   const { user } = useAuth();
 
-  const privateRoutes = useRoutes([
+  const basicRoutes = [
     {
       path: '',
       element: <Home />,
@@ -22,6 +22,14 @@ const AppRouter = () => {
       path: 'signup',
       element: <SignUp />,
     },
+    {
+      path: '*',
+      element: <NotFound />,
+    },
+  ];
+
+  const privateRoutes = useRoutes([
+    ...basicRoutes,
     {
       path: 'app',
       element: <MainLayout />,
@@ -63,21 +71,10 @@ const AppRouter = () => {
         },
       ],
     },
-    {
-      path: '*',
-      element: <NotFound />,
-    },
   ]);
 
   const publicRoutes = useRoutes([
-    {
-      path: '',
-      element: <Home />,
-    },
-    {
-      path: 'signup',
-      element: <SignUp />,
-    },
+    ...basicRoutes,
     {
       path: 'app',
       element: <Navigate to='../' />,
@@ -95,10 +92,6 @@ const AppRouter = () => {
           element: <NotFound />,
         },
       ],
-    },
-    {
-      path: '*',
-      element: <NotFound />,
     },
   ]);
 
