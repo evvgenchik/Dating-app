@@ -107,3 +107,13 @@
     margin-left: 30px;
   }
 }
+
+@media (width<=650px) {
+
+  .heart .circle1,
+  .heart .circle2,
+  .heart:before {
+    height: 35px;
+    width: 35px;
+  }
+}

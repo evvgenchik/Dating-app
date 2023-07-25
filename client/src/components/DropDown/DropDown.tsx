@@ -3,12 +3,25 @@ import AuthContext from '@/context/authProvider';
 import styles from './DropDown.module.scss';
 import { BiUserCircle as User } from 'react-icons/bi';
 import { BiLogOut as Logout } from 'react-icons/bi';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { AuthAPI } from '@/api/services/authApi';
+import Loader from '../UI/Loader/Loader';
+import { ToastContainer, toast } from 'react-toastify';
 
 const DropDown = () => {
   const { user } = useContext(AuthContext);
   const [show, setShow] = useState<boolean>(false);
   const dropDown = useRef<HTMLDivElement>();
+  const navigate = useNavigate();
+
+  const {
+    mutateAsync: logoutApi,
+    isLoading,
+    error,
+  } = useMutation({
+    mutationFn: () => AuthAPI.logout(),
+  });
 
   useEffect(() => {
     const checkClick = (e) => {
@@ -23,6 +36,25 @@ const DropDown = () => {
       document.removeEventListener('mousedown', checkClick);
     };
   });
+
+  const logout = async () => {
+    await logoutApi();
+    localStorage.removeItem('user');
+    navigate('../');
+  };
+
+  if (error) {
+    console.error(error);
+
+    toast.error('OOPS something went wrong', {
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: 'light',
+    });
+  }
 
   return (
     <div ref={dropDown}>
@@ -43,12 +75,14 @@ const DropDown = () => {
             {<User className={styles.icon} />}
             <NavLink to='./profile'>My Profile</NavLink>
           </li>
-          <li className={styles.dropdownItem}>
+          <li onClick={logout} className={styles.dropdownItem}>
             {<Logout className={styles.icon} />}
-            <NavLink to='../'>Logout</NavLink>
+            <span>Logout</span>
           </li>
         </ul>
       </div>
+      {isLoading && <Loader />}
+      <ToastContainer />
     </div>
   );
 };

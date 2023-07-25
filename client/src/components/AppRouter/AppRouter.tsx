@@ -43,15 +43,6 @@ const AppRouter = () => {
                 </>
               ),
             },
-            // {
-            //   path: 'message:id',
-            //   element: (
-            //     <>
-            //       <ChatDisplay />
-            //       <ChatPersonInfo />
-            //     </>
-            //   ),
-            // },
             {
               path: 'about',
               element: <About />,
@@ -89,12 +80,11 @@ const AppRouter = () => {
     },
     {
       path: 'app',
-      element: <MainLayout />,
+      element: <Navigate to='../' />,
       children: [
         {
-          path: '',
-          element: <Navigate to='/' />,
-          index: true,
+          path: 'message/:id',
+          element: <Navigate to='../' />,
         },
         {
           path: 'app/about',

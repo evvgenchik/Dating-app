@@ -51,10 +51,9 @@ export class AuthController {
     return new UserEntity(user);
   }
 
-  @HttpCode(200)
   @UseGuards(JwtAuthenticationGuard)
   @Post('logout')
-  async logOut(@Req() request: RequestWithUser, @Res() response: Response) {
+  async logOut(@Res() response: Response) {
     response.setHeader('Set-Cookie', this.authService.getCookieForLogOut());
     response.sendStatus(200);
   }
