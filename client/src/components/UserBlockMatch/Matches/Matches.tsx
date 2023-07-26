@@ -18,7 +18,7 @@ function Matches() {
       {user.matching &&
         user.matching.map((match) => {
           const { userAddressAnswer, userAddress } = match;
-          return (
+          return userAddressAnswer ? (
             <li
               onClick={() => clickHanler(userAddress)}
               key={userAddress.id}
@@ -31,6 +31,8 @@ function Matches() {
               />
               <span className={styles.name}>{userAddress.firstName}</span>
             </li>
+          ) : (
+            ''
           );
         })}
     </ul>
