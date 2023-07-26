@@ -1,4 +1,4 @@
-import { UserAPI } from '@/api/services/userAPI';
+import { UserAPI } from '@/api/services/userApi';
 import { UserType } from '@/utils/types';
 import { useQuery } from '@tanstack/react-query';
 import { createContext, useState, useMemo, useEffect } from 'react';
@@ -31,20 +31,6 @@ export const AuthProvider = ({ children }: Props) => {
       setUser(data);
     }
   }, [data]);
-
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     const userFromApi = (await UserAPI.getUniqueUser(id)) || null;
-  //     setUser(userFromApi);
-  //   };
-
-  //   fetchUser();
-  // }, []);
-
-  // const { isLoading, data, error } = useQuery({
-  //   queryKey: ['currentUser'],
-  //   queryFn: UserAPI.getUniqueUser,
-  // });
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

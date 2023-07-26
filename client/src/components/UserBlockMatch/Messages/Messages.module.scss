@@ -9,6 +9,11 @@
   display: flex;
   align-items: center;
   gap: 20rem;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
 .photoContainer {

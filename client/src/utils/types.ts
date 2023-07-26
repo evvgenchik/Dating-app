@@ -71,7 +71,7 @@ type AuthForm = {
   password: string;
   firstName: string;
   email: string;
-  birthday: Date;
+  birthday: string;
   gender: GenderEnum;
   looking: LookingEnum;
   descriptrion: string;

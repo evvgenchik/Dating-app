@@ -16,6 +16,51 @@ function ChatDisplay() {
   const [messageText, setMessageText] = useState<string>('');
   const [conversation, setConversation] = useState<ConversationType>(null);
   const conversationRef = useRef<ConversationType>();
+  const anchorRef = useRef<HTMLDivElement>();
+
+  useEffect(() => {
+    anchorRef.current?.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  useEffect(() => {
+    socket.connect();
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const conversationDto = {
+      userSourceEmail: user.email,
+      userAddressEmail: chatCompanion.email,
+    };
+
+    socket.emit('getConversationForEmails', conversationDto);
+
+    function receiveConversation(value: ConversationType) {
+      conversationRef.current = value;
+      setConversation(value);
+    }
+
+    function receiveMessage(value: MessageType) {
+      socket.emit('getConversation', value.conversationId);
+    }
+
+    socket.on('receiveConversation', receiveConversation);
+    socket.on('receiveMessage', receiveMessage);
+
+    return () => {
+      const converstion = conversationRef.current;
+
+      if (converstion && !converstion.messages?.length) {
+        socket.emit('deleteConversation', converstion.id);
+      }
+
+      socket.off('receiveConversation', receiveConversation);
+      socket.off('receiveMessage', receiveMessage);
+    };
+  }, [chatCompanion.id]);
 
   const calculateDateMatch = (
     chatCompanionEmail: string,
@@ -66,46 +111,6 @@ function ChatDisplay() {
   //   });
   // }
 
-  useEffect(() => {
-    socket.connect();
-
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
-    const conversationDto = {
-      userSourceEmail: user.email,
-      userAddressEmail: chatCompanion.email,
-    };
-
-    socket.emit('getConversationForEmails', conversationDto);
-
-    function receiveConversation(value: ConversationType) {
-      conversationRef.current = value;
-      setConversation(value);
-    }
-
-    function receiveMessage(value: MessageType) {
-      socket.emit('getConversation', value.conversationId);
-    }
-
-    socket.on('receiveConversation', receiveConversation);
-    socket.on('receiveMessage', receiveMessage);
-
-    return () => {
-      const converstion = conversationRef.current;
-
-      if (converstion && !converstion.messages?.length) {
-        socket.emit('deleteConversation', converstion.id);
-      }
-
-      socket.off('receiveConversation', receiveConversation);
-      socket.off('receiveMessage', receiveMessage);
-    };
-  }, [chatCompanion.id]);
-
   const keyDownHandler = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       submitHandler(e);
@@ -138,6 +143,7 @@ function ChatDisplay() {
               />
             );
           })}
+        <div ref={anchorRef} />
       </div>
       <form onSubmit={(e) => submitHandler(e)} className={styles.chatFieldForm}>
         <textarea

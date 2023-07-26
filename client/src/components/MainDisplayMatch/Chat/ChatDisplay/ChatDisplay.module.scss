@@ -42,6 +42,11 @@
   justify-self: start;
   overflow: auto;
   height: 75vh;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
 }
 
 .chatFieldForm {

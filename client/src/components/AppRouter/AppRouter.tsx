@@ -9,11 +9,12 @@ import useAuth from '@/hooks/useAuth';
 import Swiper from '../MainDisplayMatch/Swiper/Swiper';
 import ChatDisplay from '../MainDisplayMatch/Chat/ChatDisplay/ChatDisplay';
 import ChatPersonInfo from '../MainDisplayMatch/Chat/ChatPersonInfo/ChatPersonInfo';
+import Profile from '@/pages/Profile/Profile';
 
 const AppRouter = () => {
   const { user } = useAuth();
 
-  const privateRoutes = useRoutes([
+  const basicRoutes = [
     {
       path: '',
       element: <Home />,
@@ -22,6 +23,14 @@ const AppRouter = () => {
       path: 'signup',
       element: <SignUp />,
     },
+    {
+      path: '*',
+      element: <NotFound />,
+    },
+  ];
+
+  const privateRoutes = useRoutes([
+    ...basicRoutes,
     {
       path: 'app',
       element: <MainLayout />,
@@ -43,58 +52,33 @@ const AppRouter = () => {
                 </>
               ),
             },
-            // {
-            //   path: 'message:id',
-            //   element: (
-            //     <>
-            //       <ChatDisplay />
-            //       <ChatPersonInfo />
-            //     </>
-            //   ),
-            // },
-            {
-              path: 'about',
-              element: <About />,
-            },
-            {
-              path: 'app/about',
-              element: <About />,
-            },
           ],
         },
         {
-          path: 'app/about',
+          path: 'about',
           element: <About />,
+        },
+        {
+          path: 'profile',
+          element: <Profile />,
         },
         {
           path: 'app/*',
           element: <NotFound />,
         },
       ],
-    },
-    {
-      path: '*',
-      element: <NotFound />,
     },
   ]);
 
   const publicRoutes = useRoutes([
-    {
-      path: '',
-      element: <Home />,
-    },
-    {
-      path: 'signup',
-      element: <SignUp />,
-    },
+    ...basicRoutes,
     {
       path: 'app',
-      element: <MainLayout />,
+      element: <Navigate to='../' />,
       children: [
         {
-          path: '',
-          element: <Navigate to='/' />,
-          index: true,
+          path: 'message/:id',
+          element: <Navigate to='../' />,
         },
         {
           path: 'app/about',
@@ -105,10 +89,6 @@ const AppRouter = () => {
           element: <NotFound />,
         },
       ],
-    },
-    {
-      path: '*',
-      element: <NotFound />,
     },
   ]);
 

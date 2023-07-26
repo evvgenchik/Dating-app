@@ -3,6 +3,7 @@ import Menu from '../Menu/Menu';
 import styles from './Header.module.scss';
 import Logo from '../UI/Logo/Logo';
 import AuthContext from '@/context/authProvider';
+import DropDown from '../DropDown/DropDown';
 
 function Header() {
   const { user } = useContext(AuthContext);
@@ -24,9 +25,10 @@ function Header() {
         <div className={styles.MenuWrapper}>
           <Menu />
         </div>
-        <div className={styles.photoContainer}>
+        <DropDown />
+        {/* <div className={styles.photoContainer}>
           <img className={styles.photo} src={user.avatar} alt='profile' />
-        </div>
+        </div> */}
       </div>
     </header>
   );

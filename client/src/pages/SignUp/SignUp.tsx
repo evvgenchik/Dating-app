@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { birthdayValidator, avatarValidator } from './signUpValidator';
 import MyButton from '@/components/UI/Button/MyButton';
 import styles from './SignUp.module.scss';
@@ -9,8 +9,9 @@ import Modal from '@/components/Modal/Modal';
 import checkRed from '@/assets/checkRed.svg';
 import Loader from '@/components/UI/Loader/Loader';
 import { AuthAPI } from '@/api/services/authApi';
-import { AuthForm } from '@/utils/types';
-import { UserAPI } from '@/api/services/userAPI';
+import { AuthForm, GenderEnum, LookingEnum, UserType } from '@/utils/types';
+import { UserAPI } from '@/api/services/userApi';
+import { format } from 'date-fns';
 
 type AuthFormKeys = keyof AuthForm;
 
@@ -18,11 +19,16 @@ const ERRORS = {
   requiredFnMsg: (field: string) => `${field} is required`,
 };
 
-function SignUp() {
+type Props = {
+  currentUser?: UserType;
+};
+
+function SignUp({ currentUser }: Props) {
   const navigate = useNavigate();
   const [avatarSrc, setAvatarSrc] = useState('');
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const action = currentUser ? 'UPDATE' : 'CREATE';
 
   const {
     register,
@@ -31,7 +37,31 @@ function SignUp() {
     control,
     setError,
     formState: { errors },
-  } = useForm<AuthForm>({ mode: 'onBlur', reValidateMode: 'onChange' });
+  } = useForm<AuthForm>({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+    defaultValues: currentUser && {
+      email: currentUser.email,
+      firstName: currentUser.firstName,
+      birthday: format(new Date(currentUser.birthday), 'yyyy-MM-dd'),
+      gender: currentUser.gender as GenderEnum,
+      looking: currentUser.looking as LookingEnum,
+      descriptrion: currentUser.descriptrion,
+    },
+  });
+
+  useEffect(() => {
+    if (!currentUser) return;
+
+    async function getFileFromUrl(url: string) {
+      const res = await fetch(url);
+      const blob = await res.blob();
+      const file = new File([blob], 'avatar', { type: blob.type });
+      reset({ avatar: file }, { keepDefaultValues: true });
+    }
+
+    getFileFromUrl(currentUser.avatar);
+  }, [currentUser.avatar]);
 
   const errorHandler = (field: AuthFormKeys, message: string) => {
     setError(
@@ -57,18 +87,23 @@ function SignUp() {
 
   const sendUser = async (user: AuthForm) => {
     try {
-      const res = await AuthAPI.signup(user);
-      return res.data;
+      const res = currentUser
+        ? await UserAPI.update(currentUser.id, user)
+        : await AuthAPI.signup(user);
+      return res;
     } catch (error) {
       const statusCode = error?.response?.status;
+
       if (statusCode === 409) {
         errorHandler('email', 'User with this email already exists');
         return null;
       }
+
       if (statusCode === 550) {
         errorHandler('email', 'Incorrect emai: user with this email not found');
         return null;
       }
+
       console.error(error);
     }
   };
@@ -82,8 +117,9 @@ function SignUp() {
     if (user) {
       reset();
       setSuccess(true);
-      setTimeout(() => navigate('/'), 3000);
+      !currentUser && setTimeout(() => navigate('/'), 3000);
     }
+
     setIsLoading(false);
   };
 
@@ -96,15 +132,17 @@ function SignUp() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <div className={styles.logoText}>
-          Finder
-          <img className={styles.logoImage} src={heart} alt='heart' />
+      {!currentUser && (
+        <div className={styles.header}>
+          <div className={styles.logoText}>
+            Finder
+            <img className={styles.logoImage} src={heart} alt='heart' />
+          </div>
         </div>
-      </div>
+      )}
 
       <form className={styles.form} onSubmit={handleSubmit(submitHandler)}>
-        <h1 className={styles.title}>CREATE ACCOUNT</h1>
+        <h1 className={styles.title}>{action} ACCOUNT</h1>
         <div className={styles.formContent}>
           <div className={styles.leftSide}>
             <label className={styles.mainLabel}>
@@ -117,17 +155,6 @@ function SignUp() {
                     message: 'Entered value does not match email format',
                   },
                 })}
-                // {...register('login', {
-                //   required: ERRORS.requiredFnMsg('Login'),
-                //   minLength: {
-                //     value: 5,
-                //     message: 'Login must contain at least 5 symbols',
-                //   },
-                //   pattern: {
-                //     value: /^\S+\S$/g,
-                //     message: "Login mustn't contain spaces",
-                //   },
-                // })}
                 className={styles.input}
                 type='email'
                 placeholder='Email'
@@ -266,7 +293,7 @@ function SignUp() {
                     required: ERRORS.requiredFnMsg('Lokking'),
                   })}
                   type='radio'
-                  value='wooman'
+                  value='everyone'
                 />
                 <label htmlFor='everyone-looking' className={styles.innerLabel}>
                   Everyone
@@ -299,6 +326,7 @@ function SignUp() {
                     onChange={onChange}
                     onBlur={onBlur}
                     placeholder='Type your answer here'
+                    defaultValue={currentUser?.descriptrion}
                   />
                 )}
               />
@@ -339,10 +367,10 @@ function SignUp() {
             </label>
 
             <div className={styles.iconContainer}>
-              {avatarSrc && (
+              {(avatarSrc || currentUser?.avatar) && (
                 <img
                   className={styles.iconContainer}
-                  src={avatarSrc}
+                  src={avatarSrc || currentUser.avatar}
                   alt='profile'
                 />
               )}
@@ -351,7 +379,7 @@ function SignUp() {
         </div>
 
         <MyButton type='submit' className='signup-btn'>
-          Submit
+          {action}
         </MyButton>
       </form>
 
@@ -362,15 +390,19 @@ function SignUp() {
             <img className='check-mark' src={checkRed} alt='checkMark' />
           </h2>
           <h3 className='success-sub-title'>
-            Your profile was successfully created.
+            Your profile was successfully {action.toLowerCase() + 'd'}.
           </h3>
-          <p className='success-text'>
-            Thank you for your time! We sand message on your email. Please
-            confirm it.
-          </p>
-          <p className='success-text'>
-            Now you will be redirected to main page for authorization.
-          </p>
+          {!currentUser && (
+            <>
+              <p className='success-text'>
+                Thank you for your time! We sand message on your email. Please
+                confirm it.
+              </p>
+              <p className='success-text'>
+                Now you will be redirected to main page for authorization.
+              </p>
+            </>
+          )}
         </div>
       </Modal>
 
