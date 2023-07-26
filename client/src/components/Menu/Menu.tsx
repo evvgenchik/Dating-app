@@ -7,15 +7,15 @@ function Menu() {
       <NavLink className={styles.link} to='../' end>
         Home
       </NavLink>
-      <NavLink className={styles.link} to='about'>
-        About
-      </NavLink>
       <NavLink className={styles.link} to='.'>
         Match
       </NavLink>
-      <NavLink className={styles.link} to='asd'>
-        Community
+      <NavLink className={styles.link} to='about'>
+        About
       </NavLink>
+      {/* <NavLink className={styles.link} to='asd'>
+        Community
+      </NavLink> */}
     </nav>
   );
 }
