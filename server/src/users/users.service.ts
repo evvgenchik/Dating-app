@@ -87,9 +87,11 @@ export class UsersService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
+    const salt = +this.configService.get<number>('CRYPT_SALT');
+    const hashedPassword = await bcrypt.hash(updateUserDto.password, salt);
     return await this.prisma.user.update({
       where: { id },
-      data: updateUserDto,
+      data: { ...updateUserDto, password: hashedPassword },
     });
   }
 
@@ -107,7 +109,6 @@ export class UsersService {
   }
 
   async remove(id: string) {
-    //await this.findOne(id);
     await this.prisma.user.delete({ where: { id } });
   }
 

@@ -9,6 +9,7 @@ import useAuth from '@/hooks/useAuth';
 import Swiper from '../MainDisplayMatch/Swiper/Swiper';
 import ChatDisplay from '../MainDisplayMatch/Chat/ChatDisplay/ChatDisplay';
 import ChatPersonInfo from '../MainDisplayMatch/Chat/ChatPersonInfo/ChatPersonInfo';
+import Profile from '@/pages/Profile/Profile';
 
 const AppRouter = () => {
   const { user } = useAuth();
@@ -51,19 +52,15 @@ const AppRouter = () => {
                 </>
               ),
             },
-            {
-              path: 'about',
-              element: <About />,
-            },
-            {
-              path: 'app/about',
-              element: <About />,
-            },
           ],
         },
         {
-          path: 'app/about',
+          path: 'about',
           element: <About />,
+        },
+        {
+          path: 'profile',
+          element: <Profile />,
         },
         {
           path: 'app/*',

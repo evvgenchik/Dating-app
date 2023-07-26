@@ -1,7 +1,7 @@
 import { ageCalculate } from '@/utils/helper';
 
-const birthdayValidator = (birthDate: Date) => {
-  const age = ageCalculate(birthDate);
+const birthdayValidator = (birthDate: string) => {
+  const age = ageCalculate(new Date(birthDate));
 
   return (age >= 18 && age <= 111) || 'Please, enter a valid date';
 };

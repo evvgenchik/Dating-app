@@ -1,4 +1,4 @@
-import { UserType } from '@/utils/types';
+import { AuthForm, UserType } from '@/utils/types';
 import { axios, axiosReauth } from '../axios';
 
 const IMAGE_URL = '/image/upload';
@@ -10,6 +10,11 @@ export const UserAPI = {
     formData.append('file', icon);
     const res = await axios.post(IMAGE_URL, formData);
     return res;
+  },
+
+  update: async (id: string, user: AuthForm) => {
+    const res = await axiosReauth.patch<UserType>(USERS_URL + '/' + id, user);
+    return res.data;
   },
 
   getUsers: async () => {

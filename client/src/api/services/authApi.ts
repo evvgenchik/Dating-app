@@ -14,7 +14,7 @@ export const AuthAPI = {
 
   signup: async (user: AuthForm) => {
     const res = await axios.post<UserType>(REGISTER_URL, user);
-    return res;
+    return res.data;
   },
 
   refresh: async () => {
