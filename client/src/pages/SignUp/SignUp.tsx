@@ -61,7 +61,7 @@ function SignUp({ currentUser }: Props) {
     }
 
     getFileFromUrl(currentUser.avatar);
-  }, [currentUser.avatar]);
+  }, [currentUser?.avatar]);
 
   const errorHandler = (field: AuthFormKeys, message: string) => {
     setError(
