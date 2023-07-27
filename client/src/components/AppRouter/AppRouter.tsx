@@ -40,7 +40,7 @@ const AppRouter = () => {
           element: <Match />,
           children: [
             {
-              path: '',
+              path: 'match',
               element: <Swiper />,
             },
             {

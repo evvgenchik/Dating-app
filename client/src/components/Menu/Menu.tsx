@@ -7,7 +7,7 @@ function Menu() {
       <NavLink className={styles.link} to='../' end>
         Home
       </NavLink>
-      <NavLink className={styles.link} to='.'>
+      <NavLink className={styles.link} to='match'>
         Match
       </NavLink>
       <NavLink className={styles.link} to='about'>
