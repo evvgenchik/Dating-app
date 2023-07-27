@@ -48,7 +48,7 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
       setAuthError('');
       setSuccess(true);
       setUser(user);
-      setTimeout(() => navigate('/app'), 2000);
+      setTimeout(() => navigate('/app/match'), 2000);
     }
     setIsLoading(false);
   };
