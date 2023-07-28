@@ -14,12 +14,6 @@ function UserBlockMatch({ isShow }) {
   const [block, setBlock] = useState('Matches');
   const { user } = useContext(AuthContext);
 
-  // const [isShow, setIsShow] = useState<boolean>(false);
-
-  // const showHandler = () => {
-  //   setIsShow(!isShow);
-  // };
-
   return (
     <div className={`${styles.content} ${isShow && styles.active}`}>
       <div className={styles.header}>
