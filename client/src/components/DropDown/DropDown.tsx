@@ -38,9 +38,13 @@ const DropDown = () => {
   });
 
   const logout = async () => {
-    await logoutApi();
-    localStorage.removeItem('user');
-    navigate('../');
+    try {
+      await logoutApi();
+      localStorage.removeItem('user');
+      navigate('../');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   if (error) {
@@ -65,6 +69,7 @@ const DropDown = () => {
         alt='profile'
       />
       <div
+        role='drowDown'
         className={`${styles.dropdownMenu} ${
           show ? styles.active : styles.inactive
         }`}
@@ -77,7 +82,7 @@ const DropDown = () => {
           </li>
           <li onClick={logout} className={styles.dropdownItem}>
             {<Logout className={styles.icon} />}
-            <span>Logout</span>
+            Logout
           </li>
         </ul>
       </div>
