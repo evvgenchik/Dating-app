@@ -3,7 +3,7 @@ import { RiMessage2Line as MessageIcon } from 'react-icons/ri';
 import styles from './UserBlockMatch.module.scss';
 import Matches from './Matches/Matches';
 import Messages from './Messages/Messages';
-import AuthContext from '@/context/authProvider';
+import AuthContext from '@/context/AuthProvider';
 
 const content = {
   Matches: <Matches />,

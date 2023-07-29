@@ -1,7 +1,7 @@
 import styles from './Matches.module.scss';
 import { useContext } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import AuthContext from '@/context/authProvider';
+import AuthContext from '@/context/AuthProvider';
 import { UserType } from '@/utils/types';
 import { useNavigate } from 'react-router-dom';
 

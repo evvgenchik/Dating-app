@@ -4,7 +4,7 @@ import { axios, axiosReauth } from '../axios';
 const IMAGE_URL = '/image/upload';
 const USERS_URL = '/users';
 
-export const UserAPI = {
+export const UserApi = {
   avatar: async (icon: File) => {
     const formData = new FormData();
     formData.append('file', icon);

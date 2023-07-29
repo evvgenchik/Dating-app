@@ -6,7 +6,7 @@ const LOGOUT_URL = '/auth/logout';
 const REGISTER_URL = '/auth/register';
 const REFRESH_URL = '/auth/refresh';
 
-export const AuthAPI = {
+export const AuthApi = {
   login: async (user: UserLogin) => {
     const res = await axios.post<UserType>(LOGIN_URL, user);
     return res;

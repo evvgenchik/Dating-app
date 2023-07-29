@@ -7,7 +7,7 @@ import MyButton from '../UI/Button/MyButton';
 import { NavLink } from 'react-router-dom';
 import styles from './login.module.scss';
 import checkRed from '@/assets/checkRed.svg';
-import { AuthAPI } from '@/api/services/authApi';
+import { AuthApi } from '@/api/services/authApi';
 
 interface UserLogin {
   email: string;
@@ -26,7 +26,7 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
 
   const login = async (userAuthData: UserLogin) => {
     try {
-      const res = await AuthAPI.login(userAuthData);
+      const res = await AuthApi.login(userAuthData);
       const user = res.data;
       localStorage.setItem('user', JSON.stringify(user));
       return user;

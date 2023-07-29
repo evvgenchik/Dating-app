@@ -1,4 +1,4 @@
-import { UserAPI } from '@/api/services/userApi';
+import { UserApi } from '@/api/services/userApi';
 import { UserType } from '@/utils/types';
 import { useQuery } from '@tanstack/react-query';
 import { createContext, useState, useMemo, useEffect } from 'react';
@@ -16,11 +16,11 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>(null);
 
 export const AuthProvider = ({ children }: Props) => {
-  const storedUser = JSON.parse(localStorage.getItem('user')) || null;
+  const storedUser = JSON.parse(localStorage.getItem('user')) || 'br';
   const [user, setUser] = useState<UserType>(storedUser);
   const { data, error, refetch } = useQuery({
     queryKey: ['currentUser'],
-    queryFn: () => UserAPI.getUniqueUser(storedUser.id),
+    queryFn: () => UserApi.getUniqueUser(storedUser.id),
     enabled: !!storedUser,
   });
   const value = useMemo(() => ({ user, setUser, refetch }), [user]);

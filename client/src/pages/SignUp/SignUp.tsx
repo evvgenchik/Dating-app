@@ -8,10 +8,10 @@ import heart from '@/assets/Home/heart2.svg';
 import Modal from '@/components/Modal/Modal';
 import checkRed from '@/assets/checkRed.svg';
 import Loader from '@/components/UI/Loader/Loader';
-import { AuthAPI } from '@/api/services/authApi';
+import { AuthApi } from '@/api/services/authApi';
 import { AuthForm, GenderEnum, LookingEnum, UserType } from '@/utils/types';
-import { UserAPI } from '@/api/services/userApi';
 import { format } from 'date-fns';
+import { UserApi } from '@/api/services/userApi';
 
 type AuthFormKeys = keyof AuthForm;
 
@@ -76,7 +76,7 @@ function SignUp({ currentUser }: Props) {
 
   const sendImage = async (icon: File) => {
     try {
-      const res = await UserAPI.avatar(icon);
+      const res = await UserApi.avatar(icon);
       const fileData = res.data.url;
       return fileData;
     } catch (error) {
@@ -88,8 +88,8 @@ function SignUp({ currentUser }: Props) {
   const sendUser = async (user: AuthForm) => {
     try {
       const res = currentUser
-        ? await UserAPI.update(currentUser.id, user)
-        : await AuthAPI.signup(user);
+        ? await UserApi.update(currentUser.id, user)
+        : await AuthApi.signup(user);
       return res;
     } catch (error) {
       const statusCode = error?.response?.status;

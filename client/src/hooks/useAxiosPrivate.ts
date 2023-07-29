@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { axios } from '../api/axios';
 import { useContext } from 'react';
-import AuthContext from '@/context/authProvider';
+import AuthContext from '@/context/AuthProvider';
 
 const REFRESH_URL = '/auth/refresh';
 
