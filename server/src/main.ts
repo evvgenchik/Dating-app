@@ -7,12 +7,14 @@ import { urlencoded } from 'express';
 import { AllExceptionsFilter } from './common/exceptions/exceptionFilter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { abortOnError: false });
+  const app = await NestFactory.create(AppModule, {
+    abortOnError: false,
+  });
   const PORT = process.env.PORT || 4000;
   app.use(cookieParser());
 
   app.enableCors({
-    origin: process.env.FRONTEND_UR,
+    origin: [process.env.FRONTEND_UR, 'http://localhost:5173'],
     credentials: true,
   });
 
