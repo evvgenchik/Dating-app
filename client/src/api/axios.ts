@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:4000';
+const BASE_URL = 'https://dating-app-ls06.onrender.com/';
 const REFRESH_URL = '/auth/refresh';
 
 const axiosBasic = axios.create({

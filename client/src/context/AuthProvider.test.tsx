@@ -1,37 +1,39 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import AuthContext, { AuthProvider } from './AuthProvider';
-import { queryClientRender } from '@/utils/test';
+import { providerUser, queryClientRender } from '@/utils/test';
+import { vi } from 'vitest';
 
-const providerUser = {
-  id: '123',
-  email: 'email@mail.ru',
-  firstName: 'Ivan',
-  birthday: '1998-12-12T00:00:00.000Z',
-  gender: 'man',
-  looking: 'woman',
-  descriptrion: 'Really cool and pretty',
-  avatar: 'link',
-  createdAt: '2023-07-09T09:57:46.780Z',
-  isEmailConfirmed: 'true',
-  matchedBy: [],
-  matching: [],
-  dislikeBy: [],
-  disliking: [],
-  messageSent: [],
-  messageRecieved: [],
-  conversations: [],
-};
+vi.doMock('@/hooks/useUniqueUserQuery', () => {
+  return {
+    data: providerUser,
+    refetch: vi.fn(),
+  };
+});
 
 describe('AuthProvider', () => {
-  it('AuthProvider provide correct value', () => {
-    const { getByText } = queryClientRender(
+  test('AuthProvider shows default empty value', () => {
+    queryClientRender(
       <AuthProvider>
         <AuthContext.Consumer>
-          {(value) => <span>Is logged in: {value.toString()}</span>}
+          {(value) => <span>User is: {value.user?.firstName}</span>}
         </AuthContext.Consumer>
       </AuthProvider>
     );
 
-    expect(getByText('Is logged in: b')).toBeTruthy();
+    expect(screen.getByText(`User is:`)).toBeTruthy();
+  });
+
+  it('AuthProvider provide correct value', () => {
+    localStorage.setItem('user', JSON.stringify(providerUser));
+
+    queryClientRender(
+      <AuthProvider>
+        <AuthContext.Consumer>
+          {(value) => <span>User is: {value.user.firstName}</span>}
+        </AuthContext.Consumer>
+      </AuthProvider>
+    );
+
+    expect(screen.getByText(`User is: ${providerUser.firstName}`)).toBeTruthy();
   });
 });

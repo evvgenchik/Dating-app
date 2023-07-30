@@ -27,3 +27,5 @@ export const AuthApi = {
     return res;
   },
 };
+
+export default AuthApi;

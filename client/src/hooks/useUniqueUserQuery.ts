@@ -1,18 +1,12 @@
 import { UserApi } from '@/api/services/userApi';
-import { toastError } from '@/utils/toaster';
 import { useQuery } from '@tanstack/react-query';
 
-const useUsersQuery = () => {
+const useUniqueUserQuery = (storedUser) => {
   return useQuery({
-    queryKey: ['users'],
-    queryFn: UserApi.getUsers,
-    onError: (err) => {
-      if (err instanceof Error) {
-        console.error(err);
-        toastError();
-      }
-    },
+    queryKey: ['currentUser'],
+    queryFn: () => UserApi.getUniqueUser(storedUser.id),
+    enabled: !!storedUser,
   });
 };
 
-export default useUsersQuery;
+export default useUniqueUserQuery;

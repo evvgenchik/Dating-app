@@ -1,28 +1,8 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import DropDown from './DropDown';
-import { customRender } from '@/utils/test';
+import { customRender, providerUser } from '@/utils/test';
 import { vi } from 'vitest';
-
-const providerUser = {
-  id: '123',
-  email: 'email@mail.ru',
-  firstName: 'Ivan',
-  birthday: '1998-12-12T00:00:00.000Z',
-  gender: 'man',
-  looking: 'woman',
-  descriptrion: 'Really cool and pretty',
-  avatar: 'link',
-  createdAt: new Date(),
-  isEmailConfirmed: true,
-  matchedBy: [],
-  matching: [],
-  dislikeBy: [],
-  disliking: [],
-  messageSent: [],
-  messageRecieved: [],
-  conversations: [],
-};
 
 vi.mock('@/api/axios');
 

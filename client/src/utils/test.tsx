@@ -61,4 +61,4 @@ const queryClientRender = (ui: JSX.Element, user = providerUser) => {
   );
 };
 
-export { customRender, queryClientRender };
+export { customRender, queryClientRender, providerUser };
