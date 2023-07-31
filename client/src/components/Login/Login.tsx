@@ -45,11 +45,14 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
     const user = await login(authData);
 
     if (user) {
+      navigate('/app/match');
+
       setAuthError('');
       setSuccess(true);
       setUser(user);
       setTimeout(() => navigate('/app/match'), 2000);
     }
+
     setIsLoading(false);
   };
 
@@ -68,7 +71,7 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
         {success ? (
           <div className='success-popup'>
             <h2 className='success-title'>
-              Authorization successfull{' '}
+              Authorization successfull
               <img className='check-mark' src={checkRed} alt='check mark' />
             </h2>
             <h3 className='success-text'>
