@@ -45,14 +45,11 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
     const user = await login(authData);
 
     if (user) {
-      navigate('/app/match');
-
       setAuthError('');
       setSuccess(true);
       setUser(user);
       setTimeout(() => navigate('/app/match'), 2000);
     }
-
     setIsLoading(false);
   };
 

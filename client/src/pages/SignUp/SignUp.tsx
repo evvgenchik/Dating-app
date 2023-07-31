@@ -12,6 +12,7 @@ import { AuthApi } from '@/api/services/authApi';
 import { AuthForm, GenderEnum, LookingEnum, UserType } from '@/utils/types';
 import { format } from 'date-fns';
 import { UserApi } from '@/api/services/userApi';
+import axios from 'axios';
 
 type AuthFormKeys = keyof AuthForm;
 
@@ -54,8 +55,8 @@ function SignUp({ currentUser }: Props) {
     if (!currentUser) return;
 
     async function getFileFromUrl(url: string) {
-      const res = await fetch(url);
-      const blob = await res.blob();
+      const res = await axios<Blob>({ url, responseType: 'blob' });
+      const blob = res.data;
       const file = new File([blob], 'avatar', { type: blob.type });
       reset({ avatar: file }, { keepDefaultValues: true });
     }
@@ -145,7 +146,7 @@ function SignUp({ currentUser }: Props) {
         <h1 className={styles.title}>{action} ACCOUNT</h1>
         <div className={styles.formContent}>
           <div className={styles.leftSide}>
-            <label className={styles.mainLabel}>
+            <label role='mainLabel' className={styles.mainLabel}>
               Email:
               <input
                 {...register('email', {
@@ -164,7 +165,7 @@ function SignUp({ currentUser }: Props) {
               )}
             </label>
 
-            <label className={styles.mainLabel}>
+            <label role='mainLabel' className={styles.mainLabel}>
               Password:
               <input
                 {...register('password', {
@@ -183,7 +184,7 @@ function SignUp({ currentUser }: Props) {
               )}
             </label>
 
-            <label className={styles.mainLabel}>
+            <label role='mainLabel' className={styles.mainLabel}>
               First name:
               <input
                 {...register('firstName', {
@@ -203,7 +204,7 @@ function SignUp({ currentUser }: Props) {
               )}
             </label>
 
-            <label className={styles.mainLabel}>
+            <label role='mainLabel' className={styles.mainLabel}>
               Birthday:
               <input
                 {...register('birthday', {
@@ -220,7 +221,7 @@ function SignUp({ currentUser }: Props) {
               )}
             </label>
 
-            <label className={`${styles.mainLabel}`}>
+            <label role='mainLabel' className={`${styles.mainLabel}`}>
               Gender:
               <div className={styles.radioContainer}>
                 <input
@@ -262,7 +263,7 @@ function SignUp({ currentUser }: Props) {
               )}
             </label>
 
-            <label className={`${styles.mainLabel}`}>
+            <label role='mainLabel' className={`${styles.mainLabel}`}>
               Looking for:
               <div className={styles.radioContainer}>
                 <input
@@ -304,7 +305,7 @@ function SignUp({ currentUser }: Props) {
               )}
             </label>
 
-            <label className={styles.mainLabel}>
+            <label role='mainLabel' className={styles.mainLabel}>
               Brief description of yourself
               <Controller
                 rules={{
@@ -337,7 +338,7 @@ function SignUp({ currentUser }: Props) {
           </div>
 
           <div className={styles.rigthSide}>
-            <label className={styles.mainLabel}>
+            <label role='mainLabel' className={styles.mainLabel}>
               Profile photo:
               <div className={styles.inputFile}>
                 <span className={styles.inputFileText}>{avatarSrc}</span>
@@ -378,7 +379,7 @@ function SignUp({ currentUser }: Props) {
           </div>
         </div>
 
-        <MyButton type='submit' className='signup-btn'>
+        <MyButton data-testid='submitBtn' type='submit' className='signup-btn'>
           {action}
         </MyButton>
       </form>

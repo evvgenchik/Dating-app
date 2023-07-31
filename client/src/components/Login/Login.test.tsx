@@ -21,7 +21,6 @@ const defaultRender = () =>
     />
   );
 
-//vi.mock('@/api/axios');
 vi.mock('@/api/services/authApi', () => {
   return {
     AuthApi: {
