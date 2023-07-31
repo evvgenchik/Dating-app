@@ -37,6 +37,7 @@ export class AuthController {
   @UseGuards(LocalAuthenticationGuard)
   @Post('login')
   async login(@Req() request: RequestWithUser) {
+    console.log('login');
     const { user } = request;
     const accessTokenCookie = this.authService.getCookieWithJwtToken(user.id);
     const { refreshTokenCookie, refreshToken } =

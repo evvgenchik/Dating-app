@@ -20,6 +20,6 @@ export class EmailConfirmController {
     const token = req.query.token.toString();
     const email = await this.emailConfirmService.decodeConfirmationToken(token);
     await this.emailConfirmService.confirmEmail(email);
-    res.redirect('http://localhost:5173/');
+    res.redirect('https://finder-dating.netlify.app/');
   }
 }
