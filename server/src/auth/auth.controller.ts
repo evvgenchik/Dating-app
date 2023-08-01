@@ -37,26 +37,17 @@ export class AuthController {
   @UseGuards(LocalAuthenticationGuard)
   @Post('login')
   async login(@Req() request: RequestWithUser) {
-    console.log('login2');
     const { user } = request;
-    console.log('login');
-
     const accessTokenCookie = this.authService.getCookieWithJwtToken(user.id);
-    console.log('login3');
-
     const { refreshTokenCookie, refreshToken } =
       this.authService.getCookieWithJwtRefreshToken(user.id);
-    console.log('login4');
 
     await this.usersService.setCurrentRefreshToken(refreshToken, user.id);
-    console.log('login5');
 
     request.res.setHeader('Set-Cookie', [
       accessTokenCookie,
       refreshTokenCookie,
     ]);
-    console.log('login6');
-
     return new UserEntity(user);
   }
 
