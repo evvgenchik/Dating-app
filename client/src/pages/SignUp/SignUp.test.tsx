@@ -3,9 +3,10 @@ import userEvent from '@testing-library/user-event';
 import { customRender, providerUser, queryClientRender } from '@/utils/test';
 import { vi } from 'vitest';
 import { UserLogin } from '@/utils/types';
-import SignUp from './SignUp';
+import SignUp, { ERRORS_SPECIFIC } from './SignUp';
 
-const defaultRender = () => queryClientRender(<SignUp />);
+const defaultRender = (currentUser?) =>
+  queryClientRender(<SignUp currentUser={currentUser} />);
 
 // const AMOUNTOFFIELDS = 8;
 // const validateErrorMsg = (field: string) => `${field} is required`;
@@ -22,9 +23,8 @@ const defaultRender = () => queryClientRender(<SignUp />);
 // });
 
 describe('SignUp create', () => {
-  defaultRender();
-
-  it('render SignUp page with correct word "Update"', () => {
+  it('render SignUp page with correct word "Create"', () => {
+    defaultRender();
     expect(screen.getByText(/create account/i)).toBeInTheDocument();
   });
 
@@ -41,97 +41,107 @@ describe('SignUp create', () => {
     );
   });
 
-  it('trigger single validation field', async () => {
+  it('not trigger validation on filled field', async () => {
     const user = userEvent.setup();
     defaultRender();
 
-    const amountOfFields = screen.getAllByRole('mainLabel').length;
-    const btn = screen.getByTestId('submitBtn');
-    await user.click(btn);
+    const inputPassword = screen.getByPlaceholderText(/password/i);
+    await user.type(inputPassword, '1111');
 
-    expect(screen.queryAllByText(/is required/i)).to.have.length(
-      amountOfFields
-    );
+    expect(screen.queryByText(/password is required/i)).not.toBeInTheDocument();
   });
 
-  // it('validation on empty email', async () => {
-  //   const user = userEvent.setup();
-  //   defaultRender();
+  it('trigger validation input onBlur', async () => {
+    const user = userEvent.setup();
+    defaultRender();
 
-  //   const inputEmail = screen.getByPlaceholderText(/email/i);
-  //   await user.type(inputEmail, 'mail@mail.ru');
+    const inputPassword = screen.getByPlaceholderText(/password/i);
+    const inputName = screen.getByPlaceholderText(/first name/i);
+    await user.click(inputName);
+    await user.type(inputPassword, '1111');
 
-  //   const btn = screen.getByText('Login');
-  //   await user.click(btn);
+    expect(screen.getByText(/first name is required/i)).toBeInTheDocument();
+  });
 
-  //   expect(
-  //     screen.getByText(/Incorrect email or password/i)
-  //   ).toBeInTheDocument();
-  // });
+  it('trigger validation input onBlur', async () => {
+    const user = userEvent.setup();
+    defaultRender();
 
-  // it('validation on empty password', async () => {
-  //   const user = userEvent.setup();
-  //   defaultRender();
+    const inputPassword = screen.getByPlaceholderText(/password/i);
+    const inputName = screen.getByPlaceholderText(/first name/i);
+    await user.click(inputName);
+    await user.type(inputPassword, '1111');
 
-  //   const inputPassword = screen.getByPlaceholderText(/password/i);
-  //   await user.type(inputPassword, '1111');
+    expect(screen.getByText(/first name is required/i)).toBeInTheDocument();
+  });
 
-  //   const btn = screen.getByText('Login');
-  //   await user.click(btn);
+  it('trigger validation fields with correct error messages', async () => {
+    window.URL.createObjectURL = vi.fn();
+    const user = userEvent.setup();
+    defaultRender();
 
-  //   expect(
-  //     screen.getByText(/Incorrect email or password/i)
-  //   ).toBeInTheDocument();
-  // });
+    const testImageFile = new File(['hello'], 'hello.csv', {
+      type: 'text/csv',
+    });
 
-  // it('no error on correct login and password', async () => {
-  //   const user = userEvent.setup();
-  //   defaultRender();
+    const inputEmail = screen.getByPlaceholderText(/email/i);
+    const inputPassword = screen.getByPlaceholderText(/password/i);
+    const inputFirstName = screen.getByPlaceholderText(/first name/i);
+    const inputDescription = screen.getByPlaceholderText(/answer here/i);
+    const inputFile = screen.getByLabelText('inputFile');
+    const inputDate = screen.getByLabelText('inputDate');
+    await user.type(inputEmail, 'a');
+    await user.type(inputPassword, 'a');
+    await user.type(inputFirstName, 'a');
+    await user.type(inputDescription, 'a');
+    await user.type(inputDate, '1020-05-12');
+    await user.upload(inputFile, testImageFile);
 
-  //   const inputPassword = screen.getByPlaceholderText(/password/i);
-  //   await user.type(inputPassword, '1111');
-  //   const inputEmail = screen.getByPlaceholderText(/email/i);
-  //   await user.type(inputEmail, 'mail@mail.ru');
+    expect(
+      screen.getByText(ERRORS_SPECIFIC.email.notMatch)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(ERRORS_SPECIFIC.password.length)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(ERRORS_SPECIFIC.firstName.capitalLetter)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(ERRORS_SPECIFIC.description.lengthMin)
+    ).toBeInTheDocument();
+    expect(screen.getByText(/valid date/i)).toBeInTheDocument();
+    expect(screen.getByText(/valid image/i)).toBeInTheDocument();
+  });
 
-  //   const btn = screen.getByText('Login');
-  //   await user.click(btn);
+  it('no errors on correct input', async () => {
+    window.URL.createObjectURL = vi.fn();
+    const user = userEvent.setup();
+    defaultRender();
 
-  //   expect(
-  //     screen.queryByText(/Incorrect email or password/i)
-  //   ).not.toBeInTheDocument();
-  // });
+    const testImageFile = new File(['hello'], 'hello.png', {
+      type: 'image/png',
+    });
 
-  // it('show success msg with correct userName', async () => {
-  //   const user = userEvent.setup();
-  //   defaultRender();
+    const inputEmail = screen.getByPlaceholderText(/email/i);
+    const inputPassword = screen.getByPlaceholderText(/password/i);
+    const inputFirstName = screen.getByPlaceholderText(/first name/i);
+    const inputDescription = screen.getByPlaceholderText(/answer here/i);
+    const inputFile = screen.getByLabelText('inputFile');
+    const inputDate = screen.getByLabelText('inputDate');
+    await user.type(inputEmail, 'mail@mail.ru');
+    await user.type(inputPassword, 'Ivan');
+    await user.type(inputFirstName, 'Ivan');
+    await user.type(inputDescription, 'Smart and bright like a sun');
+    await user.type(inputDate, '1990-05-12');
+    await user.upload(inputFile, testImageFile);
 
-  //   const inputPassword = screen.getByPlaceholderText(/password/i);
-  //   await user.type(inputPassword, '1111');
-  //   const inputEmail = screen.getByPlaceholderText(/email/i);
-  //   await user.type(inputEmail, 'mail@mail.ru');
-
-  //   const btn = screen.getByText('Login');
-  //   await user.click(btn);
-
-  //   expect(screen.getByText(/Welocome/i)).toBeInTheDocument();
-  //   expect(screen.getByText(providerUser.firstName)).toBeInTheDocument();
-  // });
-
-  // it('sign up links direct to sign up page', async () => {
-  //   const user = userEvent.setup();
-  //   defaultRender();
-
-  //   const link = screen.getByText(/Sign up/i);
-  //   await user.click(link);
-
-  //   expect(window.location.pathname).toEqual('/signup');
-  // });
+    expect(screen.queryAllByRole('errorMsg')).to.have.length(0);
+  });
 });
 
-// describe('SignUp update', () => {
-//   defaultRender();
-
-//   it('render Login component with correct word "Update"', () => {
-//     expect(screen.getByText(/update account/i)).toBeInTheDocument();
-//   });
-// });
+describe('SignUp update', () => {
+  it('render SignUp page with correct word "Update"', () => {
+    defaultRender(providerUser);
+    expect(screen.getByText(/update account/i)).toBeInTheDocument();
+  });
+});
