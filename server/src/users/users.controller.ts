@@ -32,6 +32,8 @@ export class UsersController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
+    console.log('br');
+
     return new UserEntity(await this.usersService.findOne(id));
   }
 
