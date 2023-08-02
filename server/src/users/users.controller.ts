@@ -14,7 +14,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
 import JwtAuthenticationGuard from 'src/auth/guards/jwtAuth.guard';
 
-@UseGuards(JwtAuthenticationGuard)
+// @UseGuards(JwtAuthenticationGuard)
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -33,7 +33,6 @@ export class UsersController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     console.log('br');
-
     return new UserEntity(await this.usersService.findOne(id));
   }
 
