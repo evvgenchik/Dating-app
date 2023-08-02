@@ -22,6 +22,8 @@ const defaultRender = (currentUser?) =>
 //   };
 // });
 
+//vi.mock('axios');
+
 describe('SignUp create', () => {
   it('render SignUp page with correct word "Create"', () => {
     defaultRender();
@@ -143,5 +145,28 @@ describe('SignUp update', () => {
   it('render SignUp page with correct word "Update"', () => {
     defaultRender(providerUser);
     expect(screen.getByText(/update account/i)).toBeInTheDocument();
+  });
+
+  it('render SignUp update page with correct user data', () => {
+    defaultRender(providerUser);
+
+    const genderInputs = screen.queryAllByLabelText(providerUser.gender);
+    const lookingInputs = screen.queryAllByLabelText(providerUser.looking);
+
+    //here
+    // expect(genderInputs.find((input) => input.checked)).toHaveValue(
+    //   providerUser.gender
+    // );
+    // expect(lookingInputs.find((input) => input.checked))[0].toHaveValue(
+    //   providerUser.looking
+    // );
+    expect(
+      screen.getByDisplayValue(providerUser.firstName)
+    ).toBeInTheDocument();
+    expect(screen.getByDisplayValue(providerUser.email)).toBeInTheDocument();
+    expect(
+      screen.getByDisplayValue(providerUser.descriptrion)
+    ).toBeInTheDocument();
+    expect(screen.getByAltText('profile')).toBeInTheDocument();
   });
 });

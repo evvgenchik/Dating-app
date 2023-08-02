@@ -74,8 +74,7 @@ function SignUp({ currentUser }: Props) {
     if (!currentUser) return;
 
     async function getFileFromUrl(url: string) {
-      const res = await axios<Blob>({ url, responseType: 'blob' });
-      const blob = res.data;
+      const blob = await UserApi.getImage(url);
       const file = new File([blob], 'avatar', { type: blob.type });
       reset({ avatar: file }, { keepDefaultValues: true });
     }
