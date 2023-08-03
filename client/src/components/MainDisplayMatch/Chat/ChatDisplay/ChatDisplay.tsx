@@ -38,12 +38,8 @@ function ChatDisplay() {
     };
 
     socket.emit('getConversationForEmails', conversationDto);
-    console.log('emit getConversationForEmails');
 
     function receiveConversation(value: ConversationType) {
-      console.log('recieve convers');
-      console.log(value);
-
       conversationRef.current = value;
       setConversation(value);
     }

@@ -23,7 +23,6 @@ export class ConversationController {
 
   @Post()
   findOneForUsers(@Body() userEmails: CreateConversationDto) {
-    console.log('look email convers');
     return this.conversationService.findOneForUsers(userEmails);
   }
 
