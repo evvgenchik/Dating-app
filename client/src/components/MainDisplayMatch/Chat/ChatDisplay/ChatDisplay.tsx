@@ -17,6 +17,7 @@ function ChatDisplay() {
   const [conversation, setConversation] = useState<ConversationType>(null);
   const conversationRef = useRef<ConversationType>();
   const anchorRef = useRef<HTMLDivElement>();
+  console.log('convers ' + conversation?.id);
 
   useEffect(() => {
     anchorRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -37,8 +38,12 @@ function ChatDisplay() {
     };
 
     socket.emit('getConversationForEmails', conversationDto);
+    console.log('emit getConversationForEmails');
 
     function receiveConversation(value: ConversationType) {
+      console.log('recieve convers');
+      console.log(value);
+
       conversationRef.current = value;
       setConversation(value);
     }
