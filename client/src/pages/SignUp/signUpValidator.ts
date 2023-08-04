@@ -8,7 +8,7 @@ const birthdayValidator = (birthDate: string) => {
 
 const avatarValidator = (file: File) => {
   return (
-    file.type.split('/')[0] === 'image' || 'Please, add correct image format'
+    file.type.split('/')[0] === 'image' || 'Please, add valid image format'
   );
 };
 

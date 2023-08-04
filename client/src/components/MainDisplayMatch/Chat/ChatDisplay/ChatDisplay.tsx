@@ -1,7 +1,7 @@
 import { FormEvent, useContext, useEffect, useRef, useState } from 'react';
 import { AiOutlineSend as SendIcon } from 'react-icons/ai';
 import styles from './ChatDisplay.module.scss';
-import AuthContext from '@/context/authProvider';
+import AuthContext from '@/context/AuthProvider';
 import { ConversationType, MessageType, UserType } from '@/utils/types';
 import { format } from 'date-fns';
 import Message from '../Message/Message';

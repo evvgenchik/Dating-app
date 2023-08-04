@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Messages.module.scss';
-import AuthContext from '@/context/authProvider';
+import AuthContext from '@/context/AuthProvider';
 import { conversationApi } from '@/api/services/conversationApi';
 import { useQuery } from '@tanstack/react-query';
 import Loader from '@/components/UI/Loader/Loader';

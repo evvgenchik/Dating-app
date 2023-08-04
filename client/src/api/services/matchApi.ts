@@ -3,7 +3,7 @@ import { axios, axiosReauth } from '../axios';
 
 const MATCH_URL = '/match';
 
-export const MatchAPI = {
+export const MatchApi = {
   create: async (userSourceEmail: string, userAddressEmail: string) => {
     const res = await axiosReauth.post<MatchType>(MATCH_URL, {
       userSourceEmail,

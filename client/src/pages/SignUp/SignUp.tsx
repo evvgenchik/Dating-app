@@ -8,12 +8,32 @@ import heart from '@/assets/Home/heart2.svg';
 import Modal from '@/components/Modal/Modal';
 import checkRed from '@/assets/checkRed.svg';
 import Loader from '@/components/UI/Loader/Loader';
-import { AuthAPI } from '@/api/services/authApi';
+import { AuthApi } from '@/api/services/authApi';
 import { AuthForm, GenderEnum, LookingEnum, UserType } from '@/utils/types';
-import { UserAPI } from '@/api/services/userApi';
 import { format } from 'date-fns';
+import { UserApi } from '@/api/services/userApi';
+import axios from 'axios';
 
 type AuthFormKeys = keyof AuthForm;
+
+export const ERRORS_SPECIFIC = {
+  email: {
+    notMatch: 'Entered value does not match email format',
+    exist: 'User with this email already exists',
+    notFound: 'Incorrect emai: user with this email not found',
+  },
+  password: {
+    length: 'Password must be more than 4 symbols',
+  },
+  firstName: {
+    capitalLetter:
+      "Name must start with a capital letter and doesn't contain spaces",
+  },
+  description: {
+    lengthMax: 'Description must contain no more than 50 symbols',
+    lengthMin: 'Description must contain at least 10 symbols',
+  },
+};
 
 const ERRORS = {
   requiredFnMsg: (field: string) => `${field} is required`,
@@ -54,8 +74,7 @@ function SignUp({ currentUser }: Props) {
     if (!currentUser) return;
 
     async function getFileFromUrl(url: string) {
-      const res = await fetch(url);
-      const blob = await res.blob();
+      const blob = await UserApi.getImage(url);
       const file = new File([blob], 'avatar', { type: blob.type });
       reset({ avatar: file }, { keepDefaultValues: true });
     }
@@ -76,7 +95,7 @@ function SignUp({ currentUser }: Props) {
 
   const sendImage = async (icon: File) => {
     try {
-      const res = await UserAPI.avatar(icon);
+      const res = await UserApi.avatar(icon);
       const fileData = res.data.url;
       return fileData;
     } catch (error) {
@@ -88,19 +107,19 @@ function SignUp({ currentUser }: Props) {
   const sendUser = async (user: AuthForm) => {
     try {
       const res = currentUser
-        ? await UserAPI.update(currentUser.id, user)
-        : await AuthAPI.signup(user);
+        ? await UserApi.update(currentUser.id, user)
+        : await AuthApi.signup(user);
       return res;
     } catch (error) {
       const statusCode = error?.response?.status;
 
       if (statusCode === 409) {
-        errorHandler('email', 'User with this email already exists');
+        errorHandler('email', ERRORS_SPECIFIC.email.exist);
         return null;
       }
 
       if (statusCode === 550) {
-        errorHandler('email', 'Incorrect emai: user with this email not found');
+        errorHandler('email', ERRORS_SPECIFIC.email.notFound);
         return null;
       }
 
@@ -145,14 +164,14 @@ function SignUp({ currentUser }: Props) {
         <h1 className={styles.title}>{action} ACCOUNT</h1>
         <div className={styles.formContent}>
           <div className={styles.leftSide}>
-            <label className={styles.mainLabel}>
+            <label role='mainLabel' className={styles.mainLabel}>
               Email:
               <input
                 {...register('email', {
                   required: ERRORS.requiredFnMsg('Email'),
                   pattern: {
                     value: /\S+@\S+\.\S+/,
-                    message: 'Entered value does not match email format',
+                    message: ERRORS_SPECIFIC.email.notMatch,
                   },
                 })}
                 className={styles.input}
@@ -160,18 +179,20 @@ function SignUp({ currentUser }: Props) {
                 placeholder='Email'
               />
               {errors.email && (
-                <p className={styles.error}>{errors.email.message}</p>
+                <p role='errorMsg' className={styles.error}>
+                  {errors.email.message}
+                </p>
               )}
             </label>
 
-            <label className={styles.mainLabel}>
+            <label role='mainLabel' className={styles.mainLabel}>
               Password:
               <input
                 {...register('password', {
                   required: ERRORS.requiredFnMsg('Password'),
                   minLength: {
                     value: 4,
-                    message: 'Password must be more than 4 symbols',
+                    message: ERRORS_SPECIFIC.password.length,
                   },
                 })}
                 className={styles.input}
@@ -179,19 +200,20 @@ function SignUp({ currentUser }: Props) {
                 placeholder='Password'
               />
               {errors.password && (
-                <p className={styles.error}>{errors.password.message}</p>
+                <p role='errorMsg' className={styles.error}>
+                  {errors.password.message}
+                </p>
               )}
             </label>
 
-            <label className={styles.mainLabel}>
+            <label role='mainLabel' className={styles.mainLabel}>
               First name:
               <input
                 {...register('firstName', {
                   required: ERRORS.requiredFnMsg('First name'),
                   pattern: {
                     value: /^[A-Z]+[a-z]/g,
-                    message:
-                      "Name must start with a capital letter and doesn't contain spaces",
+                    message: ERRORS_SPECIFIC.firstName.capitalLetter,
                   },
                 })}
                 className={styles.input}
@@ -199,11 +221,13 @@ function SignUp({ currentUser }: Props) {
                 placeholder='First name'
               />
               {errors.firstName && (
-                <p className={styles.error}>{errors.firstName.message}</p>
+                <p role='errorMsg' className={styles.error}>
+                  {errors.firstName.message}
+                </p>
               )}
             </label>
 
-            <label className={styles.mainLabel}>
+            <label role='mainLabel' className={styles.mainLabel}>
               Birthday:
               <input
                 {...register('birthday', {
@@ -211,16 +235,19 @@ function SignUp({ currentUser }: Props) {
                   valueAsDate: true,
                   validate: birthdayValidator,
                 })}
+                aria-label='inputDate'
                 className={styles.input}
                 type='date'
                 placeholder='Birthday'
               />
               {errors.birthday && (
-                <p className={styles.error}>{errors.birthday.message}</p>
+                <p role='errorMsg' className={styles.error}>
+                  {errors.birthday.message}
+                </p>
               )}
             </label>
 
-            <label className={`${styles.mainLabel}`}>
+            <label role='mainLabel' className={`${styles.mainLabel}`}>
               Gender:
               <div className={styles.radioContainer}>
                 <input
@@ -258,11 +285,13 @@ function SignUp({ currentUser }: Props) {
                 </label>
               </div>
               {errors.gender && (
-                <p className={styles.error}>{errors.gender.message}</p>
+                <p role='errorMsg' className={styles.error}>
+                  {errors.gender.message}
+                </p>
               )}
             </label>
 
-            <label className={`${styles.mainLabel}`}>
+            <label role='mainLabel' className={`${styles.mainLabel}`}>
               Looking for:
               <div className={styles.radioContainer}>
                 <input
@@ -300,22 +329,24 @@ function SignUp({ currentUser }: Props) {
                 </label>
               </div>
               {errors.looking && (
-                <p className={styles.error}>{errors.looking.message}</p>
+                <p role='errorMsg' className={styles.error}>
+                  {errors.looking.message}
+                </p>
               )}
             </label>
 
-            <label className={styles.mainLabel}>
+            <label role='mainLabel' className={styles.mainLabel}>
               Brief description of yourself
               <Controller
                 rules={{
                   required: ERRORS.requiredFnMsg('Description'),
                   minLength: {
                     value: 10,
-                    message: 'Description must contain at least 10 symbols',
+                    message: ERRORS_SPECIFIC.description.lengthMin,
                   },
                   maxLength: {
                     value: 50,
-                    message: 'Description must contain no more than 50 symbols',
+                    message: ERRORS_SPECIFIC.description.lengthMax,
                   },
                 }}
                 name='descriptrion'
@@ -331,13 +362,15 @@ function SignUp({ currentUser }: Props) {
                 )}
               />
               {errors.descriptrion && (
-                <p className={styles.error}>{errors.descriptrion.message}</p>
+                <p role='errorMsg' className={styles.error}>
+                  {errors.descriptrion.message}
+                </p>
               )}
             </label>
           </div>
 
           <div className={styles.rigthSide}>
-            <label className={styles.mainLabel}>
+            <label role='mainLabel' className={styles.mainLabel}>
               Profile photo:
               <div className={styles.inputFile}>
                 <span className={styles.inputFileText}>{avatarSrc}</span>
@@ -348,21 +381,25 @@ function SignUp({ currentUser }: Props) {
                   }}
                   name='avatar'
                   control={control}
-                  render={({ field: { onChange } }) => (
+                  render={({ field: { onChange, onBlur } }) => (
                     <input
+                      aria-label='inputFile'
                       onChange={(e) => {
                         fileInputHandler(e);
                         onChange(e.target.files[0]);
+                        onBlur();
                       }}
                       className={styles.input}
                       type='file'
                     />
                   )}
                 />
-                <span className={styles.inputFileBtn}>Выберите файл</span>
+                <span className={styles.inputFileBtn}>Choose the image</span>
               </div>
               {errors.avatar && (
-                <p className={styles.error}>{errors.avatar.message}</p>
+                <p role='errorMsg' className={styles.error}>
+                  {errors.avatar.message}
+                </p>
               )}
             </label>
 
@@ -378,7 +415,7 @@ function SignUp({ currentUser }: Props) {
           </div>
         </div>
 
-        <MyButton type='submit' className='signup-btn'>
+        <MyButton data-testid='submitBtn' type='submit' className='signup-btn'>
           {action}
         </MyButton>
       </form>

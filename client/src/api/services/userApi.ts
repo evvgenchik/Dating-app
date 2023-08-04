@@ -4,14 +4,7 @@ import { axios, axiosReauth } from '../axios';
 const IMAGE_URL = '/image/upload';
 const USERS_URL = '/users';
 
-export const UserAPI = {
-  avatar: async (icon: File) => {
-    const formData = new FormData();
-    formData.append('file', icon);
-    const res = await axios.post(IMAGE_URL, formData);
-    return res;
-  },
-
+export const UserApi = {
   update: async (id: string, user: AuthForm) => {
     const res = await axiosReauth.patch<UserType>(USERS_URL + '/' + id, user);
     return res.data;
@@ -33,5 +26,18 @@ export const UserAPI = {
       { email }
     );
     return res.data;
+  },
+
+  avatar: async (icon: File) => {
+    const formData = new FormData();
+    formData.append('file', icon);
+    const res = await axios.post(IMAGE_URL, formData);
+    return res;
+  },
+
+  getImage: async (url: string) => {
+    const res = await axios<Blob>({ url, responseType: 'blob' });
+    const blob = res.data;
+    return blob;
   },
 };

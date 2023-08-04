@@ -4,15 +4,15 @@ import styles from './Swiper.module.scss';
 import { AiFillHeart as HeartIcon } from 'react-icons/ai';
 import { MdOutlineClose as DenyIcon } from 'react-icons/md';
 import { TbRefresh as RefreshIcon } from 'react-icons/tb';
-import { UserAPI } from '@/api/services/userApi';
+import { UserApi } from '@/api/services/userApi';
 import { MatchType, UserType } from '@/utils/types';
 import { ageCalculate } from '@/utils/helper';
-import { useQuery } from '@tanstack/react-query';
 import Loader from '@/components/UI/Loader/Loader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import AuthContext from '@/context/authProvider';
-import { MatchAPI } from '@/api/services/matchApi';
+import AuthContext from '@/context/AuthProvider';
+import { MatchApi } from '@/api/services/matchApi';
+import useUsersQuery from '@/hooks/useUsersQuery';
 
 type Direction = 'left' | 'right' | 'up' | 'down';
 
@@ -22,10 +22,7 @@ function Swiper() {
   const [currentIndex, setCurrentIndex] = useState<number>(users.length);
   const [childRefs, setChildRefs] = useState([]);
 
-  const { isLoading, data, error } = useQuery({
-    queryKey: ['users'],
-    queryFn: UserAPI.getUsers,
-  });
+  const { isLoading, data } = useUsersQuery();
 
   const propertyGetter = <T,>(arr: T[], key: keyof T) => {
     return arr.map((user) => user[key]);
@@ -71,14 +68,14 @@ function Swiper() {
     );
 
     if (match) {
-      await MatchAPI.update(match.id, true);
+      await MatchApi.update(match.id, true);
     } else {
-      await MatchAPI.create(user.email, adressEmail);
+      await MatchApi.create(user.email, adressEmail);
     }
   };
 
   const dislikeHandler = async (adressEmail: string) => {
-    await UserAPI.updateDislike(user.id, adressEmail);
+    await UserApi.updateDislike(user.id, adressEmail);
   };
 
   const swiped = async (dir: Direction, email: string, index: number) => {
@@ -108,19 +105,6 @@ function Swiper() {
     await childRefs[newIndex].current.restoreCard();
   };
 
-  if (error) {
-    console.error(error);
-
-    toast.error('OOPS something went wrong', {
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      theme: 'light',
-    });
-  }
-
   return (
     <div className={styles.person}>
       <div className={styles.cardContainer}>
@@ -146,7 +130,6 @@ function Swiper() {
                     </span>{' '}
                   </p>
                   <p className={styles.description}>{character.descriptrion}</p>
-                  {/* <p className={styles.status}>Online now</p>*/}
                 </div>
               </div>
             </TinderCard>

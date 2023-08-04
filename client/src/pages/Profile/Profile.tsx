@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import SignUp from '../SignUp/SignUp';
-import AuthContext from '@/context/authProvider';
+import AuthContext from '@/context/AuthProvider';
 
 function Profile() {
   const { user } = useContext(AuthContext);
