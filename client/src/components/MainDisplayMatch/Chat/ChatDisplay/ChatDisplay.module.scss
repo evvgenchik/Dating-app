@@ -71,15 +71,15 @@
 .sendBtnContainer {
   border: none;
   position: absolute;
-  top: 50%;
-  right: 3%;
+  right: 5%;
+  top: 30%;
+
 }
 
 .sendBtn {
-  position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
-  right: 3%;
+  border: none;
+  border-color: transparent;
+  background-color: transparent;
   cursor: pointer;
 }
 
