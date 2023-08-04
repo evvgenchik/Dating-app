@@ -6,8 +6,8 @@ Link to the frontend: [https://finder-dating.netlify.app/](https://finder-dating
 
 Link to API: [https://dating-app-ls06.onrender.com](https://dating-app-ls06.onrender.com)
 
-![app](./AppScreens/finder.png)
-![messages](./AppScreens/finder-msg.png)
+![app](./AppScreen/finder.png)
+![messages](./AppScreen/finder-msg.png)
 
 ## Todo
 
