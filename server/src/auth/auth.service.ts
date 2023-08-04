@@ -62,7 +62,7 @@ export class AuthService {
       expiresIn: +this.configService.get('TOKEN_EXPIRE_TIME'),
     });
 
-    return `Authentication=${token}; HttpOnly; Path=/; domain=onrender.com; Max-Age=${this.configService.get(
+    return `Authentication=${token}; HttpOnly; Path=/; domain=.onrender.com; Max-Age=${this.configService.get(
       'TOKEN_EXPIRE_TIME',
     )}`;
   }
@@ -74,7 +74,7 @@ export class AuthService {
       expiresIn: +this.configService.get('TOKEN_REFRESH_EXPIRE_TIME'),
     });
 
-    const refreshTokenCookie = `Refresh=${refreshToken}; HttpOnly; Path=/; domain=onrender.com; Max-Age=${this.configService.get(
+    const refreshTokenCookie = `Refresh=${refreshToken}; HttpOnly; Path=/; domain=.onrender.com; Max-Age=${this.configService.get(
       'TOKEN_REFRESH_EXPIRE_TIME',
     )}`;
     return {
