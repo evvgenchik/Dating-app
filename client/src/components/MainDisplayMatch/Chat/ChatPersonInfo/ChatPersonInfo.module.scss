@@ -58,7 +58,7 @@
   height: 55rem;
 }
 
-@media (width<=986px) {
+@media (max-width:986px) {
   .info {
     padding: 0 5rem;
     padding-bottom: 10rem;
@@ -75,13 +75,13 @@
   }
 }
 
-@media (width<=768px) {
+@media (max-width:768px) {
   .personInfoControls {
     height: 40rem;
   }
 }
 
-@media (width<=600px) {
+@media (max-width:600px) {
   .info {
     .name {
       font-size: 14rem;
@@ -89,7 +89,7 @@
   }
 }
 
-@media (width<=650px) {
+@media (max-width:650px) {
   .personInfoContainer {
     display: none;
   }

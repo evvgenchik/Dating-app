@@ -79,7 +79,7 @@
   border: 2rem solid rgba(253, 58, 115, 0.7);
 }
 
-@media (width<=768px) {
+@media (max-width:768px) {
   .photo {
     width: 50rem;
     height: 50rem;
@@ -101,7 +101,7 @@
   }
 }
 
-@media (width<=650px) {
+@media (max-width:650px) {
   .photo {
     width: 35rem;
     height: 35rem;

@@ -95,7 +95,7 @@
 }
 
 
-@media (width <=1201px) {
+@media (max-width:1201px) {
   .cardContainer {
     width: 400rem;
     height: 550rem;
@@ -111,7 +111,7 @@
   }
 }
 
-@media (width <=986px) {
+@media (max-width:986px) {
   .cardContainer {
     width: 350rem;
   }
@@ -131,7 +131,7 @@
   }
 }
 
-@media (width <=786px) {
+@media (max-width:786px) {
   .cardContainer {
     width: 300rem;
     height: 450rem;
@@ -154,7 +154,7 @@
   }
 }
 
-@media (width <=551px) {
+@media (max-width:551px) {
   .cardContainer {
     width: 300rem;
     height: 450rem;
@@ -192,7 +192,7 @@
 
 }
 
-@media (width <=451px) {
+@media (max-width:451px) {
   .cardContainer {
     width: 250rem;
     height: 400rem;

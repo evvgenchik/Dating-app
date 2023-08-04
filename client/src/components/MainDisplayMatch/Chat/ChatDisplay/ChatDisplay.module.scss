@@ -83,7 +83,7 @@
   cursor: pointer;
 }
 
-@media (width<=986px) {
+@media (max-width:986px) {
   .chatHeaderText {
     font-size: 14rem;
     padding: 20rem 5rem;
@@ -95,7 +95,7 @@
   }
 }
 
-@media (width<=768px) {
+@media (max-width:768px) {
   .chatHeaderText {
     font-size: 14rem;
     padding: 17rem 2rem;
@@ -130,7 +130,7 @@
 }
 
 
-@media (width<=650px) {
+@media (max-width:650px) {
   .chatHeaderText {
     font-size: 12rem;
     padding: 13rem 2rem;

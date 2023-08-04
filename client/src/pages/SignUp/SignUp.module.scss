@@ -196,7 +196,7 @@
 
 
 
-@media (width <=992px) {
+@media (max-width:992px) {
   .container {
     max-width: 786rem;
   }
@@ -211,7 +211,7 @@
   }
 }
 
-@media (width <=768px) {
+@media (max-width:768px) {
   .container {
     max-width: 586rem;
   }
@@ -247,7 +247,7 @@
   }
 }
 
-@media (width <=576px) {
+@media (max-width:576px) {
   .formContent {
     gap: 10rem;
     flex-direction: column;

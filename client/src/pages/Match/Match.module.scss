@@ -30,13 +30,13 @@
   z-index: 1;
 }
 
-@media (width <=1500px) {
+@media (max-width:1500px) {
   .mainContent {
     flex: 1 1 75%;
   }
 }
 
-@media (width <=650px) {
+@media (max-width:650px) {
   .showBtn {
     display: block;
   }
