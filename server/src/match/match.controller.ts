@@ -14,7 +14,7 @@ import { MatchService } from './match.service';
 import { UsersService } from 'src/users/users.service';
 import { ConversationService } from 'src/chat/conversation/conversation.service';
 
-@UseGuards(JwtAuthenticationGuard)
+// @UseGuards(JwtAuthenticationGuard)
 @Controller('match')
 export class MatchController {
   constructor(

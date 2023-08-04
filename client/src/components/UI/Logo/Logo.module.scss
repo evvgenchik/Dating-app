@@ -14,7 +14,7 @@
   font-family: Luminari;
 }
 
-@media (width<=768px) {
+@media (max-width:768px) {
   .logoImage {
     width: 30rem;
     height: 30rem;
@@ -26,7 +26,7 @@
   }
 }
 
-@media (width<=650px) {
+@media (max-width:650px) {
   .logoImage {
     width: 15rem;
     height: 15rem;

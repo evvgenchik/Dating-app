@@ -37,7 +37,7 @@
 }
 
 
-@media (width <=768px) {
+@media (max-width:768px) {
   .login {
     display: flex;
     flex-direction: column;
@@ -60,7 +60,7 @@
   }
 }
 
-@media (width <=576px) {
+@media (max-width:576px) {
 
   .login {
     display: flex;

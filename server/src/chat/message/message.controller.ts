@@ -12,7 +12,7 @@ import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 import JwtAuthenticationGuard from 'src/auth/guards/jwtAuth.guard';
 
-@UseGuards(JwtAuthenticationGuard)
+// @UseGuards(JwtAuthenticationGuard)
 @Controller('message')
 export class MessageController {
   constructor(private readonly messageService: MessageService) {}

@@ -110,7 +110,7 @@ nav {
 }
 
 
-@media (width <=768px) {
+@media (max-width:768px) {
   .success-popup {
     padding: 20rem;
     display: flex;
@@ -139,7 +139,7 @@ nav {
 }
 
 
-@media (width <=576px) {
+@media (max-width:576px) {
   .success-popup {
 
     .check-mark {

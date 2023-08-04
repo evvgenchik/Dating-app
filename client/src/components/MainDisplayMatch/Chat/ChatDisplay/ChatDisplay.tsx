@@ -17,6 +17,7 @@ function ChatDisplay() {
   const [conversation, setConversation] = useState<ConversationType>(null);
   const conversationRef = useRef<ConversationType>();
   const anchorRef = useRef<HTMLDivElement>();
+  console.log('convers ' + conversation?.id);
 
   useEffect(() => {
     anchorRef.current?.scrollIntoView({ behavior: 'smooth' });
