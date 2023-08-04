@@ -30,7 +30,7 @@
 
 }
 
-@media (width <=768px) {
+@media (max-width:768px) {
   .modal-btn {
     font-size: 12rem;
     padding: 3rem 5rem;
@@ -43,7 +43,7 @@
   }
 }
 
-@media (width <=576px) {
+@media (max-width:576px) {
   .modal-btn {
     font-size: 10rem;
     padding: 3rem 5rem;
