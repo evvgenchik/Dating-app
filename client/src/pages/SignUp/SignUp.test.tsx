@@ -1,28 +1,13 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { customRender, providerUser, queryClientRender } from '@/utils/test';
+import { providerUser, queryClientRender } from '@/utils/test';
 import { vi } from 'vitest';
-import { UserLogin } from '@/utils/types';
 import SignUp, { ERRORS_SPECIFIC } from './SignUp';
+import { format } from 'date-fns';
+import { UserType } from '@/utils/types';
 
-const defaultRender = (currentUser?) =>
+const defaultRender = (currentUser?: UserType) =>
   queryClientRender(<SignUp currentUser={currentUser} />);
-
-// const AMOUNTOFFIELDS = 8;
-// const validateErrorMsg = (field: string) => `${field} is required`;
-
-// vi.mock('@/api/services/authApi', () => {
-//   return {
-//     AuthApi: {
-//       login: vi.fn().mockImplementation(async (user: UserLogin) => {
-//         if (!user.email || !user.password) throw new loginException();
-//         return { data: providerUser };
-//       }),
-//     },
-//   };
-// });
-
-//vi.mock('axios');
 
 describe('SignUp create', () => {
   it('render SignUp page with correct word "Create"', () => {
@@ -150,20 +135,21 @@ describe('SignUp update', () => {
   it('render SignUp update page with correct user data', () => {
     defaultRender(providerUser);
 
-    const genderInputs = screen.queryAllByLabelText(providerUser.gender);
-    const lookingInputs = screen.queryAllByLabelText(providerUser.looking);
-
-    //here
-    // expect(genderInputs.find((input) => input.checked)).toHaveValue(
-    //   providerUser.gender
-    // );
-    // expect(lookingInputs.find((input) => input.checked))[0].toHaveValue(
-    //   providerUser.looking
-    // );
     expect(
       screen.getByDisplayValue(providerUser.firstName)
     ).toBeInTheDocument();
     expect(screen.getByDisplayValue(providerUser.email)).toBeInTheDocument();
+    expect(
+      screen.getByDisplayValue(
+        format(new Date(providerUser.birthday), 'yyyy-MM-dd')
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('radio', { name: 'looking-' + providerUser.looking })
+    ).toBeChecked();
+    expect(
+      screen.getByRole('radio', { name: 'gender-' + providerUser.gender })
+    ).toBeChecked();
     expect(
       screen.getByDisplayValue(providerUser.descriptrion)
     ).toBeInTheDocument();

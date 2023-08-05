@@ -256,6 +256,7 @@ function SignUp({ currentUser }: Props) {
                     required: ERRORS.requiredFnMsg('Gender'),
                   })}
                   type='radio'
+                  aria-label='gender-man'
                   value='man'
                 />
                 <label htmlFor='man-gender' className={styles.innerLabel}>
@@ -267,6 +268,7 @@ function SignUp({ currentUser }: Props) {
                     required: ERRORS.requiredFnMsg('Gender'),
                   })}
                   type='radio'
+                  aria-label='gender-wooman'
                   value='wooman'
                 />
                 <label htmlFor='woman-gender' className={styles.innerLabel}>
@@ -278,6 +280,7 @@ function SignUp({ currentUser }: Props) {
                     required: ERRORS.requiredFnMsg('Gender'),
                   })}
                   type='radio'
+                  aria-label='gender-neutral'
                   value='neutral'
                 />
                 <label htmlFor='neutral-gender' className={styles.innerLabel}>
@@ -300,6 +303,7 @@ function SignUp({ currentUser }: Props) {
                     required: ERRORS.requiredFnMsg('Lokking'),
                   })}
                   type='radio'
+                  aria-label='looking-man'
                   value='man'
                 />
                 <label htmlFor='man-looking' className={styles.innerLabel}>
@@ -311,6 +315,7 @@ function SignUp({ currentUser }: Props) {
                     required: ERRORS.requiredFnMsg('Lokking'),
                   })}
                   type='radio'
+                  aria-label='looking-wooman'
                   value='wooman'
                 />
                 <label htmlFor='woman-looking' className={styles.innerLabel}>
@@ -322,6 +327,7 @@ function SignUp({ currentUser }: Props) {
                     required: ERRORS.requiredFnMsg('Lokking'),
                   })}
                   type='radio'
+                  aria-label='looking-everyone'
                   value='everyone'
                 />
                 <label htmlFor='everyone-looking' className={styles.innerLabel}>
@@ -394,7 +400,7 @@ function SignUp({ currentUser }: Props) {
                     />
                   )}
                 />
-                <span className={styles.inputFileBtn}>Choose the image</span>
+                <span className={styles.inputFileBtn}>Choose image</span>
               </div>
               {errors.avatar && (
                 <p role='errorMsg' className={styles.error}>
