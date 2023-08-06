@@ -1,14 +1,6 @@
 import { screen } from '@testing-library/react';
 import AuthContext, { AuthProvider } from './AuthProvider';
 import { providerUser, queryClientRender } from '@/utils/test';
-import { vi } from 'vitest';
-
-vi.doMock('@/hooks/useUniqueUserQuery', () => {
-  return {
-    data: providerUser,
-    refetch: vi.fn(),
-  };
-});
 
 describe('AuthProvider', () => {
   test('AuthProvider shows default empty value', () => {

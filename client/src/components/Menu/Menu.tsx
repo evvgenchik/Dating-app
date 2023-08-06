@@ -13,9 +13,6 @@ function Menu() {
       <NavLink className={styles.link} to='about'>
         About
       </NavLink>
-      {/* <NavLink className={styles.link} to='asd'>
-        Community
-      </NavLink> */}
     </nav>
   );
 }

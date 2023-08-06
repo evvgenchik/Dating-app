@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import Loader from '@/components/UI/Loader/Loader';
 import { ToastContainer, toast } from 'react-toastify';
 import { UserType } from '@/utils/types';
+import { useConversationsQuery } from '@/hooks/useConversationsQuery';
 
 function Messages() {
   const navigate = useNavigate();
@@ -16,23 +17,7 @@ function Messages() {
     navigate(`/app/message/${user.id}`, { state: user });
   };
 
-  const { data, error, isLoading, isSuccess } = useQuery({
-    queryKey: ['allConversationForUser'],
-    queryFn: () => conversationApi.getAllForUser(currentUser.id),
-  });
-
-  if (error) {
-    console.error(error);
-
-    toast.error('OOPS something went wrong', {
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      theme: 'light',
-    });
-  }
+  const { data, isLoading, isSuccess } = useConversationsQuery(currentUser.id);
 
   return (
     <ul className={styles.Ppllist}>
