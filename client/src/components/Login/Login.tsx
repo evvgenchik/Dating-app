@@ -1,7 +1,7 @@
 import useAuth from '@/hooks/useAuth';
 import Modal from '../Modal/Modal';
 import { useNavigate } from 'react-router';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { ChangeEvent } from 'react';
 import MyButton from '../UI/Button/MyButton';
 import { NavLink } from 'react-router-dom';
@@ -39,10 +39,19 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
     }
   };
 
-  const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    e: FormEvent<HTMLFormElement>,
+    isTest?: boolean
+  ) => {
     e.preventDefault();
     setIsLoading(true);
-    const user = await login(authData);
+
+    const defaultUser = {
+      email: 'bob@prisma7.io',
+      password: '1111',
+    };
+
+    const user = isTest ? await login(defaultUser) : await login(authData);
 
     if (user) {
       setAuthError('');
@@ -79,7 +88,10 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
         ) : (
           <div className={styles.login}>
             <h2 className={styles.modalTitle}>Sign In</h2>
-            <form onSubmit={handleSubmit} className={styles.modalfrom}>
+            <form
+              onSubmit={(e) => handleSubmit(e)}
+              className={styles.modalfrom}
+            >
               <label className={styles.modallabel}>
                 <input
                   className={styles.modalinput}
@@ -105,18 +117,24 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
                 Login
               </MyButton>
             </form>
-            <a
-              className={styles.modalForgot}
-              href='https://policies.google.com/privacy'
-            >
-              Forgot password?
-            </a>
             <p className={styles.modalSignup}>
               New to Finder?
               <br />
-              <NavLink style={{ color: '#0080ff' }} to='signup'>
-                Sign up now
+              <NavLink className={styles.createAcc} to='signup'>
+                Create account
               </NavLink>
+            </p>
+            <p className={styles.modalSignup}>
+              Just want to try?
+              <br />
+              <MyButton
+                onClick={(e: FormEvent<HTMLFormElement>) =>
+                  handleSubmit(e, true)
+                }
+                className='modal-btn'
+              >
+                testing
+              </MyButton>
             </p>
           </div>
         )}

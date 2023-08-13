@@ -5,7 +5,7 @@ type Props = {
   className: string;
   children: string;
   type?: 'button' | 'submit';
-  onClick?: () => void;
+  onClick?: any;
 };
 
 const MyButton: FC<Props> = ({ className, children, ...props }) => {

@@ -19,6 +19,12 @@
   }
 }
 
+.createAcc {
+  color: #0080ff;
+  font-size: 24rem;
+  font-weight: 600
+}
+
 .login {
   display: flex;
   flex-direction: column;
@@ -36,7 +42,6 @@
   font-weight: 700;
 }
 
-
 @media (max-width:768px) {
   .login {
     display: flex;
@@ -44,6 +49,10 @@
     gap: 20rem;
     padding: 10rem;
     font-size: 16rem;
+
+    .createAcc {
+      font-size: 18rem;
+    }
 
     .modalTitle {
       font-size: 20rem;
@@ -61,13 +70,16 @@
 }
 
 @media (max-width:576px) {
-
   .login {
     display: flex;
     flex-direction: column;
     gap: 10rem;
     padding: 10rem;
     font-size: 12rem;
+
+    .createAcc {
+      font-size: 14rem;
+    }
 
     .modalTitle {
       font-size: 18rem;
