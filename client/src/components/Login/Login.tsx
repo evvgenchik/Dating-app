@@ -127,6 +127,7 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
             <p className={styles.modalSignup}>
               Just want to try?
               <br />
+              <br />
               <MyButton
                 onClick={(e: FormEvent<HTMLFormElement>) =>
                   handleSubmit(e, true)
