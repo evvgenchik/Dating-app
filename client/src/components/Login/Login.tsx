@@ -47,7 +47,7 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
     setIsLoading(true);
 
     const defaultUser = {
-      email: 'bob@prisma7.io',
+      email: 'alice@prisma.io',
       password: '1111',
     };
 
