@@ -29,28 +29,16 @@
   display: block;
 }
 
-@media (max-width:768px) {
+@media (max-width:586px) {
   .modal-btn {
-    font-size: 12rem;
     padding: 3rem 5rem;
     min-width: 40rem;
+    height: 40rem;
+    width: 90%;
   }
 
-  .home-button {
-    font-size: 22rem;
-    padding: 21rem 45rem;
-  }
-}
-
-@media (max-width:576px) {
-  .modal-btn {
-    font-size: 10rem;
-    padding: 3rem 5rem;
-    min-width: 40rem;
-  }
-
-  .home-button {
-    font-size: 16rem;
+  .home-btn {
+    font-size: 20rem;
     padding: 20rem 40rem;
   }
 

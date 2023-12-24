@@ -39,7 +39,7 @@
   height: 60rem;
 }
 
-.title {
+.logo{
   font-size: 94rem;
   display: flex;
   align-items: center;
@@ -47,7 +47,7 @@
   text-align: center;
 }
 
-.topTitle {
+.title{
   font-size: 75rem;
   text-align: center;
   flex: 0 0 auto;
@@ -96,7 +96,7 @@
   font-weight: 700;
 }
 
-@media (max-width:992px) {
+@media (max-width:1201px) {
   .container {
     max-width: 786px;
     font-size: 16rem;
@@ -107,11 +107,11 @@
     height: 30rem;
   }
 
-  .title {
+  .logo{
     font-size: 64rem;
   }
 
-  .topTitle {
+  .title{
     font-size: 55rem;
   }
 
@@ -120,7 +120,56 @@
   }
 }
 
-@media (max-width:768px) {
+@media (max-width:1024px) {
+  .container {
+    padding: 10rem 5rem 20rem;
+  }
+
+  .image {
+    width: 30rem;
+    height: 30rem;
+  }
+
+  .logo{
+    font-size: 64rem;
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+    text-align: center;
+    color: rgb(255 254 253);
+  }
+
+  .subtitle {
+    font-size: 27rem;
+  }
+
+  .title{
+    font-size: 45rem;
+  }
+
+  .login {
+    display: flex;
+    flex-direction: column;
+    gap: 20rem;
+    padding: 10rem;
+    font-size: 16rem;
+
+    .modalTitle {
+      font-size: 20rem;
+    }
+
+    .modalfrom {
+      gap: 15rem;
+    }
+
+    .error {
+      color: red;
+      font-size: 14rem;
+    }
+  }
+}
+
+@media (max-width:850px) {
   .wrapper {
     background-image: url('../../assets/Home/fon_768.jpg');
   }
@@ -135,21 +184,21 @@
     height: 30rem;
   }
 
-  .topTitle {
-    font-size: 35rem;
-  }
-
-  .subtitle {
-    font-size: 20rem;
-  }
-
-  .title {
+  .logo{
     font-size: 64rem;
     display: flex;
     align-items: center;
     gap: 5rem;
     text-align: center;
     color: rgb(255 254 253);
+  }
+
+  .title{
+    font-size: 35rem;
+  }
+
+  .subtitle {
+    font-size: 20rem;
   }
 
   .login {
@@ -175,22 +224,21 @@
 }
 
 @media (max-width:576px) {
-
   .image {
     width: 20rem;
     height: 20rem;
   }
 
-  .title {
+  .logo{
     font-size: 35rem;
   }
 
-  .topTitle {
-    font-size: 20rem;
+  .title{
+    font-size: 23rem;
   }
 
   .subtitle {
-    font-size: 15rem;
+    font-size: 20rem;
   }
 
   .login {

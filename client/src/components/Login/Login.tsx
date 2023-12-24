@@ -65,6 +65,10 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
 
+    console.log(value);
+    console.log(name);
+    
+
     setAuthData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -80,18 +84,21 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
               Authorization successfull
               <img className='check-mark' src={checkRed} alt='check mark' />
             </h2>
+            
             <h3 className='success-text'>
-              Welocome, <span className={styles.name}>{user.firstName}</span>!
+              Welcome, <span className={styles.name}>{user.firstName}</span>!
               <p>Hope you are enjoy our app</p>
             </h3>
           </div>
         ) : (
           <div className={styles.login}>
             <h2 className={styles.modalTitle}>Sign In</h2>
+
             <form
               onSubmit={(e) => handleSubmit(e)}
               className={styles.modalfrom}
-            >
+              >
+                
               <label className={styles.modallabel}>
                 <input
                   className={styles.modalinput}
@@ -100,8 +107,9 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
                   name='email'
                   value={authData.email}
                   onChange={handleChange}
-                />
+                  />
               </label>
+
               <label className={styles.modallabel}>
                 <input
                   className={styles.modalinput}
@@ -110,33 +118,37 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
                   name='password'
                   value={authData.password}
                   onChange={handleChange}
-                />
+                  />
               </label>
               <span className={styles.error}>{authError}</span>
+
               <MyButton type='submit' className='modal-btn'>
                 Login
               </MyButton>
             </form>
-            <p className={styles.modalSignup}>
+
+            <div className={styles.modalSignup}>
               New to Finder?
               <br />
+
               <NavLink className={styles.createAcc} to='signup'>
                 Create account
               </NavLink>
-            </p>
-            <p className={styles.modalSignup}>
-              Just want to try?
-              <br />
-              <br />
+            </div>
+
+            <div className={styles.modalTesting}>
+              <p className={styles.testingText}>Just want to try?</p>
+
               <MyButton
-                onClick={(e: FormEvent<HTMLFormElement>) =>
-                  handleSubmit(e, true)
+                onClick={
+                  (e: FormEvent<HTMLFormElement>) =>
+                    handleSubmit(e, true)
                 }
                 className='modal-btn'
-              >
+                >
                 testing
               </MyButton>
-            </p>
+            </div>
           </div>
         )}
       </Modal>

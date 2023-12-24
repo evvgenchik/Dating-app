@@ -13,21 +13,18 @@ const Home = () => {
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <main className={styles.main}>
-          <h1 className={styles.title}>
+          <h1 className={styles.logo}>
             Finder
             <img className={styles.image} src={heart} alt='heart' />
           </h1>
           <div className={styles.content}>
-            <h2 className={styles.topTitle}>
+            <h2 className={styles.title}>
               Dating for Grown Ups <br />
               Make a Real Connection
             </h2>
             <h2 className={styles.subtitle}>Find The Chosen One</h2>
           </div>
-          <MyButton
-            className='home-button'
-            onClick={() => setModalActive(true)}
-          >
+          <MyButton className='home-btn' onClick={() => setModalActive(true)}>
             Get Started
           </MyButton>
         </main>
