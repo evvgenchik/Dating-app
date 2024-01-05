@@ -1,18 +1,19 @@
+import { AuthForm, GenderEnum, LookingEnum, UserType } from '@/utils/types';
+import checkRed from '@/assets/checkRed.svg';
+import styles from './SignUp.module.scss';
+
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { birthdayValidator, avatarValidator } from './signUpValidator';
-import MyButton from '@/components/UI/Button/MyButton';
-import styles from './SignUp.module.scss';
-import heart from '@/assets/Home/heart2.svg';
-import Modal from '@/components/Modal/Modal';
-import checkRed from '@/assets/checkRed.svg';
-import Loader from '@/components/UI/Loader/Loader';
-import { AuthApi } from '@/api/services/authApi';
-import { AuthForm, GenderEnum, LookingEnum, UserType } from '@/utils/types';
 import { format } from 'date-fns';
+
+import { birthdayValidator, avatarValidator } from './signUpValidator';
+import { AuthApi } from '@/api/services/authApi';
 import { UserApi } from '@/api/services/userApi';
-import axios from 'axios';
+import MyButton from '@/components/UI/Button/MyButton';
+import Modal from '@/components/Modal/Modal';
+import Logo from '@/components/Logo/Logo';
+import Loader from '@/components/UI/Loader/Loader';
 
 type AuthFormKeys = keyof AuthForm;
 
@@ -153,10 +154,7 @@ function SignUp({ currentUser }: Props) {
     <div className={styles.container}>
       {!currentUser && (
         <div className={styles.header}>
-          <div className={styles.logoText}>
-            Finder
-            <img className={styles.logoImage} src={heart} alt='heart' />
-          </div>
+          <Logo />
         </div>
       )}
 
@@ -394,7 +392,7 @@ function SignUp({ currentUser }: Props) {
                     />
                   )}
                 />
-                <span className={styles.inputFileBtn}>Choose the image</span>
+                <span className={styles.inputFileBtn}>Select</span>
               </div>
               {errors.avatar && (
                 <p role='errorMsg' className={styles.error}>

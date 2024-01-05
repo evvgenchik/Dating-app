@@ -1,7 +1,6 @@
 import Menu from '../Menu/Menu';
 import styles from './Header.module.scss';
-import Logo from '../UI/Logo/Logo';
-
+import Logo from '@/components/Logo/Logo';
 import DropDown from '../DropDown/DropDown';
 
 function Header() {

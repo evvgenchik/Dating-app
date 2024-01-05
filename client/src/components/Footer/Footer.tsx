@@ -1,7 +1,8 @@
-import { useState, useLayoutEffect } from 'react';
 import styles from './Footer.module.scss';
-import Logo from '../UI/Logo/Logo';
 import git from '@/assets/github-white.svg';
+
+import { useState, useLayoutEffect } from 'react';
+import Logo from '@/components/Logo/Logo';
 import Menu from '../Menu/Menu';
 
 function Footer() {

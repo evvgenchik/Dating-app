@@ -1,3 +1,8 @@
+interface UserLogin {
+  email: string;
+  password: string;
+}
+
 type UserType = {
   id: string;
   email: string;
@@ -51,22 +56,6 @@ type MessageType = CreateMessageDto & {
   createdAt: Date;
 };
 
-enum GenderEnum {
-  female = 'female',
-  male = 'male',
-  neutral = 'neutral',
-}
-enum LookingEnum {
-  female = 'female',
-  male = 'male',
-  everyone = 'everyone',
-}
-
-interface UserLogin {
-  email: string;
-  password: string;
-}
-
 type AuthForm = {
   password: string;
   firstName: string;
@@ -77,6 +66,18 @@ type AuthForm = {
   descriptrion: string;
   avatar: File;
 };
+
+enum GenderEnum {
+  female = 'female',
+  male = 'male',
+  neutral = 'neutral',
+}
+
+enum LookingEnum {
+  female = 'female',
+  male = 'male',
+  everyone = 'everyone',
+}
 
 export {
   UserType,

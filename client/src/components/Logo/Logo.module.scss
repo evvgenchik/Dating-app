@@ -1,0 +1,41 @@
+.logoText {
+  align-items: center;
+  color: rgb(253, 84, 128);
+  cursor: pointer;
+  display: flex;
+  font-family: Avenir;
+  font-size: 44rem;
+  font-weight: bold;
+  gap: 5rem;
+  text-align: center;
+}
+
+.logoImage {
+  height: 40rem;
+  transform: translate(0, 10%);
+  width: 40rem;
+}
+
+@media (max-width:768px) {
+  .logoText {
+    font-size: 34rem;
+    gap: 3rem;
+  }
+
+  .logoImage {
+    height: 30rem;
+    width: 30rem;
+  }
+}
+
+@media (max-width:650px) {
+  .logoText {
+    font-size: 30rem;
+    gap: 2rem;
+  }
+
+  .logoImage {
+    width: 25rem;
+    height: 25rem;
+  }
+}
