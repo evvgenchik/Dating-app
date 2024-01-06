@@ -5,7 +5,6 @@ module.exports = {
   },
   extends: [
     'airbnb-typescript',
-    'airbnb/hooks',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:@typescript-eslint/recommended',
@@ -51,6 +50,10 @@ module.exports = {
           some: ['nesting', 'id'],
         },
       },
+    ],
+    'react/jsx-no-undef': ['error', { 
+        allow: [''] 
+      }
     ],
   },
 };
