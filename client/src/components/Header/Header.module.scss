@@ -29,18 +29,18 @@
     display: none;
   }
 
-  @media (max-width:768px) {
-    .container {
-      padding: 10rem 5rem 3rem;
-    }
+  // @media (max-width:768px) {
+  //   .container {
+  //     padding: 10rem 5rem 3rem;
+  //   }
 
-    .photoContainer {
-      width: 50rem;
-      height: 50rem;
-    }
-  }
+  //   .photoContainer {
+  //     width: 50rem;
+  //     height: 50rem;
+  //   }
+  // }
 
-  @media (max-width:650px) {
+  @media (max-width:900px) {
     .menuBtn {
       display: block;
     }

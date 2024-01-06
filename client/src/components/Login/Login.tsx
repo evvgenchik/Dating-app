@@ -65,10 +65,6 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
 
-    console.log(value);
-    console.log(name);
-    
-
     setAuthData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -81,7 +77,8 @@ const Login = ({ modalActive, setModalActive, setIsLoading }) => {
         {success ? (
           <div className='success-popup'>
             <h2 className='success-title'>
-              Authorization successfull
+              Authorization<br /> 
+              successfull
               <img className='check-mark' src={checkRed} alt='check mark' />
             </h2>
             

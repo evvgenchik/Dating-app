@@ -162,7 +162,7 @@ function SignUp({ currentUser }: Props) {
         <h1 className={styles.title}>{action} ACCOUNT</h1>
         <div className={styles.formContent}>
           <div className={styles.leftSide}>
-            <label role='mainLabel' className={styles.mainLabel}>
+            <div role='mainLabel' className={styles.mainLabel}>
               Email:
               <input
                 {...register('email', {
@@ -176,14 +176,15 @@ function SignUp({ currentUser }: Props) {
                 type='email'
                 placeholder='Email'
               />
+
               {errors.email && (
                 <p role='errorMsg' className={styles.error}>
                   {errors.email.message}
                 </p>
               )}
-            </label>
+            </div>
 
-            <label role='mainLabel' className={styles.mainLabel}>
+            <div role='mainLabel' className={styles.mainLabel}>
               Password:
               <input
                 {...register('password', {
@@ -197,14 +198,15 @@ function SignUp({ currentUser }: Props) {
                 type='password'
                 placeholder='Password'
               />
+
               {errors.password && (
                 <p role='errorMsg' className={styles.error}>
                   {errors.password.message}
                 </p>
               )}
-            </label>
+            </div>
 
-            <label role='mainLabel' className={styles.mainLabel}>
+            <div role='mainLabel' className={styles.mainLabel}>
               First name:
               <input
                 {...register('firstName', {
@@ -218,14 +220,15 @@ function SignUp({ currentUser }: Props) {
                 type='text'
                 placeholder='First name'
               />
+
               {errors.firstName && (
                 <p role='errorMsg' className={styles.error}>
                   {errors.firstName.message}
                 </p>
               )}
-            </label>
+            </div>
 
-            <label role='mainLabel' className={styles.mainLabel}>
+            <div role='mainLabel' className={styles.mainLabel}>
               Birthday:
               <input
                 {...register('birthday', {
@@ -238,14 +241,15 @@ function SignUp({ currentUser }: Props) {
                 type='date'
                 placeholder='Birthday'
               />
+
               {errors.birthday && (
                 <p role='errorMsg' className={styles.error}>
                   {errors.birthday.message}
                 </p>
               )}
-            </label>
+            </div>
 
-            <label role='mainLabel' className={`${styles.mainLabel}`}>
+            <div role='mainLabel' className={`${styles.mainLabel}`}>
               Gender:
               <div className={styles.radioContainer}>
                 <input
@@ -259,6 +263,7 @@ function SignUp({ currentUser }: Props) {
                 <label htmlFor='man-gender' className={styles.innerLabel}>
                   Man
                 </label>
+
                 <input
                   id='woman-gender'
                   {...register('gender', {
@@ -270,6 +275,7 @@ function SignUp({ currentUser }: Props) {
                 <label htmlFor='woman-gender' className={styles.innerLabel}>
                   Wooman
                 </label>
+
                 <input
                   id='neutral-gender'
                   {...register('gender', {
@@ -282,14 +288,15 @@ function SignUp({ currentUser }: Props) {
                   Neutral
                 </label>
               </div>
+
               {errors.gender && (
                 <p role='errorMsg' className={styles.error}>
                   {errors.gender.message}
                 </p>
               )}
-            </label>
+            </div>
 
-            <label role='mainLabel' className={`${styles.mainLabel}`}>
+            <div role='mainLabel' className={`${styles.mainLabel}`}>
               Looking for:
               <div className={styles.radioContainer}>
                 <input
@@ -303,6 +310,7 @@ function SignUp({ currentUser }: Props) {
                 <label htmlFor='man-looking' className={styles.innerLabel}>
                   Man
                 </label>
+
                 <input
                   id='woman-looking'
                   {...register('looking', {
@@ -314,6 +322,7 @@ function SignUp({ currentUser }: Props) {
                 <label htmlFor='woman-looking' className={styles.innerLabel}>
                   Wooman
                 </label>
+
                 <input
                   id='everyone-looking'
                   {...register('looking', {
@@ -326,14 +335,15 @@ function SignUp({ currentUser }: Props) {
                   Everyone
                 </label>
               </div>
+
               {errors.looking && (
                 <p role='errorMsg' className={styles.error}>
                   {errors.looking.message}
                 </p>
               )}
-            </label>
+            </div>
 
-            <label role='mainLabel' className={styles.mainLabel}>
+            <div role='mainLabel' className={styles.mainLabel}>
               Brief description of yourself
               <Controller
                 rules={{
@@ -359,19 +369,21 @@ function SignUp({ currentUser }: Props) {
                   />
                 )}
               />
+
               {errors.descriptrion && (
                 <p role='errorMsg' className={styles.error}>
                   {errors.descriptrion.message}
                 </p>
               )}
-            </label>
+            </div>
           </div>
 
           <div className={styles.rigthSide}>
-            <label role='mainLabel' className={styles.mainLabel}>
+            <div role='mainLabel' className={styles.mainLabel}>
               Profile photo:
-              <div className={styles.inputFile}>
+              <label className={styles.inputFile}>
                 <span className={styles.inputFileText}>{avatarSrc}</span>
+
                 <Controller
                   rules={{
                     required: ERRORS.requiredFnMsg('Photo'),
@@ -392,14 +404,15 @@ function SignUp({ currentUser }: Props) {
                     />
                   )}
                 />
+
                 <span className={styles.inputFileBtn}>Select</span>
-              </div>
+              </label>
               {errors.avatar && (
                 <p role='errorMsg' className={styles.error}>
                   {errors.avatar.message}
                 </p>
               )}
-            </label>
+            </div>
 
             <div className={styles.iconContainer}>
               {(avatarSrc || currentUser?.avatar) && (
@@ -424,9 +437,11 @@ function SignUp({ currentUser }: Props) {
             Awesome!
             <img className='check-mark' src={checkRed} alt='checkMark' />
           </h2>
+
           <h3 className='success-sub-title'>
             Your profile was successfully {action.toLowerCase() + 'd'}.
           </h3>
+
           {!currentUser && (
             <>
               <p className='success-text'>

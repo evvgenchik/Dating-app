@@ -6,7 +6,7 @@ import Logo from '@/components/Logo/Logo';
 import Menu from '../Menu/Menu';
 
 function Footer() {
-  const mediaMatch = matchMedia('(max-width: 650px)');
+  const mediaMatch = matchMedia('(max-width: 900px)');
   const [isShow, setIsBurger] = useState<boolean>(mediaMatch.matches);
 
   useLayoutEffect(() => {

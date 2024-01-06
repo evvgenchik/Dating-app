@@ -104,7 +104,7 @@ nav {
   }
 
   .check-mark {
-    width: 7%;
+    width: 12%;
   }
 }
 
@@ -139,9 +139,23 @@ nav {
 
 @media (max-width:576px) {
   .success-popup {
-
+    gap: 15rem;
+  
+    .success-title {
+      font-size: 25rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .success-text {
+      font-size: 18rem;
+      font-weight: 500;
+    }
+    
     .check-mark {
-      width: 15%;
+      width: 7%;
     }
   }
 }

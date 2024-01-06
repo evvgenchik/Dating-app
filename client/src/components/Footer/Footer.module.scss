@@ -13,8 +13,11 @@
   position: relative
 }
 
-@media (max-width:650px) {
+@media (max-width:900px) {
   .footer {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
     z-index: 1;
   }
 

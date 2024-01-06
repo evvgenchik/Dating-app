@@ -18,18 +18,18 @@
   color: rgba(253, 58, 115, 1);
 }
 
-@media (max-width:768px) {
+@media (max-width:900px) {
   .nav {
     gap: 10rem;
-    font-size: 20rem;
+    font-size: 22rem;
+    justify-content: space-between;
+    width: 85%;
   }
 }
 
 @media (max-width:650px) {
   .nav {
-    width: 85%;
     gap: 10rem;
     font-size: 18rem;
-    justify-content: space-between;
   }
 }

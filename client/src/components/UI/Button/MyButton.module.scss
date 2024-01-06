@@ -29,6 +29,14 @@
   display: block;
 }
 
+@media (max-width:768px) {
+  .signup-btn {
+    padding: 20rem 0;
+    width: 250rem;
+    font-size: 25rem;
+  }
+}
+
 @media (max-width:586px) {
   .modal-btn {
     padding: 3rem 5rem;
