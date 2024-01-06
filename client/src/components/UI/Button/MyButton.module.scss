@@ -30,23 +30,27 @@
 }
 
 @media (max-width:768px) {
-  .signup-btn {
-    padding: 20rem 0;
-    width: 250rem;
-    font-size: 25rem;
+  .modal-btn {
+    font-size: 12rem;
+    padding: 3rem 5rem;
+    min-width: 40rem;
+  }
+
+  .home-button {
+    font-size: 22rem;
+    padding: 21rem 45rem;
   }
 }
 
-@media (max-width:586px) {
+@media (max-width:576px) {
   .modal-btn {
+    font-size: 10rem;
     padding: 3rem 5rem;
     min-width: 40rem;
-    height: 40rem;
-    width: 90%;
   }
 
-  .home-btn {
-    font-size: 20rem;
+  .home-button {
+    font-size: 16rem;
     padding: 20rem 40rem;
   }
 

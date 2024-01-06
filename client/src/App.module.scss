@@ -13,17 +13,8 @@ body {
   flex-direction: column;
   font-size: 16rem;
   background-color: rgba(240, 242, 244, 0.5);
-
-      //Hide scroll
-      scrollbar-width: none; /* Hide scrollbar in Firefox */
-      -ms-overflow-style: none; /* Hide scrollbar in IE/Edge */
-      &::-webkit-scrollbar {
-        display: none; /* Hide scrollbar in WebKit browsers */
-      }
 }
 
 .app {
   height: 100%;
 }
-
-

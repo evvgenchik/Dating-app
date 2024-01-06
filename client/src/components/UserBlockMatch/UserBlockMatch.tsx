@@ -5,18 +5,13 @@ import Matches from './Matches/Matches';
 import Messages from './Messages/Messages';
 import AuthContext from '@/context/AuthProvider';
 
-const enum ActiveBlock {
-  Matches = 'Matches',
-  Messages = 'Messages'
-};
-
 const content = {
   Matches: <Matches />,
   Messages: <Messages />,
 };
 
 function UserBlockMatch({ isShow }) {
-  const [block, setBlock] = useState<ActiveBlock>(ActiveBlock.Matches);
+  const [block, setBlock] = useState('Matches');
   const { user } = useContext(AuthContext);
 
   return (
@@ -29,15 +24,15 @@ function UserBlockMatch({ isShow }) {
       </div>
       <div className={styles.controlPanel}>
         <button
-          onClick={() => setBlock(ActiveBlock.Matches)}
-          className={`${styles.controlBtn} ${block === ActiveBlock.Matches ? styles.active : ""}`}
+          onClick={() => setBlock('Matches')}
+          className={styles.controlBtn}
           type='button'
         >
           Matches
         </button>
         <button
-          onClick={() => setBlock(ActiveBlock.Messages)}
-          className={`${styles.controlBtn} ${block === ActiveBlock.Messages ? styles.active : ""}`}
+          onClick={() => setBlock('Messages')}
+          className={styles.controlBtn}
           type='button'
         >
           Messages

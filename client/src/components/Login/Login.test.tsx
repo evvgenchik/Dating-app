@@ -9,7 +9,6 @@ class loginException extends Error {
   constructor() {
     super();
   }
-
   response = { status: 401 };
 }
 

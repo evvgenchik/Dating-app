@@ -1,12 +1,11 @@
-import styles from './Footer.module.scss';
-import git from '@/assets/github-white.svg';
-
 import { useState, useLayoutEffect } from 'react';
-import Logo from '@/components/Logo/Logo';
+import styles from './Footer.module.scss';
+import Logo from '../UI/Logo/Logo';
+import git from '@/assets/github-white.svg';
 import Menu from '../Menu/Menu';
 
 function Footer() {
-  const mediaMatch = matchMedia('(max-width: 900px)');
+  const mediaMatch = matchMedia('(max-width: 650px)');
   const [isShow, setIsBurger] = useState<boolean>(mediaMatch.matches);
 
   useLayoutEffect(() => {

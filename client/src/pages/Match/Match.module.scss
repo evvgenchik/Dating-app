@@ -15,11 +15,11 @@
 .showBtn {
   display: none;
   color: #fd267a;
-  width: 42rem;
-  height: 42rem;
+  width: 22rem;
+  height: 22rem;
   position: absolute;
-  top: -60rem;
-  left: 12rem;
+  top: -30rem;
+  left: 5rem;
   cursor: pointer;
 }
 
@@ -36,7 +36,7 @@
   }
 }
 
-@media (max-width:900px) {
+@media (max-width:650px) {
   .showBtn {
     display: block;
   }

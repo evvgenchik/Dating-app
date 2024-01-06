@@ -1,19 +1,18 @@
-import { AuthForm, GenderEnum, LookingEnum, UserType } from '@/utils/types';
-import checkRed from '@/assets/checkRed.svg';
-import styles from './SignUp.module.scss';
-
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { format } from 'date-fns';
-
 import { birthdayValidator, avatarValidator } from './signUpValidator';
-import { AuthApi } from '@/api/services/authApi';
-import { UserApi } from '@/api/services/userApi';
 import MyButton from '@/components/UI/Button/MyButton';
+import styles from './SignUp.module.scss';
+import heart from '@/assets/Home/heart2.svg';
 import Modal from '@/components/Modal/Modal';
-import Logo from '@/components/Logo/Logo';
+import checkRed from '@/assets/checkRed.svg';
 import Loader from '@/components/UI/Loader/Loader';
+import { AuthApi } from '@/api/services/authApi';
+import { AuthForm, GenderEnum, LookingEnum, UserType } from '@/utils/types';
+import { format } from 'date-fns';
+import { UserApi } from '@/api/services/userApi';
+import axios from 'axios';
 
 type AuthFormKeys = keyof AuthForm;
 
@@ -154,7 +153,10 @@ function SignUp({ currentUser }: Props) {
     <div className={styles.container}>
       {!currentUser && (
         <div className={styles.header}>
-          <Logo />
+          <div className={styles.logoText}>
+            Finder
+            <img className={styles.logoImage} src={heart} alt='heart' />
+          </div>
         </div>
       )}
 
@@ -162,7 +164,7 @@ function SignUp({ currentUser }: Props) {
         <h1 className={styles.title}>{action} ACCOUNT</h1>
         <div className={styles.formContent}>
           <div className={styles.leftSide}>
-            <div role='mainLabel' className={styles.mainLabel}>
+            <label role='mainLabel' className={styles.mainLabel}>
               Email:
               <input
                 {...register('email', {
@@ -176,15 +178,14 @@ function SignUp({ currentUser }: Props) {
                 type='email'
                 placeholder='Email'
               />
-
               {errors.email && (
                 <p role='errorMsg' className={styles.error}>
                   {errors.email.message}
                 </p>
               )}
-            </div>
+            </label>
 
-            <div role='mainLabel' className={styles.mainLabel}>
+            <label role='mainLabel' className={styles.mainLabel}>
               Password:
               <input
                 {...register('password', {
@@ -198,15 +199,14 @@ function SignUp({ currentUser }: Props) {
                 type='password'
                 placeholder='Password'
               />
-
               {errors.password && (
                 <p role='errorMsg' className={styles.error}>
                   {errors.password.message}
                 </p>
               )}
-            </div>
+            </label>
 
-            <div role='mainLabel' className={styles.mainLabel}>
+            <label role='mainLabel' className={styles.mainLabel}>
               First name:
               <input
                 {...register('firstName', {
@@ -220,15 +220,14 @@ function SignUp({ currentUser }: Props) {
                 type='text'
                 placeholder='First name'
               />
-
               {errors.firstName && (
                 <p role='errorMsg' className={styles.error}>
                   {errors.firstName.message}
                 </p>
               )}
-            </div>
+            </label>
 
-            <div role='mainLabel' className={styles.mainLabel}>
+            <label role='mainLabel' className={styles.mainLabel}>
               Birthday:
               <input
                 {...register('birthday', {
@@ -241,15 +240,14 @@ function SignUp({ currentUser }: Props) {
                 type='date'
                 placeholder='Birthday'
               />
-
               {errors.birthday && (
                 <p role='errorMsg' className={styles.error}>
                   {errors.birthday.message}
                 </p>
               )}
-            </div>
+            </label>
 
-            <div role='mainLabel' className={`${styles.mainLabel}`}>
+            <label role='mainLabel' className={`${styles.mainLabel}`}>
               Gender:
               <div className={styles.radioContainer}>
                 <input
@@ -263,7 +261,6 @@ function SignUp({ currentUser }: Props) {
                 <label htmlFor='man-gender' className={styles.innerLabel}>
                   Man
                 </label>
-
                 <input
                   id='woman-gender'
                   {...register('gender', {
@@ -275,7 +272,6 @@ function SignUp({ currentUser }: Props) {
                 <label htmlFor='woman-gender' className={styles.innerLabel}>
                   Wooman
                 </label>
-
                 <input
                   id='neutral-gender'
                   {...register('gender', {
@@ -288,15 +284,14 @@ function SignUp({ currentUser }: Props) {
                   Neutral
                 </label>
               </div>
-
               {errors.gender && (
                 <p role='errorMsg' className={styles.error}>
                   {errors.gender.message}
                 </p>
               )}
-            </div>
+            </label>
 
-            <div role='mainLabel' className={`${styles.mainLabel}`}>
+            <label role='mainLabel' className={`${styles.mainLabel}`}>
               Looking for:
               <div className={styles.radioContainer}>
                 <input
@@ -310,7 +305,6 @@ function SignUp({ currentUser }: Props) {
                 <label htmlFor='man-looking' className={styles.innerLabel}>
                   Man
                 </label>
-
                 <input
                   id='woman-looking'
                   {...register('looking', {
@@ -322,7 +316,6 @@ function SignUp({ currentUser }: Props) {
                 <label htmlFor='woman-looking' className={styles.innerLabel}>
                   Wooman
                 </label>
-
                 <input
                   id='everyone-looking'
                   {...register('looking', {
@@ -335,15 +328,14 @@ function SignUp({ currentUser }: Props) {
                   Everyone
                 </label>
               </div>
-
               {errors.looking && (
                 <p role='errorMsg' className={styles.error}>
                   {errors.looking.message}
                 </p>
               )}
-            </div>
+            </label>
 
-            <div role='mainLabel' className={styles.mainLabel}>
+            <label role='mainLabel' className={styles.mainLabel}>
               Brief description of yourself
               <Controller
                 rules={{
@@ -369,21 +361,19 @@ function SignUp({ currentUser }: Props) {
                   />
                 )}
               />
-
               {errors.descriptrion && (
                 <p role='errorMsg' className={styles.error}>
                   {errors.descriptrion.message}
                 </p>
               )}
-            </div>
+            </label>
           </div>
 
           <div className={styles.rigthSide}>
-            <div role='mainLabel' className={styles.mainLabel}>
+            <label role='mainLabel' className={styles.mainLabel}>
               Profile photo:
-              <label className={styles.inputFile}>
+              <div className={styles.inputFile}>
                 <span className={styles.inputFileText}>{avatarSrc}</span>
-
                 <Controller
                   rules={{
                     required: ERRORS.requiredFnMsg('Photo'),
@@ -404,15 +394,14 @@ function SignUp({ currentUser }: Props) {
                     />
                   )}
                 />
-
-                <span className={styles.inputFileBtn}>Select</span>
-              </label>
+                <span className={styles.inputFileBtn}>Choose the image</span>
+              </div>
               {errors.avatar && (
                 <p role='errorMsg' className={styles.error}>
                   {errors.avatar.message}
                 </p>
               )}
-            </div>
+            </label>
 
             <div className={styles.iconContainer}>
               {(avatarSrc || currentUser?.avatar) && (
@@ -437,11 +426,9 @@ function SignUp({ currentUser }: Props) {
             Awesome!
             <img className='check-mark' src={checkRed} alt='checkMark' />
           </h2>
-
           <h3 className='success-sub-title'>
             Your profile was successfully {action.toLowerCase() + 'd'}.
           </h3>
-
           {!currentUser && (
             <>
               <p className='success-text'>

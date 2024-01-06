@@ -8,7 +8,7 @@ const Loader = () => {
         <div className={styles.circle2} />
       </div>
       <div className={styles.text}>
-        {/* <p>Loading ...</p> */}
+        <p>Loading ...</p>
       </div>
     </div>
   );

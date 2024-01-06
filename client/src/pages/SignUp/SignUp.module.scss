@@ -13,6 +13,22 @@
   margin-bottom: 50rem;
 }
 
+.logoImage {
+  transform: translate(0, 10%);
+  width: 40rem;
+  height: 40rem;
+}
+
+.logoText {
+  font-size: 44rem;
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+  text-align: center;
+  font-style: italic;
+  font-family: Luminari;
+}
+
 .title {
   text-align: center;
   font-size: 30rem;
@@ -47,13 +63,7 @@
   padding: 10rem;
   font-weight: 500;
   height: 52rem;
-  border: 2px solid #ccc;
-  background-color: rgba(248, 248, 248, 0.3);
-
-  &:focus {
-    border-color: #FA457E;
-    outline: none;
-  }
+  border: 3px solid #ccc;
 }
 
 .radioContainer {
@@ -92,11 +102,6 @@
   background-color: rgba(248, 248, 248, 0.3);
   resize: none;
   font-size: 24rem;
-
-  &:focus {
-    border-color: #FA457E;
-    outline: none;
-  }
 }
 
 .rigthSide {
@@ -136,27 +141,28 @@
   box-sizing: border-box;
   width: 100%;
   border-radius: 6rem 0rem 0 6rem;
-  border: 2px solid #ccc;
+  border: 3px solid #ccc;
   font-size: 12rem;
   padding: 10rem;
   height: 50rem;
 }
 
 .inputFileBtn {
-  align-items: center;
-  background-color: rgb(253 84 108);
-  border-radius: 0 4rem;
-  border: none;
-  color: rgb(255 255 255);
-  cursor: pointer;
-  display: flex;
-  font-size: 16rem;
-  justify-content: center;
-  margin: 0;
-  outline: none;
-  padding: 0 30rem;
   position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  font-size: 16rem;
+  vertical-align: middle;
+  color: rgb(255 255 255);
   text-align: center;
+  border-radius: 0 4rem 4rem 0;
+  background-color: rgb(253 84 108);
+  height: 50rem;
+  padding: 10rem 30rem;
+  border: none;
+  margin: 0;
   transition: background-color 0.2s;
 }
 
@@ -169,6 +175,12 @@
   height: 0;
 }
 
+/* Focus */
+.inputFile input[type=file]:focus+.inputFileBtn {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+}
+
+/* Hover/active */
 .inputFile:hover .inputFileBtn {
   background-color: rgb(243 68 185);
 }
@@ -177,13 +189,16 @@
   background-color: rgb(243 68 185);
 }
 
+/* Disabled */
+.inputFile input[type=file]:disabled+.inputFileBtn {
+  background-color: #eee;
+}
+
+
+
 @media (max-width:992px) {
   .container {
     max-width: 786rem;
-  }
-
-  .mainLabel {
-    font-size: 28rem;
   }
 
   .radioContainer {
@@ -198,28 +213,21 @@
 
 @media (max-width:768px) {
   .container {
-    max-width: 686rem;
+    max-width: 586rem;
   }
 
-  .formContent{
-    gap: 20rem;
-  }
-
-  .leftSide {
-    gap: 15rem;
-  }
-  
   .innerLabel {
     font-size: 16rem;
-    padding: 10rem 20rem;
+    padding: 10rem 16rem;
   }
 
   .mainLabel {
-    font-size: 22rem;
+    font-size: 25rem;
+
   }
 
   .input {
-    margin-top: 5rem;
+    margin-top: 10rem;
     font-size: 16rem;
   }
 
@@ -235,12 +243,7 @@
   }
 
   .inputFile {
-    margin-top: 5rem;
-  }
-
-  .inputFileBtn {
-    padding: 0 15rem;
-    font-size: 14rem;
+    margin-top: 10rem;
   }
 }
 

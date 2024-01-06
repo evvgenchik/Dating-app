@@ -1,10 +1,9 @@
-import cl from './App.module.scss';
 import { BrowserRouter } from 'react-router-dom';
+import cl from './App.module.scss';
+import { AuthProvider } from './context/AuthProvider';
+import AppRouter from './components/AppRouter/AppRouter';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-
-import AppRouter from './components/AppRouter/AppRouter';
-import { AuthProvider } from './context/AuthProvider';
 
 const queryClient = new QueryClient();
 
