@@ -1,6 +1,6 @@
 .content {
   display: flex;
-  flex: 0 1 20%;
+  flex: 0 1 25%;
   flex-direction: column;
   height: 100%;
   background-color: #fff;
@@ -8,8 +8,11 @@
   overflow: scroll;
   scrollbar-width: thin;
 
+  //Hide scroll
+  scrollbar-width: none; /* Hide scrollbar in Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar in IE/Edge */
   &::-webkit-scrollbar {
-    width: 0px;
+    display: none; /* Hide scrollbar in WebKit browsers */
   }
 }
 
@@ -21,7 +24,6 @@
   background: linear-gradient(45deg, #fd267a, #ff6036);
   height: 80rem;
   padding: 10rem;
-  border-radius: 10rem;
 }
 
 .photoContainer {
@@ -43,20 +45,31 @@
 
 .controlPanel {
   display: flex;
-  gap: 20rem;
-  padding: 20rem;
+  justify-content: space-between;
 }
 
 .controlBtn {
+  background: linear-gradient(87.08deg, #FA457E 6.8%, #7B49FF 102.07%);
   border: none;
-  outline: none;
-  background-color: transparent;
-  font-weight: 700;
-  font-size: 20rem;
+  color: #fff;
   cursor: pointer;
+  font-size: 22rem;
+  font-weight: 700;
+  height: 50rem;
+  opacity: 0.5;
+  outline: none;
+  width: 100%;
 
   &:hover {
-    color: rgba(253, 58, 115, 1);
+    transition: 0.5s;
+    opacity: 1;
+  }
+
+  &.active {
+    background: linear-gradient(187.08deg, #ee45fa 6.8%, #5e49ff 102.07%);
+    cursor: default;
+    opacity: 1;
+    transition: 0.5s;
   }
 }
 
@@ -78,20 +91,32 @@
 }
 
 @media (max-width:986px) {
-  .controlPanel {
-    gap: 15rem;
-    padding: 15rem;
-  }
-
   .header {
     height: 65rem;
   }
 }
 
-@media (max-width:768px) {
-  .controlPanel {
-    gap: 10rem;
-    padding: 15rem;
+@media (max-width:900px) {
+  .content {
+    transform: translate(-100%, 0);
+    transition: all 1s;
+    position: fixed;
+    height: 100%;
+    z-index: 1;
+    min-width: 310rem;
+  }
+
+  .content.active {
+    transform: translate(0, 0);
+    transition: all 1s;
+  }
+
+  .main {
+    padding: 0 5rem;
+  }
+
+  .controlBtn {
+    height: 40rem;
   }
 
   .controlBtn {
@@ -103,21 +128,21 @@
   }
 }
 
-@media (max-width:650px) {
-  .content {
-    transform: translate(-100%, 0);
-    transition: all 1s;
-    position: fixed;
-    height: 100%;
-    z-index: 1;
-  }
+// @media (max-width:650px) {
+//   .content {
+//     transform: translate(-100%, 0);
+//     transition: all 1s;
+//     position: fixed;
+//     height: 100%;
+//     z-index: 1;
+//   }
 
-  .content.active {
-    transform: translate(0, 0);
-    transition: all 1s;
-  }
+//   .content.active {
+//     transform: translate(0, 0);
+//     transition: all 1s;
+//   }
 
-  .main {
-    padding: 0 5rem;
-  }
-}
+//   .main {
+//     padding: 0 5rem;
+//   }
+// }

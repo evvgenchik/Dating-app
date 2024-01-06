@@ -12,4 +12,8 @@ const avatarValidator = (file: File) => {
   );
 };
 
-export { birthdayValidator, avatarValidator, ageCalculate };
+export { 
+  birthdayValidator, 
+  avatarValidator, 
+  ageCalculate, 
+};

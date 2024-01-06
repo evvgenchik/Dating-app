@@ -14,6 +14,7 @@ const queryClient = new QueryClient({
     warn: console.warn,
     error: () => {},
   },
+
   defaultOptions: {
     queries: {
       retry: false,
@@ -61,4 +62,8 @@ const queryClientRender = (ui: JSX.Element, user = providerUser) => {
   );
 };
 
-export { customRender, queryClientRender, providerUser };
+export { 
+  customRender, 
+  queryClientRender, 
+  providerUser, 
+};

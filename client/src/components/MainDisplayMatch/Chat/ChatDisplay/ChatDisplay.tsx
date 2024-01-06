@@ -17,6 +17,8 @@ function ChatDisplay() {
   const [conversation, setConversation] = useState<ConversationType>(null);
   const conversationRef = useRef<ConversationType>();
   const anchorRef = useRef<HTMLDivElement>();
+  console.log(conversation);
+  
   console.log('convers ' + conversation?.id);
 
   useEffect(() => {
@@ -120,7 +122,7 @@ function ChatDisplay() {
 
   return (
     <div className={styles.chatDisplayContainer}>
-      <div className={styles.ChatInfo}>
+      <div className={styles.chatInfo}>
         <img
           className={styles.chatCompanionAvatar}
           src={chatCompanion.avatar}
@@ -157,7 +159,7 @@ function ChatDisplay() {
           onKeyDown={keyDownHandler}
         />
         <button className={styles.sendBtnContainer} type='submit'>
-          <SendIcon className={styles.sendBtn} />
+          <SendIcon size={20} className={styles.sendBtn} />
         </button>
       </form>
     </div>
