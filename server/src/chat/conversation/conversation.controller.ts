@@ -16,6 +16,11 @@ export class ConversationController {
     return this.conversationService.findAllForUser(id);
   }
 
+  @Get('amount')
+  async getAmount() {
+    return await this.conversationService.getAmount();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.conversationService.findOne(id);

@@ -95,4 +95,10 @@ export class ConversationService {
       },
     });
   }
+
+  async getAmount() {
+    const amount = await this.prisma.conversation.count();
+
+    return amount;
+  }
 }

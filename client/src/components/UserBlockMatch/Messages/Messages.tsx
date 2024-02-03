@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Messages.module.scss';
 import AuthContext from '@/context/AuthProvider';
-import { conversationApi } from '@/api/services/conversationApi';
+import { ConversationApi } from '@/api/services/ConversationApi';
 import { useQuery } from '@tanstack/react-query';
 import Loader from '@/components/UI/Loader/Loader';
 import { ToastContainer, toast } from 'react-toastify';
@@ -18,7 +18,7 @@ function Messages() {
 
   const { data, error, isLoading, isSuccess } = useQuery({
     queryKey: ['allConversationForUser'],
-    queryFn: () => conversationApi.getAllForUser(currentUser.id),
+    queryFn: () => ConversationApi.getAllForUser(currentUser.id),
   });
 
   if (error) {

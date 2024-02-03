@@ -7,6 +7,7 @@ const axiosBasic = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
 });
+
 const axiosReauth = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
@@ -36,6 +37,7 @@ axiosReauth.interceptors.response.use(
     }
 
     console.log(error.response);
+    
     return Promise.reject(error);
   }
 );

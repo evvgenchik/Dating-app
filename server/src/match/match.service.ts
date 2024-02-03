@@ -57,4 +57,10 @@ export class MatchService {
       },
     });
   }
+
+  async getAmount() {
+    const amount = await this.prisma.match.count();
+
+    return amount;
+  }
 }

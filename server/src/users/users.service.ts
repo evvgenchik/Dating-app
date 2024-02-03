@@ -156,4 +156,10 @@ export class UsersService {
       },
     });
   }
+
+  async getAmount() {
+    const amount = await this.prisma.user.count();
+
+    return amount;
+  }
 }

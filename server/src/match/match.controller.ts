@@ -32,6 +32,11 @@ export class MatchController {
     return await this.matchService.findAll();
   }
 
+  @Get('amount')
+  async getAmount() {
+    return await this.matchService.getAmount();
+  }
+
   @Patch(':id')
   async update(@Param('id') id: string, @Body() { userAddressAnswer }) {
     const match = await this.matchService.update(id, userAddressAnswer);

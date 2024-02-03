@@ -2,7 +2,56 @@ import styles from './About.module.scss';
 import couples from '@/assets/about/couple.png';
 import hands from '@/assets/about/hands.webp';
 
+import { ConversationApi } from '@/api/services/ConversationApi';
+import { UserApi } from '@/api/services/userApi';
+import { MatchApi } from '@/api/services/matchApi';
+
+import { useEffect, useState } from 'react';
+import Loader from '@/components/UI/Loader/Loader';
+
+interface IStaticsData {
+  users: number,
+  matches: number,
+  dialogs: number
+}
+
 function About() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [statisticData, setStatisticData] = useState<IStaticsData>({
+    users: 0,
+    matches: 0,
+    dialogs: 0
+  });
+
+  useEffect(() => {
+    fetchStatisticData();
+  }, []);
+
+  async function fetchStatisticData(): Promise<void> {
+    setIsLoading(true);
+    
+
+    try {
+      const [users, matches, dialogs] = await Promise.all([
+        UserApi.getAmount(),
+        MatchApi.getAmount(),
+        ConversationApi.getAmount(),
+      ])
+
+      const statisticData = {
+        users,
+        matches,
+        dialogs
+      };
+
+      setStatisticData(statisticData);
+    } catch (error) {
+      console.error(error);
+    }
+
+    setIsLoading(false);
+  }
+
   return (
     <div className={styles.container}>
       <section className={styles.sectionOne}>
@@ -34,19 +83,21 @@ function About() {
         <h2 className={styles.sectionThreeTitle}>Counters</h2>
         <div className={styles.counters}>
           <div className={styles.counterBlock}>
-            <p className={styles.amount}>12</p>
+            <p className={styles.amount}>{statisticData.users}</p>
             <p className={styles.amountTitle}>Users</p>
           </div>
           <div className={styles.counterBlock}>
-            <p className={styles.amount}>6</p>
+            <p className={styles.amount}>{statisticData.matches}</p>
             <p className={styles.amountTitle}>Matches</p>
           </div>
           <div className={styles.counterBlock}>
-            <p className={styles.amount}>3</p>
+            <p className={styles.amount}>{statisticData.dialogs}</p>
             <p className={styles.amountTitle}>Dialogs</p>
           </div>
         </div>
       </section>
+
+      {isLoading && <Loader />}
     </div>
   );
 }

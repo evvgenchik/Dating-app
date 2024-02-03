@@ -6,23 +6,16 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
-import JwtAuthenticationGuard from 'src/auth/guards/jwtAuth.guard';
 
 // @UseGuards(JwtAuthenticationGuard)
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
-  @Post()
-  async create(@Body() createUserDto: CreateUserDto) {
-    return new UserEntity(await this.usersService.create(createUserDto));
-  }
 
   @Get()
   async findAll() {
@@ -30,9 +23,19 @@ export class UsersController {
     return users.map((user) => new UserEntity(user));
   }
 
+  @Get('amount')
+  async getAmount() {
+    return await this.usersService.getAmount();
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return new UserEntity(await this.usersService.findOne(id));
+  }
+
+  @Post()
+  async create(@Body() createUserDto: CreateUserDto) {
+    return new UserEntity(await this.usersService.create(createUserDto));
   }
 
   @Patch('dislike/:id')
