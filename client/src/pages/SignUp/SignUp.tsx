@@ -1,4 +1,5 @@
 import { AuthForm, GenderEnum, LookingEnum, UserType } from '@/utils/types';
+
 import checkRed from '@/assets/checkRed.svg';
 import styles from './SignUp.module.scss';
 
@@ -10,7 +11,9 @@ import { format } from 'date-fns';
 import { birthdayValidator, avatarValidator } from './signUpValidator';
 import { AuthApi } from '@/api/services/authApi';
 import { UserApi } from '@/api/services/userApi';
+import useScreenSize from '@/hooks/useScreenSize';
 import MyButton from '@/components/UI/Button/MyButton';
+import BackButton from '@/components/BackButton/BackButton';
 import Modal from '@/components/Modal/Modal';
 import Logo from '@/components/Logo/Logo';
 import Loader from '@/components/UI/Loader/Loader';
@@ -49,6 +52,8 @@ function SignUp({ currentUser }: Props) {
   const [avatarSrc, setAvatarSrc] = useState('');
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const {width: screenWidth} = useScreenSize();
+
   const action = currentUser ? 'UPDATE' : 'CREATE';
 
   const {
@@ -154,7 +159,13 @@ function SignUp({ currentUser }: Props) {
     <div className={styles.container}>
       {!currentUser && (
         <div className={styles.header}>
-          <Logo />
+          {screenWidth <= 900 && 
+            <BackButton />
+          }
+          
+          <div className={styles.logo}>
+            <Logo />
+          </div>
         </div>
       )}
 

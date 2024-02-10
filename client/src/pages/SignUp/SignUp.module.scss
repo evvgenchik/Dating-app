@@ -8,9 +8,16 @@
 }
 
 .header {
-  display: flex;
   align-items: center;
+  display: flex;
   margin-bottom: 50rem;
+  width: 100%;
+
+  .logo {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
 }
 
 .title {

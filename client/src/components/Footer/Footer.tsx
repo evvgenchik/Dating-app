@@ -1,20 +1,12 @@
 import styles from './Footer.module.scss';
 import git from '@/assets/github-white.svg';
 
-import { useState, useLayoutEffect } from 'react';
+import useScreenSize from '@/hooks/useScreenSize';
 import Logo from '@/components/Logo/Logo';
-import Menu from '../Menu/Menu';
+import Menu from '@/components/Menu/Menu';
 
 function Footer() {
-  const mediaMatch = matchMedia('(max-width: 900px)');
-  const [isShow, setIsBurger] = useState<boolean>(mediaMatch.matches);
-
-  useLayoutEffect(() => {
-    const handler = () => setIsBurger(mediaMatch.matches);
-    mediaMatch.addEventListener('change', handler);
-
-    return () => mediaMatch.removeEventListener('change', handler);
-  }, []);
+  const {width: screenWidth} = useScreenSize();
 
   return (
     <footer className={styles.footer}>
@@ -22,7 +14,7 @@ function Footer() {
         <div className={styles.logoContainer}>
           <Logo />
         </div>
-        {isShow && <Menu />}
+        {screenWidth <= 900 && <Menu />}
         <span className={styles.text}>© Finder. All rights reserved. </span>
         <div className={styles.git}>
           <a href='https://github.com/evvgenchik'>

@@ -8,10 +8,13 @@ function Header() {
     <header className={styles.header}>
       <div className={styles.container}>
         <p className={styles.empty} />
+        
         <Logo />
+        
         <div className={styles.MenuWrapper}>
           <Menu />
         </div>
+        
         <DropDown />
       </div>
     </header>

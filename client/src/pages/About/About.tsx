@@ -2,12 +2,13 @@ import styles from './About.module.scss';
 import couples from '@/assets/about/couple.png';
 import hands from '@/assets/about/hands.webp';
 
+import { useEffect, useState } from 'react';
 import { ConversationApi } from '@/api/services/ConversationApi';
 import { UserApi } from '@/api/services/userApi';
 import { MatchApi } from '@/api/services/matchApi';
-
-import { useEffect, useState } from 'react';
+import useScreenSize from '@/hooks/useScreenSize';
 import Loader from '@/components/UI/Loader/Loader';
+import BackButton from '@/components/BackButton/BackButton';
 
 interface IStaticsData {
   users: number,
@@ -17,6 +18,7 @@ interface IStaticsData {
 
 function About() {
   const [isLoading, setIsLoading] = useState(false);
+  const {width: screenWidth} = useScreenSize();
   const [statisticData, setStatisticData] = useState<IStaticsData>({
     users: 0,
     matches: 0,
@@ -54,6 +56,12 @@ function About() {
 
   return (
     <div className={styles.container}>
+      {screenWidth <= 900 && 
+        <div className={styles.header}>
+          <BackButton />
+        </div>
+      }
+
       <section className={styles.sectionOne}>
         <div className={styles.sectionOneIcon}>
           <img className={styles.image} src={hands} alt='hands together' />
@@ -66,7 +74,7 @@ function About() {
         <div className={styles.textPart}>
           <p className={styles.headingTitle}>Our Values</p>
           <h2 className={styles.sectionTwoTitle}>
-            Relantionships are at the Core of Everything we do.
+            Relationships are at the Core of Everything we do.
           </h2>
           <p className={styles.subtitle}>
             Finder is built on the belief that anyone looking for love should be

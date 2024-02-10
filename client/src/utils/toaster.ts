@@ -14,5 +14,5 @@ const toastError = (message = errorMessage) => {
 };
 
 export { 
-  toastError 
+  toastError
 };

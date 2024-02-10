@@ -1,0 +1,47 @@
+.backButtonBtn {
+  background: linear-gradient(45deg, #fd267a, #ff6036);
+  border-radius: 7rem;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18rem;
+  font-weight: 600;
+  padding: 15rem 22rem 15rem 33rem;
+  position: relative;
+
+  &:hover {
+    background: rgb(243 68 185);
+  }
+
+  .iconArrow {
+    left: 7rem;
+    position: absolute;
+    top: 50%;
+
+    transform: translate(0, -50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .backButtonBtn {
+    font-size: 16rem;
+    padding: 12rem 18rem 12rem 28rem;
+  }
+
+  .iconArrow {
+    width: 18rem;
+    height: 18rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .backButtonBtn {
+    font-size: 14rem;
+    padding: 10rem 12rem 10rem 22rem;
+  }
+
+  .iconArrow {
+    width: 15rem;
+    height: 15rem;
+  }
+}
